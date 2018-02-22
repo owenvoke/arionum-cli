@@ -1,10 +1,10 @@
 {
-  "name": "arionum/light-wallet-cli",
+  "name": "pxgamer/arionum-cli",
   "type": "library",
   "description": "A php based cli wallet for Arionum.",
   "license": "MIT",
   "bin": [
-    "bin/light-arionum"
+    "bin/arionum"
   ],
   "require": {
     "php": "^7.1.3",
@@ -16,12 +16,12 @@
   },
   "autoload": {
     "psr-4": {
-      "Arionum\\LightWalletCLI\\": "src"
+      "pxgamer\\Arionum\\": "src"
     }
   },
   "autoload-dev": {
     "psr-4": {
-      "Arionum\\LightWalletCLI\\": "tests"
+      "pxgamer\\Arionum\\": "tests"
     }
   },
   "scripts": {

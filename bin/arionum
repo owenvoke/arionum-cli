@@ -31,5 +31,5 @@ if (file_exists(__DIR__.'/../../../autoload.php')) {
     require __DIR__.'/../vendor/autoload.php';
 }
 
-$app = new Arionum\LightWalletCLI\Console\Application();
+$app = new pxgamer\Arionum\Console\Application();
 $app->run();

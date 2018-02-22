@@ -1,6 +1,6 @@
 <?php
 
-namespace Arionum\LightWalletCLI;
+namespace pxgamer\Arionum;
 
 /**
  * Class Base58

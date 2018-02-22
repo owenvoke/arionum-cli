@@ -1,6 +1,6 @@
 <?php
 
-namespace Arionum\LightWalletCLI\Console\Commands;
+namespace pxgamer\Arionum\Console\Commands;
 
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;

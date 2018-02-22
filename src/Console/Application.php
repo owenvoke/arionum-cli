@@ -1,6 +1,6 @@
 <?php
 
-namespace Arionum\LightWalletCLI\Console;
+namespace pxgamer\Arionum\Console;
 
 use Symfony\Component\Console\Application as BaseApplication;
 
