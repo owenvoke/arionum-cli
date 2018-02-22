@@ -1,32 +1,84 @@
-# lightWalletCLI
-A php based cli wallet for Arionum
+# light-wallet-cli
+
+A php based cli wallet for Arionum.
 
 Requires php 7.1
 
-Usage:
+## Install
 
-./lightArionumCLI <command> <options>
+Via Composer
 
-Commands:
+```bash
+$ composer require arionum/light-arionum-cli
+```
 
-balance ->                        prints the balance
+## Usage
 
-export ->                          prints the wallet data
+```bash
+light-arionum <command> <options>
+```
 
-block ->                           show data about the current block
+### Available Commands
 
-encrypt ->                        encrypts the wallet
+Print the balance:
 
-decrypt ->                         decrypts the wallet
+```bash
+arionum balance <options>
+```
 
-transactions ->                   show the latest transactions
+Print the wallet's data:
 
-transaction [id] ->               shows data about a specific transaction
-  
-send [address] [value] [message] ->     sends a transaction (message optional)
+```bash
+arionum export <options>
+```
 
+Display data about the current block:
 
-Development Fund:
+```bash
+arionum block <options>
+```
+
+Encrypt the wallet:
+
+```bash
+arionum encrypt <options>
+```
+
+Decrypt the wallet:
+
+```bash
+arionum decrypt <options>
+```
+
+Display the latest transactions:
+
+```bash
+arionum transactions <options>
+```
+
+Display data about a specific transaction:
+
+```bash
+arionum transaction [id] <options>
+```
+
+Send a transaction (with an optional message):
+
+```bash
+arionum send [address] [value] [message] <options>
+```
+
+## Testing
+
+```bash
+$ composer test
+```
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Development Funds
 
 ARO: 5WuRMXGM7Pf8NqEArVz1NxgSBptkimSpvuSaYC79g1yo3RDQc8TjVtGH5chQWQV7CHbJEuq9DmW5fbm CEW4AghQr
 
