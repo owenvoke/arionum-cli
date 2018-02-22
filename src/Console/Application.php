@@ -39,6 +39,7 @@ class Application extends BaseApplication
         $commands[] = new Commands\EncryptCommand();
         $commands[] = new Commands\ExportCommand();
         $commands[] = new Commands\SendCommand();
+        $commands[] = new Commands\TransactionsCommand();
 
         return $commands;
     }
