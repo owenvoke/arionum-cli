@@ -13,7 +13,7 @@ $ composer require pxgamer/arionum-cli
 ## Usage
 
 ```bash
-arionum <command> <options>
+arionum [command]
 ```
 
 ### Available Commands
@@ -21,49 +21,49 @@ arionum <command> <options>
 Print the balance:
 
 ```bash
-arionum balance <options>
+arionum balance
 ```
 
 Print the wallet's data:
 
 ```bash
-arionum export <options>
+arionum export
 ```
 
 Display data about the current block:
 
 ```bash
-arionum block <options>
+arionum block
 ```
 
 Encrypt the wallet:
 
 ```bash
-arionum encrypt <options>
+arionum encrypt
 ```
 
 Decrypt the wallet:
 
 ```bash
-arionum decrypt <options>
+arionum decrypt
 ```
 
 Display the latest transactions:
 
 ```bash
-arionum transactions <options>
+arionum transactions
 ```
 
 Display data about a specific transaction:
 
 ```bash
-arionum transaction [id] <options>
+arionum transaction [id]
 ```
 
 Send a transaction (with an optional message):
 
 ```bash
-arionum send [address] [value] [message] <options>
+arionum send [address] [value] [message]
 ```
 
 ## Testing
