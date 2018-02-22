@@ -34,6 +34,7 @@ class Application extends BaseApplication
         $commands = parent::getDefaultCommands();
 
         $commands[] = new Commands\BalanceCommand();
+        $commands[] = new Commands\BlockCommand();
 
         return $commands;
     }
