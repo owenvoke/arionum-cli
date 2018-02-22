@@ -37,6 +37,7 @@ class Application extends BaseApplication
         $commands[] = new Commands\BlockCommand();
         $commands[] = new Commands\DecryptCommand();
         $commands[] = new Commands\EncryptCommand();
+        $commands[] = new Commands\ExportCommand();
 
         return $commands;
     }
