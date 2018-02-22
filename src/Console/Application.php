@@ -33,6 +33,8 @@ class Application extends BaseApplication
     {
         $commands = parent::getDefaultCommands();
 
+        $commands[] = new Commands\BalanceCommand();
+
         return $commands;
     }
 }
