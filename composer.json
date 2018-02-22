@@ -3,6 +3,9 @@
   "type": "library",
   "description": "A php based cli wallet for Arionum.",
   "license": "MIT",
+  "bin": [
+    "bin/light-arionum"
+  ],
   "require": {
     "php": "^7.1"
   },
