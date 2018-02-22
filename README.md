@@ -1,21 +1,19 @@
-# light-wallet-cli
+# arionum-cli
 
 A php based cli wallet for Arionum.
-
-Requires php 7.1
 
 ## Install
 
 Via Composer
 
 ```bash
-$ composer require arionum/light-arionum-cli
+$ composer require pxgamer/arionum-cli
 ```
 
 ## Usage
 
 ```bash
-light-arionum <command> <options>
+arionum <command> <options>
 ```
 
 ### Available Commands
