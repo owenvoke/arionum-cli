@@ -35,6 +35,7 @@ class Application extends BaseApplication
 
         $commands[] = new Commands\BalanceCommand();
         $commands[] = new Commands\BlockCommand();
+        $commands[] = new Commands\DecryptCommand();
 
         return $commands;
     }
