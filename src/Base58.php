@@ -16,7 +16,7 @@ class Base58
      * @param       $target_base
      * @return array
      */
-    public function convert(array $source, $source_base, $target_base)
+    public static function convert(array $source, $source_base, $target_base)
     {
         $result = [];
         while ($count = count($source)) {
@@ -40,7 +40,7 @@ class Base58
      * @param $data
      * @return string
      */
-    public function encode($data)
+    public static function encode($data)
     {
         if (is_integer($data)) {
             $data = [$data];
@@ -52,7 +52,7 @@ class Base58
         }
 
 
-        $converted = $this->convert($data, 256, 58);
+        $converted = self::convert($data, 256, 58);
 
         return implode("", array_map(function ($index) {
             $chars = "123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz";
@@ -65,7 +65,7 @@ class Base58
      * @param bool $integer
      * @return int|string
      */
-    public function decode($data, $integer = false)
+    public static function decode($data, $integer = false)
     {
         $data = str_split($data);
         $data = array_map(function ($character) {
@@ -74,10 +74,10 @@ class Base58
         }, $data);
         /* Return as integer when requested. */
         if ($integer) {
-            $converted = $this->convert($data, 58, 10);
+            $converted = self::convert($data, 58, 10);
             return (integer)implode("", $converted);
         }
-        $converted = $this->convert($data, 58, 256);
+        $converted = self::convert($data, 58, 256);
         return implode("", array_map(function ($ascii) {
             return chr($ascii);
         }, $converted));
