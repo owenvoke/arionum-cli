@@ -20,7 +20,7 @@ $ composer global require pxgamer/arionum-cli
 Via Phive
 
 ```bash
-$ phive install pxgamer/splas-runner
+$ phive install pxgamer/arionum-cli
 ```
 
 ## Usage
