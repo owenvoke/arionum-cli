@@ -1,41 +1,105 @@
-# lightWalletCLI
-A php based cli wallet for Arionum
+# arionum-cli
 
-Requires php 7.1
+[![Latest Version on Packagist][ico-version]][link-packagist]
+[![Software License][ico-license]](LICENSE)
+[![Build Status][ico-travis]][link-travis]
+[![Style CI][ico-styleci]][link-styleci]
+[![Code Coverage][ico-code-quality]][link-code-quality]
+[![Total Downloads][ico-downloads]][link-downloads]
 
-Usage:
+A PHP-based command line wallet for Arionum.
 
-./lightArionumCLI <command> <options>
+## Install
 
-Commands:
+Via Composer
 
-balance ->                        prints the balance
+```bash
+$ composer global require pxgamer/arionum-cli
+```
 
-export ->                          prints the wallet data
+Via Phive
 
-block ->                           show data about the current block
+```bash
+$ phive install pxgamer/splas-runner
+```
 
-encrypt ->                        encrypts the wallet
+## Usage
 
-decrypt ->                         decrypts the wallet
+```bash
+arionum [command]
+```
 
-transactions ->                   show the latest transactions
+### Available Commands
 
-transaction [id] ->               shows data about a specific transaction
-  
-send [address] [value] [message] ->     sends a transaction (message optional)
+Print the balance:
 
+```bash
+arionum balance
+```
 
-Development Fund:
+Print the wallet's data:
 
-ARO: 5WuRMXGM7Pf8NqEArVz1NxgSBptkimSpvuSaYC79g1yo3RDQc8TjVtGH5chQWQV7CHbJEuq9DmW5fbm CEW4AghQr
+```bash
+arionum export
+```
 
-LTC: LWgqzbXGeucKaMmJEvwaAWPFrAgKiJ4Y4m
+Display data about the current block:
 
-BTC: 1LdoMmYitb4C3pXoGNLL1VRj7xk3smGXoU
+```bash
+arionum block
+```
 
-ETH: 0x4B904bDf071E9b98441d25316c824D7b7E447527
+Encrypt the wallet:
 
-BCH: qrtkqrl3mxzdzl66nchkgdv73uu3rf7jdy7el2vduw
+```bash
+arionum encrypt
+```
 
-If you'd like to support the Arionum development, you can donate to the addresses listed above.
+Decrypt the wallet:
+
+```bash
+arionum decrypt
+```
+
+Display the latest transactions:
+
+```bash
+arionum transactions
+```
+
+Display data about a specific transaction:
+
+```bash
+arionum transaction [id]
+```
+
+Send a transaction (with an optional message):
+
+```bash
+arionum send [address] [value] [message]
+```
+
+## Testing
+
+```bash
+$ composer test
+```
+
+## License
+
+The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+[ico-version]: https://img.shields.io/packagist/v/pxgamer/arionum-cli.svg?style=flat-square
+[ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/pxgamer/arionum-cli/master.svg?style=flat-square
+[ico-styleci]: https://styleci.io/repos/122502670/shield
+[ico-code-quality]: https://img.shields.io/codecov/c/github/pxgamer/arionum-cli.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/pxgamer/arionum-cli.svg?style=flat-square
+
+[link-packagist]: https://packagist.org/packages/pxgamer/arionum-cli
+[link-travis]: https://travis-ci.org/pxgamer/arionum-cli
+[link-styleci]: https://styleci.io/repos/122502670
+[link-code-quality]: https://codecov.io/gh/pxgamer/arionum-cli
+[link-downloads]: https://packagist.org/packages/pxgamer/arionum-cli
+[link-author]: https://github.com/pxgamer
+[link-contributors]: ../../contributors
