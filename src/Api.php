@@ -79,4 +79,18 @@ class Api
     {
         return self::post('/api.php?q=currentBlock');
     }
+
+    /**
+     * @param string $id
+     * @return bool|mixed
+     */
+    public static function getTransaction(string $id)
+    {
+        return self::post(
+            '/api.php?q=getTransaction',
+            [
+                'transaction' => $id,
+            ]
+        );
+    }
 }
