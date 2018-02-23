@@ -93,4 +93,18 @@ class Api
             ]
         );
     }
+
+    /**
+     * @param string $address
+     * @return bool|mixed
+     */
+    public static function getTransactions(string $address)
+    {
+        return self::post(
+            '/api.php?q=getTransactions',
+            [
+                'account' => $address,
+            ]
+        );
+    }
 }

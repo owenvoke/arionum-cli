@@ -2,11 +2,13 @@
 
 namespace pxgamer\Arionum\Console\Commands;
 
-use Symfony\Component\Console\Command\Command;
+use pxgamer\Arionum\Api;
+use pxgamer\Arionum\Console\BaseCommand;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TransactionsCommand extends Command
+class TransactionsCommand extends BaseCommand
 {
     protected function configure()
     {
@@ -17,6 +19,26 @@ class TransactionsCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        // ...
+        parent::execute($input, $output);
+
+        $result = Api::getTransactions($this->wallet->getAddress());
+
+        if ($result['status'] !== 'ok') {
+            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
+        } else {
+            $rows = [];
+
+            foreach ($result['data'] as $key => $value) {
+                $rows[] = [$value['id'], $value['dst'], $value['type'], $value['val']];
+            }
+
+            $table = new Table($output);
+
+            $table
+                ->setHeaders(['ID', 'To', 'Type', 'Amount'])
+                ->setRows($rows);
+
+            $table->render();
+        }
     }
 }
