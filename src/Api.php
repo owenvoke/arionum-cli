@@ -71,4 +71,12 @@ class Api
             ]
         );
     }
+
+    /**
+     * @return bool|mixed
+     */
+    public static function getCurrentBlock()
+    {
+        return self::post('/api.php?q=currentBlock');
+    }
 }
