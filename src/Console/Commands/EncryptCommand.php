@@ -6,6 +6,9 @@ use pxgamer\Arionum\Console\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class EncryptCommand
+ */
 class EncryptCommand extends BaseCommand
 {
     protected function configure()

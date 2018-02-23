@@ -8,6 +8,9 @@ use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class TransactionsCommand
+ */
 class TransactionsCommand extends BaseCommand
 {
     protected function configure()
@@ -17,6 +20,12 @@ class TransactionsCommand extends BaseCommand
             ->setDescription('Display the latest transactions.');
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         parent::execute($input, $output);

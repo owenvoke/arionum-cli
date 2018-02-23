@@ -6,6 +6,9 @@ use pxgamer\Arionum\Console\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Class DecryptCommand
+ */
 class DecryptCommand extends BaseCommand
 {
     protected function configure()
@@ -15,6 +18,12 @@ class DecryptCommand extends BaseCommand
             ->setDescription('Decrypt the wallet.');
     }
 
+    /**
+     * @param InputInterface  $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     * @throws \Exception
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         parent::execute($input, $output);
