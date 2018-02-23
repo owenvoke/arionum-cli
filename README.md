@@ -1,7 +1,7 @@
 # arionum-cli
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE.md)
+[![Software License][ico-license]](LICENSE)
 [![Build Status][ico-travis]][link-travis]
 [![Style CI][ico-styleci]][link-styleci]
 [![Code Coverage][ico-code-quality]][link-code-quality]
@@ -14,7 +14,13 @@ A PHP-based command line wallet for Arionum.
 Via Composer
 
 ```bash
-$ composer require pxgamer/arionum-cli
+$ composer global require pxgamer/arionum-cli
+```
+
+Via Phive
+
+```bash
+$ phive install pxgamer/splas-runner
 ```
 
 ## Usage
