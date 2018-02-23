@@ -1,7 +1,7 @@
 {
   "name": "pxgamer/arionum-cli",
   "type": "library",
-  "description": "A php based cli wallet for Arionum.",
+  "description": "A PHP-based command line wallet for Arionum.",
   "license": "MIT",
   "bin": [
     "bin/arionum"

@@ -7,7 +7,7 @@
 [![Code Coverage][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
-A php based cli wallet for Arionum.
+A PHP-based command line wallet for Arionum.
 
 ## Install
 
