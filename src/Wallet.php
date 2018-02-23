@@ -146,6 +146,44 @@ class Wallet
     }
 
     /**
+     * @param mixed  $data
+     * @param string $privateKey
+     * @return string
+     * @throws \Exception
+     */
+    public function sign($data, string $privateKey)
+    {
+        $private_key = $this->coin2pem($privateKey, true);
+
+        $pkey = openssl_pkey_get_private($private_key);
+
+        openssl_sign($data, $signature, $pkey, OPENSSL_ALGO_SHA256);
+
+        return (new Base58())->encode($signature);
+    }
+
+    /**
+     * @param mixed $data
+     * @param bool  $isPrivateKey
+     * @return string
+     * @throws \Exception
+     */
+    public function coin2pem($data, $isPrivateKey = false)
+    {
+        $data = (new Base58())->decode($data);
+
+        $data = base64_encode($data);
+        $dat = str_split($data, 64);
+        $data = implode("\n", $dat);
+
+        if ($isPrivateKey) {
+            return "-----BEGIN EC PRIVATE KEY-----\n".$data."\n-----END EC PRIVATE KEY-----\n";
+        }
+
+        return "-----BEGIN PUBLIC KEY-----\n".$data."\n-----END PUBLIC KEY-----\n";
+    }
+
+    /**
      * @return string
      */
     public function getAddress()
