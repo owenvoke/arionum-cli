@@ -146,11 +146,11 @@ class Wallet
     }
 
     /**
-     * @param float $value
-     * @param float $fee
-     * @param string $address
+     * @param float       $value
+     * @param float       $fee
+     * @param string      $address
      * @param string|null $message
-     * @param int $date
+     * @param int         $date
      * @return string
      */
     public function generateSignature(
@@ -228,6 +228,24 @@ class Wallet
         }
 
         return "-----BEGIN PUBLIC KEY-----\n".$data."\n-----END PUBLIC KEY-----\n";
+    }
+
+    /**
+     * @param string $data
+     * @return string
+     * @throws \Exception
+     */
+    public function pem2coin(string $data)
+    {
+        $data = str_replace("-----BEGIN PUBLIC KEY-----", "", $data);
+        $data = str_replace("-----END PUBLIC KEY-----", "", $data);
+        $data = str_replace("-----BEGIN EC PRIVATE KEY-----", "", $data);
+        $data = str_replace("-----END EC PRIVATE KEY-----", "", $data);
+        $data = str_replace("\n", "", $data);
+
+        $data = base64_decode($data);
+
+        return (new Base58)->encode($data);
     }
 
     /**
