@@ -146,11 +146,11 @@ class Wallet
     }
 
     /**
-     * @param $value
-     * @param $fee
-     * @param $address
-     * @param $message
-     * @param $date
+     * @param float $value
+     * @param float $fee
+     * @param string $address
+     * @param string|null $message
+     * @param int $date
      * @return string
      */
     public function generateSignature(
