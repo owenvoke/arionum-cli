@@ -1,7 +1,7 @@
 # arionum-cli
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
-[![Software License][ico-license]](LICENSE)
+[![Software License][ico-license]](LICENSE.md)
 [![Build Status][ico-travis]][link-travis]
 [![Style CI][ico-styleci]][link-styleci]
 [![Code Coverage][ico-code-quality]][link-code-quality]
@@ -85,9 +85,21 @@ arionum send [address] [value] [message]
 $ composer test
 ```
 
+## Security
+
+If you discover any security related issues, please email owzie123@gmail.com instead of using the issue tracker.
+
+## Credits
+
+- [pxgamer][link-author]
+- [arionum][link-arionum]
+- [All Contributors][link-contributors]
+
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE) for more information.
+The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+Original code by [@arionum][link-arionum], view the [original license](LICENSE_ORIGINAL).
 
 [ico-version]: https://img.shields.io/packagist/v/pxgamer/arionum-cli.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
@@ -102,4 +114,5 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 [link-code-quality]: https://codecov.io/gh/pxgamer/arionum-cli
 [link-downloads]: https://packagist.org/packages/pxgamer/arionum-cli
 [link-author]: https://github.com/pxgamer
+[link-arionum]: https://github.com/arionum
 [link-contributors]: ../../contributors
