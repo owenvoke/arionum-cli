@@ -34,7 +34,7 @@ class Api
             return false;
         }
 
-        $postdata = http_build_query(
+        $postData = http_build_query(
             [
                 'data' => json_encode($data),
                 'coin' => 'arionum',
@@ -47,7 +47,7 @@ class Api
                     'timeout' => '300',
                     'method'  => 'POST',
                     'header'  => 'Content-type: application/x-www-form-urlencoded',
-                    'content' => $postdata,
+                    'content' => $postData,
                 ],
         ];
 
