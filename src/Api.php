@@ -57,4 +57,18 @@ class Api
 
         return $res;
     }
+
+    /**
+     * @param string $address
+     * @return bool|mixed
+     */
+    public static function getBalance($address)
+    {
+        return self::post(
+            '/api.php?q=getPendingBalance',
+            [
+                'account' => $address,
+            ]
+        );
+    }
 }
