@@ -45,7 +45,7 @@ class Wallet
      */
     public function __construct(string $path = self::WALLET_NAME)
     {
-        $this->path = $path;
+        $this->path = realpath($path);
         $this->exists = file_exists($this->path);
 
         if ($this->exists) {
@@ -75,6 +75,34 @@ class Wallet
         if (substr($decrypted, 0, 7) == 'arionum') {
             $this->rawData = $decrypted;
         }
+    }
+
+    /**
+     * @param string $password
+     * @return string
+     * @throws \Exception
+     */
+    public function encrypt(string $password)
+    {
+        $walletRaw = 'arionum:'.$this->getPrivateKey().':'.$this->getPublicKey();
+
+        $passwordHashed = substr(hash('sha256', $password, true), 0, 32);
+        $iv = random_bytes(16);
+
+        $walletEncrypted = base64_encode(
+            $iv.
+            base64_encode(
+                openssl_encrypt(
+                    $walletRaw,
+                    'aes-256-cbc',
+                    $passwordHashed,
+                    OPENSSL_RAW_DATA,
+                    $iv
+                )
+            )
+        );
+
+        return $walletEncrypted;
     }
 
     /**
@@ -147,5 +175,22 @@ class Wallet
     public function exists()
     {
         return $this->exists;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPath()
+    {
+        return $this->path;
+    }
+
+    /**
+     * @param string $rawData
+     * @return bool|int
+     */
+    public function saveRaw(string $rawData)
+    {
+        return file_put_contents($this->path, $rawData);
     }
 }
