@@ -92,13 +92,13 @@ The MIT License (MIT). Please see [License File](LICENSE) for more information.
 [ico-version]: https://img.shields.io/packagist/v/pxgamer/arionum-cli.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-travis]: https://img.shields.io/travis/pxgamer/arionum-cli/master.svg?style=flat-square
-[ico-styleci]: https://styleci.io/repos/122502670/shield
+[ico-styleci]: https://styleci.io/repos/122668084/shield
 [ico-code-quality]: https://img.shields.io/codecov/c/github/pxgamer/arionum-cli.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/pxgamer/arionum-cli.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/pxgamer/arionum-cli
 [link-travis]: https://travis-ci.org/pxgamer/arionum-cli
-[link-styleci]: https://styleci.io/repos/122502670
+[link-styleci]: https://styleci.io/repos/122668084
 [link-code-quality]: https://codecov.io/gh/pxgamer/arionum-cli
 [link-downloads]: https://packagist.org/packages/pxgamer/arionum-cli
 [link-author]: https://github.com/pxgamer
