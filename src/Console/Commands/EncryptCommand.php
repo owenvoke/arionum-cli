@@ -51,7 +51,9 @@ class EncryptCommand extends BaseCommand
             $output->writeln($this->wallet->getPrivateKey());
 
             $output->writeln('<error>Could not write the wallet file!</error>');
-            $output->writeln('<error>Please check the permissions on the current directory and save a backup of the above keys.</error>');
+            $output->writeln(
+                '<error>Please check the permissions on the current directory and save a backup of these keys.</error>'
+            );
         }
     }
 }
