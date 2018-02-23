@@ -58,11 +58,12 @@ class BaseCommand extends Command
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
+     * @param string|null     $message
      * @return mixed
      */
-    protected function askForPassword(InputInterface $input, OutputInterface $output)
+    protected function askForPassword(InputInterface $input, OutputInterface $output, string $message = null)
     {
-        $passwordQuestion = new Question('Enter your password: ');
+        $passwordQuestion = new Question($message ?? 'Enter your password: ');
         $passwordQuestion->setHidden(true);
         $passwordQuestion->setHiddenFallback(false);
 
