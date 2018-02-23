@@ -33,7 +33,7 @@ class EncryptCommand extends BaseCommand
                 continue;
             }
 
-            $passConfirm = $this->askForPassword($input, $output);
+            $passConfirm = $this->askForPassword($input, $output, 'Please confirm your password: ');
 
             if ($password === $passConfirm) {
                 break;
