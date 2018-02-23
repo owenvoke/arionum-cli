@@ -38,15 +38,13 @@ class BaseCommand extends Command
     {
         $this->questionHelper = $this->getHelper('question');
 
-        $wallet = new Wallet();
+        $this->wallet = new Wallet();
 
-        if ($this->requiresExistingWallet && !$wallet->exists()) {
+        if ($this->requiresExistingWallet && !$this->wallet->exists()) {
             throw new \Exception('A wallet file is required for this command.');
         }
 
-        if ($wallet->exists()) {
-            $this->wallet = $wallet;
-
+        if ($this->wallet->exists()) {
             $this->decryptWallet($input, $output);
             $this->wallet->decode();
 
@@ -74,7 +72,7 @@ class BaseCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
-    private function decryptWallet(InputInterface $input, OutputInterface $output)
+    protected function decryptWallet(InputInterface $input, OutputInterface $output)
     {
         if ($this->wallet->isEncrypted()) {
             $output->writeln('This wallet is encrypted.');
