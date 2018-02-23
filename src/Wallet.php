@@ -146,6 +146,53 @@ class Wallet
     }
 
     /**
+     * @param $value
+     * @param $fee
+     * @param $address
+     * @param $message
+     * @param $date
+     * @return string
+     */
+    public function generateSignature(
+        $value,
+        $fee,
+        $address,
+        $message,
+        $date
+    ) {
+        return $value
+               ."-"
+               .$fee
+               ."-"
+               .$address
+               ."-"
+               .$message
+               ."-1-"
+               .$this->publicKey
+               ."-"
+               .$date;
+    }
+
+    /**
+     * @param float $value
+     * @return float|int
+     */
+    public function getFee(float $value)
+    {
+        $fee = $value * 0.0025;
+
+        if ($fee < 0.00000001) {
+            $fee = 0.00000001;
+        }
+
+        if ($fee > 10) {
+            $fee = 10;
+        }
+
+        return $fee;
+    }
+
+    /**
      * @param mixed  $data
      * @param string $privateKey
      * @return string
