@@ -107,4 +107,32 @@ class Api
             ]
         );
     }
+
+    /**
+     * @param string $address
+     * @param float  $value
+     * @param string $signature
+     * @param string $publicKey
+     * @param string $message
+     * @param int    $date
+     * @return bool|mixed
+     */
+    public static function send(
+        string $address,
+        float $value,
+        string $signature,
+        string $publicKey,
+        string $message,
+        int $date
+    ) {
+        return self::post('/api.php?q=send', [
+            'dst'        => $address,
+            'val'        => $value,
+            'signature'  => $signature,
+            'public_key' => $publicKey,
+            'version'    => 1,
+            'message'    => $message,
+            'date'       => $date,
+        ]);
+    }
 }
