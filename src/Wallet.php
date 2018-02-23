@@ -13,6 +13,7 @@ class Wallet
      * The default wallet file name.
      */
     const WALLET_NAME = 'wallet.aro';
+    const MIN_KEY_LENGTH = 20;
 
     /**
      * @var string
@@ -45,12 +46,39 @@ class Wallet
      */
     public function __construct(string $path = self::WALLET_NAME)
     {
-        $this->path = realpath($path);
+        $this->path = $path;
         $this->exists = file_exists($this->path);
 
         if ($this->exists) {
             $this->rawData = file_get_contents($this->path);
         }
+    }
+
+    /**
+     * @return string
+     * @throws \Exception
+     */
+    public function create()
+    {
+        $args = [
+            'curve_name'       => 'secp256k1',
+            'private_key_type' => OPENSSL_KEYTYPE_EC,
+        ];
+
+        $key1 = openssl_pkey_new($args);
+        openssl_pkey_export($key1, $pvKey);
+
+        $privateKey = $this->pem2coin($pvKey);
+
+        $pub = openssl_pkey_get_details($key1);
+
+        $publicKey = $this->pem2coin($pub['key']);
+
+        if (strlen($privateKey) < Wallet::MIN_KEY_LENGTH || strlen($publicKey) < Wallet::MIN_KEY_LENGTH) {
+            throw new \Exception('Failed to create the EC key pair. Please check the openssl binaries.');
+        }
+
+        return 'arionum:'.$privateKey.':'.$publicKey;
     }
 
     /**
@@ -78,13 +106,16 @@ class Wallet
     }
 
     /**
-     * @param string $password
+     * @param string      $password
+     * @param string|null $walletRaw
      * @return string
      * @throws \Exception
      */
-    public function encrypt(string $password)
+    public function encrypt(string $password, string $walletRaw = null)
     {
-        $walletRaw = 'arionum:'.$this->getPrivateKey().':'.$this->getPublicKey();
+        if (!$walletRaw) {
+            $walletRaw = 'arionum:'.$this->getPrivateKey().':'.$this->getPublicKey();
+        }
 
         $passwordHashed = substr(hash('sha256', $password, true), 0, 32);
         $iv = random_bytes(16);
@@ -107,6 +138,7 @@ class Wallet
 
     /**
      *
+     * @throws \Exception
      */
     public function decode()
     {
