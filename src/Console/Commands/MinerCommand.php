@@ -55,6 +55,10 @@ class MinerCommand extends BaseCommand
         $node = $input->getOption('node') ?? Miner::DEFAULT_NODE;
         $worker = uniqid('arionum_');
 
+        if ($mode === Miner::MODE_POOL) {
+            $privateKey = $this->wallet->getAddress();
+        }
+
         $output->writeln('Mining on: '.$node);
         $output->writeln('With worker: '.$worker);
         $output->writeln('');
