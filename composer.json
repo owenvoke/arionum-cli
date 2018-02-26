@@ -9,6 +9,7 @@
   "require": {
     "php": "^7.2",
     "ext-openssl": "*",
+    "ext-gmp": "*",
     "symfony/console": "^4.0",
     "stephenhill/base58": "^1.1"
   },
