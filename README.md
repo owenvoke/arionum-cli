@@ -79,6 +79,12 @@ Send a transaction (with an optional message):
 arionum send [address] [value] [message]
 ```
 
+Mine Arionum using the current wallet:
+
+```bash
+arionum mine
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
