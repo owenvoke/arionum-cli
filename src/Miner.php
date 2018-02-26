@@ -21,7 +21,7 @@ class Miner
     public const MODE_POOL = 'pool';
 
     /**
-     * @var int
+     * @var float
      */
     public $allTime;
     /**
@@ -242,6 +242,7 @@ class Miner
 
         $res = file_get_contents($this->node.'/mine.php?q=submitNonce', false, $context);
         $data = json_decode($res, true);
+
         if ($data['status'] === 'ok') {
             return true;
         } else {
