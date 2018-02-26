@@ -9,14 +9,6 @@
 
 A PHP-based command line wallet for Arionum.
 
-## Structure
-
-```
-bin/
-src/
-tests/
-```
-
 ## Install
 
 Via Composer
