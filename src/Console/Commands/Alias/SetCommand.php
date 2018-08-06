@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Commands\Aliases;
+namespace pxgamer\Arionum\Console\Commands\Alias;
 
 use pxgamer\Arionum\Api;
 use pxgamer\Arionum\Console\BaseCommand;

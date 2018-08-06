@@ -46,7 +46,7 @@ class Application extends BaseApplication
         $commands[] = new Commands\TransactionsCommand();
 
         // Alias Commands
-        $commands[] = new Commands\Aliases\SetCommand();
+        $commands[] = new Commands\Alias\SetCommand();
 
         return $commands;
     }
