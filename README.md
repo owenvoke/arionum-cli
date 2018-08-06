@@ -9,14 +9,6 @@
 
 A PHP-based command line wallet for Arionum.
 
-## Structure
-
-```
-bin/
-src/
-tests/
-```
-
 ## Install
 
 Via Composer
@@ -87,6 +79,12 @@ Send a transaction (with an optional message):
 arionum send [address] [value] [message]
 ```
 
+Mine Arionum using the current wallet:
+
+```bash
+arionum mine
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
@@ -99,7 +97,7 @@ $ composer test
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT](.github/CODE_OF_CONDUCT.md) for details.
 
 ## Security
 
