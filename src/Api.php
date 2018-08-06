@@ -12,6 +12,10 @@ class Api
      * @link https://api.arionum.com/peers.txt
      */
     const PEERS_URI = 'https://api.arionum.com/peers.txt';
+    /**
+     * The API status code for a successful response.
+     */
+    public const API_STATUS_OK = 'ok';
 
     /**
      * @param string $url
