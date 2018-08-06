@@ -63,7 +63,8 @@ class SetCommand extends BaseCommand
         $fee = number_format($fee, 8, '.', '');
 
         if ($balance < $total) {
-            die('ERROR: Not enough funds in balance'.PHP_EOL);
+            $output->writeln('<error>ERROR: Not enough funds in balance.</error>');
+            return;
         }
 
         $date = time();
@@ -88,6 +89,7 @@ class SetCommand extends BaseCommand
             return;
         }
 
-        echo 'Transaction sent! Transaction id: '.$result['data'].PHP_EOL;
+        $output->writeln('<info>Transaction sent successfully!</info>');
+        $output->writeln('ID: '.$result['data']);
     }
 }
