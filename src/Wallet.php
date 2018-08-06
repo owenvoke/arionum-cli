@@ -183,6 +183,7 @@ class Wallet
      * @param string      $address
      * @param string|null $message
      * @param int         $date
+     * @param int         $version
      * @return string
      */
     public function generateSignature(
@@ -190,19 +191,22 @@ class Wallet
         $fee,
         $address,
         $message,
-        $date
+        $date,
+        int $version = 1
     ) {
         return $value
-               ."-"
-               .$fee
-               ."-"
-               .$address
-               ."-"
-               .$message
-               ."-1-"
-               .$this->publicKey
-               ."-"
-               .$date;
+            ."-"
+            .$fee
+            ."-"
+            .$address
+            ."-"
+            .$message
+            ."-"
+            .$version
+            ."-"
+            .$this->publicKey
+            ."-"
+            .$date;
     }
 
     /**
