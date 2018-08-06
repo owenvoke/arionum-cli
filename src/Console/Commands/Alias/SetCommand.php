@@ -96,6 +96,6 @@ class SetCommand extends BaseCommand
         }
 
         $output->writeln('<info>Transaction sent successfully!</info>');
-        $output->writeln('ID: '.$result['data']);
+        $output->writeln('<info>ID: '.$result['data'].'</info>');
     }
 }
