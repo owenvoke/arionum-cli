@@ -57,9 +57,8 @@ class Api
 
         $context = stream_context_create($opts);
         $result = file_get_contents($peer.$url, false, $context);
-        $res = json_decode($result, true);
 
-        return $res;
+        return json_decode($result, true);
     }
 
     /**
