@@ -45,7 +45,7 @@ class BalanceCommand extends BaseCommand
 
         $result = Api::getBalance($address ?? $this->wallet->getAddress());
 
-        if ($result['status'] != 'ok') {
+        if ($result['status'] !== Api::API_STATUS_OK) {
             $output->writeln('<error>ERROR: '.$result['data'].'</error>');
         } else {
             $output->writeln('Balance: '.$result['data']);

@@ -193,7 +193,7 @@ class Miner
         $res = file_get_contents($this->node.'/mine.php?q=info'.$extra);
         $info = json_decode($res, true);
 
-        if ($info['status'] !== 'ok') {
+        if ($info['status'] !== Api::API_STATUS_OK) {
             return false;
         }
 

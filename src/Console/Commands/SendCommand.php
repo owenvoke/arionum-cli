@@ -47,7 +47,7 @@ class SendCommand extends BaseCommand
 
         $result = Api::getBalance($this->wallet->getAddress());
 
-        if ($result['status'] !== 'ok') {
+        if ($result['status'] !== Api::API_STATUS_OK) {
             $output->writeln('<error>ERROR: '.$result['data'].'</error>');
         } else {
             $output->writeln('<info>Transaction Information</info>');
@@ -86,7 +86,7 @@ class SendCommand extends BaseCommand
                     $date
                 );
 
-                if ($transactionResult['status'] !== 'ok') {
+                if ($transactionResult['status'] !== Api::API_STATUS_OK) {
                     $output->writeln('<error>ERROR: '.$transactionResult['data'].'</error>');
                 } else {
                     $output->writeln('<info>Transaction sent successfully!</info>');
