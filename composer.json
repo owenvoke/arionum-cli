@@ -8,6 +8,7 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-gmp": "*",
         "ext-json": "*",
         "ext-openssl": "*",
         "symfony/console": "^4.0",
