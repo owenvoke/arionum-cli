@@ -33,6 +33,7 @@ class Application extends BaseApplication
     {
         $commands = parent::getDefaultCommands();
 
+        // General Commands
         $commands[] = new Commands\BalanceCommand();
         $commands[] = new Commands\BlockCommand();
         $commands[] = new Commands\DecryptCommand();
@@ -43,6 +44,9 @@ class Application extends BaseApplication
         $commands[] = new Commands\SendCommand();
         $commands[] = new Commands\TransactionCommand();
         $commands[] = new Commands\TransactionsCommand();
+
+        // Alias Commands
+        $commands[] = new Commands\Aliases\SetCommand();
 
         return $commands;
     }
