@@ -1,19 +1,9 @@
 {
     "chmod": "0755",
-    "main": "bin/arionum",
-    "output": "bin/arionum.phar",
-    "directories": [
-        "src"
-    ],
-    "finder": [
-        {
-            "name": "*.php",
-            "exclude": [
-                "tests"
-            ],
-            "in": "vendor"
-        }
-    ],
     "git-tag": "git-version",
-    "stub": true
+    "compression": "GZ",
+    "compactors": [
+        "KevinGH\\Box\\Compactor\\Php",
+        "KevinGH\\Box\\Compactor\\PhpScoper"
+    ]
 }
