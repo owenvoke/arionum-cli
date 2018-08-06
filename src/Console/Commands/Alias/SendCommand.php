@@ -33,7 +33,8 @@ class SendCommand extends BaseCommand
             ->addArgument(
                 'message',
                 InputArgument::OPTIONAL,
-                'An optional message to attach.'
+                'An optional message to attach.',
+                ''
             );
     }
 
@@ -48,6 +49,7 @@ class SendCommand extends BaseCommand
         parent::execute($input, $output);
 
         $alias = $input->getArgument('alias');
+        $message = $input->getArgument('message');
 
         if (!$alias || !preg_match('/[a-zA-Z0-9]/', $alias) || strlen($alias) < 4 || strlen($alias) > 25) {
             $output->writeln('<error>ERROR: Invalid destination alias.</error>');
@@ -82,8 +84,8 @@ class SendCommand extends BaseCommand
         $info = $this->wallet->generateSignature(
             $value,
             $fee,
-            $this->wallet->getAddress(),
             $alias,
+            $message,
             $date,
             self::ALIAS_SEND_VERSION
         );
@@ -95,7 +97,7 @@ class SendCommand extends BaseCommand
             $value,
             $signature,
             $this->wallet->getPublicKey(),
-            $alias,
+            $message,
             $date,
             self::ALIAS_SEND_VERSION
         );
