@@ -34,20 +34,21 @@ class TransactionsCommand extends BaseCommand
 
         if ($result['status'] !== Api::API_STATUS_OK) {
             $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-        } else {
-            $rows = [];
-
-            foreach ($result['data'] as $key => $value) {
-                $rows[] = [$value['id'], $value['dst'], $value['type'], $value['val']];
-            }
-
-            $table = new Table($output);
-
-            $table
-                ->setHeaders(['ID', 'To', 'Type', 'Amount'])
-                ->setRows($rows);
-
-            $table->render();
+            return;
         }
+
+        $rows = [];
+
+        foreach ($result['data'] as $key => $value) {
+            $rows[] = [$value['id'], $value['dst'], $value['type'], $value['val']];
+        }
+
+        $table = new Table($output);
+
+        $table
+            ->setHeaders(['ID', 'To', 'Type', 'Amount'])
+            ->setRows($rows);
+
+        $table->render();
     }
 }

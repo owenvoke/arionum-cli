@@ -55,9 +55,9 @@ class GenerateCommand extends BaseCommand
 
                 if ($password === $passConfirm) {
                     break;
-                } else {
-                    $output->writeln('<comment>The passwords did not match!</comment>');
                 }
+
+                $output->writeln('<comment>The passwords did not match!</comment>');
             } while (true);
 
             $output->writeln('');
@@ -76,17 +76,18 @@ class GenerateCommand extends BaseCommand
             $output->writeln(
                 '<error>Please check the permissions on the current directory and save a backup of these keys.</error>'
             );
-        } else {
-            $this->wallet = new Wallet();
-
-            $this->decryptWallet($input, $output);
-            $this->wallet->decode();
-
-            $output->writeln('');
-
-            $output->writeln('<comment>Your address is:</comment> '.$this->wallet->getAddress());
-            $output->writeln('<comment>Your public key is:</comment> '.$this->wallet->getPublicKey());
-            $output->writeln('<comment>Your private key is:</comment> '.$this->wallet->getPrivateKey());
+            return;
         }
+
+        $this->wallet = new Wallet();
+
+        $this->decryptWallet($input, $output);
+        $this->wallet->decode();
+
+        $output->writeln('');
+
+        $output->writeln('<comment>Your address is:</comment> '.$this->wallet->getAddress());
+        $output->writeln('<comment>Your public key is:</comment> '.$this->wallet->getPublicKey());
+        $output->writeln('<comment>Your private key is:</comment> '.$this->wallet->getPrivateKey());
     }
 }

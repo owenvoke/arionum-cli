@@ -40,6 +40,7 @@ class DecryptCommand extends BaseCommand
             $output->writeln(
                 '<error>Please check the permissions on the current directory and save a backup of these keys.</error>'
             );
+            return;
         }
 
         $output->writeln('The wallet has been decrypted!');

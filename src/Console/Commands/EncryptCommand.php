@@ -40,9 +40,9 @@ class EncryptCommand extends BaseCommand
 
             if ($password === $passConfirm) {
                 break;
-            } else {
-                $output->writeln('<comment>The passwords did not match!</comment>');
             }
+
+            $output->writeln('<comment>The passwords did not match!</comment>');
         } while (true);
 
         $walletEncrypted = $this->wallet->encrypt($password);

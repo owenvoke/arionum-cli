@@ -47,8 +47,9 @@ class BalanceCommand extends BaseCommand
 
         if ($result['status'] !== Api::API_STATUS_OK) {
             $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-        } else {
-            $output->writeln('Balance: '.$result['data']);
+            return;
         }
+
+        $output->writeln('Balance: '.$result['data']);
     }
 }
