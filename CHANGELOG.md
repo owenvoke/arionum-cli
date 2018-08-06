@@ -8,6 +8,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ### Added
 - Add the PHP miner into the CLI ([bb61cc4](https://github.com/pxgamer/arionum-cli/commit/bb61cc4d2afa682f3b9b1eb6b222b1207b18bd5d))
+- Add Phar releases during the Travis CI process ([#1](https://github.com/pxgamer/arionum-cli/issues/1))
 
 ### Changed
 - Move community files to `.github` ([87c290a](https://github.com/pxgamer/arionum-cli/commit/87c290a2269aca36b761c6dcb57584ac65df263f))
