@@ -119,6 +119,7 @@ class Api
      * @param string $publicKey
      * @param string $message
      * @param int    $date
+     * @param int    $version
      * @return bool|mixed
      */
     public static function send(
@@ -127,14 +128,15 @@ class Api
         string $signature,
         string $publicKey,
         string $message,
-        int $date
+        int $date,
+        int $version = 1
     ) {
         return self::post('/api.php?q=send', [
             'dst'        => $address,
             'val'        => $value,
             'signature'  => $signature,
             'public_key' => $publicKey,
-            'version'    => 1,
+            'version'    => $version,
             'message'    => $message,
             'date'       => $date,
         ]);
