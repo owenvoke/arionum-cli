@@ -69,8 +69,14 @@ class SetCommand extends BaseCommand
 
         $date = time();
 
-        $info = $value."-".$fee."-".$this->wallet->getAddress()."-".$alias."-".
-            self::ALIAS_SET_VERSION."-".$this->wallet->getPublicKey()."-".$date;
+        $info = $this->wallet->generateSignature(
+            $value,
+            $fee,
+            $this->wallet->getAddress(),
+            $alias,
+            $date,
+            self::ALIAS_SET_VERSION
+        );
 
         $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
 
