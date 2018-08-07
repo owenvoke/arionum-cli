@@ -23,4 +23,12 @@ interface MasternodeCommandInterface
      * The transaction version to release a masternode.
      */
     public const COMMAND_VERSION_RELEASE = 103;
+    /**
+     * The default fee for masternode commands.
+     */
+    public const DEFAULT_COMMAND_FEE = 0.00000001;
+    /**
+     * The default value for masternode commands.
+     */
+    public const DEFAULT_COMMAND_VALUE = 0.00000001;
 }
