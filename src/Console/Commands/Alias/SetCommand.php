@@ -39,7 +39,7 @@ class SetCommand extends BaseCommand
 
         $alias = $input->getArgument('alias');
 
-        if (!$alias || !preg_match('/[a-zA-Z0-9]/', $alias) || strlen($alias) < 4 || strlen($alias) > 25) {
+        if (!$alias || !preg_match('/[a-zA-Z0-9]+/', $alias) || strlen($alias) < 4 || strlen($alias) > 25) {
             $output->writeln('<error>ERROR: Invalid alias.</error>');
             return;
         }
