@@ -44,6 +44,9 @@ class Application extends BaseApplication
         $commands[] = new Commands\TransactionCommand();
         $commands[] = new Commands\TransactionsCommand();
 
+        // Masternode Commands
+        $commands[] = new Commands\Masternode\CreateCommand();
+
         return $commands;
     }
 }
