@@ -46,6 +46,7 @@ class Application extends BaseApplication
 
         // Masternode Commands
         $commands[] = new Commands\Masternode\CreateCommand();
+        $commands[] = new Commands\Masternode\PauseCommand();
 
         return $commands;
     }
