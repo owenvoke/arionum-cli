@@ -94,7 +94,7 @@ class CreateCommand extends BaseCommand implements MasternodeCommandInterface
             return;
         }
 
-        $output->writeln('<info>Transaction sent successfully!</info>');
+        $output->writeln('<info>Masternode command sent!</info>');
         $output->writeln('<info>ID: '.$result['data'].'</info>');
     }
 }
