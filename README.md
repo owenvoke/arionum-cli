@@ -85,6 +85,8 @@ Mine Arionum using the current wallet:
 arionum mine
 ```
 
+#### Alias
+
 Set your account alias:
 
 ```bash
@@ -95,6 +97,32 @@ Send a transaction to an alias (with an optional message):
 
 ```bash
 arionum alias:send [alias] [value] [message]
+```
+
+#### Masternode
+
+Send a masternode announcement transaction:
+
+```bash
+arionum masternode:create [ip]
+```
+
+Pause a specific masternode:
+
+```bash
+arionum masternode:pause
+```
+
+Resume the masternode mining:
+
+```bash
+arionum masternode:resume
+```
+
+Close a masternode and return the funds:
+
+```bash
+arionum masternode:release
 ```
 
 ## Change log
