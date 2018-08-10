@@ -4,6 +4,11 @@ All notable changes to `arionum-cli` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) principles.
 
+## v1.3.0 - 2018-08-10
+
+### Added
+- Add support for masternode commands ([#3](https://github.com/pxgamer/arionum-cli/issues/3))
+
 ## v1.2.0 - 2018-08-10
 
 ### Added
