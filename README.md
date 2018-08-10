@@ -85,6 +85,18 @@ Mine Arionum using the current wallet:
 arionum mine
 ```
 
+Set your account alias:
+
+```bash
+arionum alias:set [alias]
+```
+
+Send a transaction to an alias (with an optional message):
+
+```bash
+arionum alias:send [alias] [value] [message]
+```
+
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.

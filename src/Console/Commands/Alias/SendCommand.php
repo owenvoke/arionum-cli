@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Commands;
+namespace pxgamer\Arionum\Console\Commands\Alias;
 
 use pxgamer\Arionum\Api;
 use pxgamer\Arionum\Console\BaseCommand;
@@ -13,15 +13,17 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class SendCommand extends BaseCommand
 {
+    private const ALIAS_SEND_VERSION = 2;
+
     protected function configure()
     {
         $this
-            ->setName('send')
-            ->setDescription('Send a transaction with an optional message.')
+            ->setName('alias:send')
+            ->setDescription('Send a transaction to a specific alias.')
             ->addArgument(
-                'address',
+                'alias',
                 InputArgument::REQUIRED,
-                'A specific wallet address to send to.'
+                'A specific wallet alias to send to.'
             )
             ->addArgument(
                 'value',
@@ -31,7 +33,8 @@ class SendCommand extends BaseCommand
             ->addArgument(
                 'message',
                 InputArgument::OPTIONAL,
-                'An optional message to attach.'
+                'An optional message to attach.',
+                ''
             );
     }
 
@@ -45,17 +48,24 @@ class SendCommand extends BaseCommand
     {
         parent::execute($input, $output);
 
-        $result = Api::getBalance($this->wallet->getAddress());
+        $alias = $input->getArgument('alias');
+        $message = $input->getArgument('message');
 
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
+        if (!$alias || !preg_match('/[a-zA-Z0-9]+/', $alias) || strlen($alias) < 4 || strlen($alias) > 25) {
+            $output->writeln('<error>ERROR: Invalid destination alias.</error>');
             return;
         }
 
-        $output->writeln('<info>Transaction Information</info>');
-        $output->writeln('');
+        $alias = strtoupper($alias);
 
-        $balance = $result['data'];
+        $balanceResult = Api::getBalance($this->wallet->getAddress());
+
+        if ($balanceResult['status'] !== Api::API_STATUS_OK) {
+            $output->writeln('<error>ERROR: '.$balanceResult['data'].'</error>');
+            return;
+        }
+
+        $balance = $balanceResult['data'];
 
         $fee = $this->wallet->getFee($input->getArgument('value'));
 
@@ -74,28 +84,30 @@ class SendCommand extends BaseCommand
         $info = $this->wallet->generateSignature(
             $value,
             $fee,
-            $input->getArgument('address'),
-            $input->getArgument('message'),
-            $date
+            $alias,
+            $message,
+            $date,
+            self::ALIAS_SEND_VERSION
         );
 
         $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
 
-        $transactionResult = Api::send(
-            $input->getArgument('address'),
+        $result = Api::send(
+            $alias,
             $value,
             $signature,
             $this->wallet->getPublicKey(),
-            $input->getArgument('message') ?? '',
-            $date
+            $message,
+            $date,
+            self::ALIAS_SEND_VERSION
         );
 
-        if ($transactionResult['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$transactionResult['data'].'</error>');
+        if ($result['status'] !== Api::API_STATUS_OK) {
+            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
             return;
         }
 
         $output->writeln('<info>Transaction sent successfully!</info>');
-        $output->writeln('<info>ID: '.$transactionResult['data'].'</info>');
+        $output->writeln('<info>ID: '.$result['data'].'</info>');
     }
 }

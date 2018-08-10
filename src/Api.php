@@ -12,6 +12,10 @@ class Api
      * @link https://api.arionum.com/peers.txt
      */
     const PEERS_URI = 'https://api.arionum.com/peers.txt';
+    /**
+     * The API status code for a successful response.
+     */
+    public const API_STATUS_OK = 'ok';
 
     /**
      * @param string $url
@@ -53,9 +57,8 @@ class Api
 
         $context = stream_context_create($opts);
         $result = file_get_contents($peer.$url, false, $context);
-        $res = json_decode($result, true);
 
-        return $res;
+        return json_decode($result, true);
     }
 
     /**
@@ -115,6 +118,7 @@ class Api
      * @param string $publicKey
      * @param string $message
      * @param int    $date
+     * @param int    $version
      * @return bool|mixed
      */
     public static function send(
@@ -123,14 +127,15 @@ class Api
         string $signature,
         string $publicKey,
         string $message,
-        int $date
+        int $date,
+        int $version = 1
     ) {
         return self::post('/api.php?q=send', [
             'dst'        => $address,
             'val'        => $value,
             'signature'  => $signature,
             'public_key' => $publicKey,
-            'version'    => 1,
+            'version'    => $version,
             'message'    => $message,
             'date'       => $date,
         ]);

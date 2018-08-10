@@ -37,15 +37,16 @@ class TransactionCommand extends BaseCommand
 
         $result = Api::getTransaction($input->getArgument('id'));
 
-        if ($result['status'] !== 'ok') {
+        if ($result['status'] !== Api::API_STATUS_OK) {
             $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-        } else {
-            $output->writeln('<info>Transaction Information</info>');
-            $output->writeln('');
+            return;
+        }
 
-            foreach ($result['data'] as $key => $value) {
-                $output->writeln('<comment>'.$key.':</comment> '.$value);
-            }
+        $output->writeln('<info>Transaction Information</info>');
+        $output->writeln('');
+
+        foreach ($result['data'] as $key => $value) {
+            $output->writeln('<comment>'.$key.':</comment> '.$value);
         }
     }
 }
