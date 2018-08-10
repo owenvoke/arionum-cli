@@ -49,6 +49,12 @@ class Application extends BaseApplication
         $commands[] = new Commands\Alias\SendCommand();
         $commands[] = new Commands\Alias\SetCommand();
 
+        // Masternode Commands
+        $commands[] = new Commands\Masternode\CreateCommand();
+        $commands[] = new Commands\Masternode\PauseCommand();
+        $commands[] = new Commands\Masternode\ReleaseCommand();
+        $commands[] = new Commands\Masternode\ResumeCommand();
+
         return $commands;
     }
 }
