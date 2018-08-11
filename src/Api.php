@@ -18,21 +18,18 @@ class Api
     public const API_STATUS_OK = 'ok';
 
     /**
+     * @var null|string
+     */
+    public static $customPeer = null;
+
+    /**
      * @param string $url
      * @param array  $data
      * @return bool|mixed
      */
     public static function post(string $url, $data = [])
     {
-        $f = file(self::PEERS_URI);
-        shuffle($f);
-
-        foreach ($f as $x) {
-            if (strlen(trim($x)) > 5) {
-                $peer = trim($x);
-                break;
-            }
-        }
+        $peer = self::getPeer();
 
         if (empty($peer)) {
             return false;
@@ -139,5 +136,27 @@ class Api
             'message'    => $message,
             'date'       => $date,
         ]);
+    }
+
+    /**
+     * @return bool|string
+     */
+    private static function getPeer()
+    {
+        if (self::$customPeer) {
+            return self::$customPeer;
+        }
+
+        $peerList = file(self::PEERS_URI);
+        shuffle($peerList);
+
+        foreach ($peerList as $x) {
+            if (strlen(trim($x)) > 5) {
+                return trim($x);
+                break;
+            }
+        }
+
+        return false;
     }
 }
