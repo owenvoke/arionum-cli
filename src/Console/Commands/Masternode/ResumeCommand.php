@@ -15,6 +15,8 @@ class ResumeCommand extends MasternodeCommand
         $this
             ->setName('masternode:resume')
             ->setDescription('Resume the masternode mining.');
+
+        parent::configure();
     }
 
     /**

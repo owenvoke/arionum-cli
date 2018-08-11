@@ -25,6 +25,8 @@ class SetCommand extends BaseCommand
                 InputArgument::REQUIRED,
                 'The alias to use for the wallet.'
             );
+
+        parent::configure();
     }
 
     /**

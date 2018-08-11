@@ -36,6 +36,8 @@ class SendCommand extends BaseCommand
                 'An optional message to attach.',
                 ''
             );
+
+        parent::configure();
     }
 
     /**

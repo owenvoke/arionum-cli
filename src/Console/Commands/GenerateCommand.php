@@ -18,6 +18,8 @@ class GenerateCommand extends BaseCommand
             ->setName('generate')
             ->setAliases(['gen'])
             ->setDescription('Generate a new wallet file in the current directory.');
+
+        parent::configure();
     }
 
     /**

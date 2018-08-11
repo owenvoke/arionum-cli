@@ -33,6 +33,8 @@ class SendCommand extends BaseCommand
                 InputArgument::OPTIONAL,
                 'An optional message to attach.'
             );
+
+        parent::configure();
     }
 
     /**
