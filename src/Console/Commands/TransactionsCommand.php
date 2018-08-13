@@ -18,6 +18,8 @@ class TransactionsCommand extends BaseCommand
         $this
             ->setName('transactions')
             ->setDescription('Display the latest transactions.');
+
+        parent::configure();
     }
 
     /**

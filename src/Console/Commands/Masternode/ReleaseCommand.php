@@ -15,6 +15,8 @@ class ReleaseCommand extends MasternodeCommand
         $this
             ->setName('masternode:release')
             ->setDescription('Close the masternode and return the funds.');
+
+        parent::configure();
     }
 
     /**

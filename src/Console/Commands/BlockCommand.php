@@ -17,6 +17,8 @@ class BlockCommand extends BaseCommand
         $this
             ->setName('block')
             ->setDescription('Display data about the current block.');
+
+        parent::configure();
     }
 
     /**

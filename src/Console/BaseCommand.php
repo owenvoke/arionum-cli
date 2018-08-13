@@ -2,10 +2,12 @@
 
 namespace pxgamer\Arionum\Console;
 
+use pxgamer\Arionum\Api;
 use pxgamer\Arionum\Wallet;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
 
@@ -28,6 +30,16 @@ class BaseCommand extends Command
      */
     protected $requiresExistingWallet = true;
 
+    protected function configure()
+    {
+        $this->addOption(
+            'peer',
+            null,
+            InputOption::VALUE_REQUIRED,
+            'A custom peer to use for API calls.'
+        );
+    }
+
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
@@ -37,6 +49,9 @@ class BaseCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->questionHelper = $this->getHelper('question');
+
+        // Set a custom peer if it's been provided
+        Api::$customPeer = $input->getOption('peer');
 
         $this->wallet = new Wallet();
 

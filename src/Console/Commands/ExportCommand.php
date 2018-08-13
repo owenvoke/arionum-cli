@@ -16,6 +16,8 @@ class ExportCommand extends BaseCommand
         $this
             ->setName('export')
             ->setDescription('Export data for the wallet.');
+
+        parent::configure();
     }
 
     /**

@@ -23,6 +23,8 @@ class TransactionCommand extends BaseCommand
                 InputArgument::REQUIRED,
                 'A specific transaction id to view.'
             );
+
+        parent::configure();
     }
 
     /**
