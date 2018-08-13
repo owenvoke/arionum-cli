@@ -39,7 +39,7 @@ class TransactionsCommand extends BaseCommand
         parent::execute($input, $output);
 
         if ($address = $input->getArgument('address')) {
-            $output->writeln('Checking balance of the specified address: '.$address);
+            $output->writeln('Checking transactions of the specified address: '.$address);
 
             if (!$this->wallet->validAddress($address)) {
                 throw new \Exception('Invalid address format provided.');
