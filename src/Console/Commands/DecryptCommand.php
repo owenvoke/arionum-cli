@@ -16,6 +16,8 @@ class DecryptCommand extends BaseCommand
         $this
             ->setName('decrypt')
             ->setDescription('Decrypt the wallet.');
+
+        parent::configure();
     }
 
     /**

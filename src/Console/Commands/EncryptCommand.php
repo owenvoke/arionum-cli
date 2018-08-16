@@ -16,6 +16,8 @@ class EncryptCommand extends BaseCommand
         $this
             ->setName('encrypt')
             ->setDescription('Encrypt the wallet.');
+
+        parent::configure();
     }
 
     /**

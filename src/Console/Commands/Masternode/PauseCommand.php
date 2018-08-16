@@ -15,6 +15,8 @@ class PauseCommand extends MasternodeCommand
         $this
             ->setName('masternode:pause')
             ->setDescription('Pause the masternode.');
+
+        parent::configure();
     }
 
     /**

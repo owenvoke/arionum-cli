@@ -5,6 +5,7 @@ namespace pxgamer\Arionum\Console\Commands;
 use pxgamer\Arionum\Api;
 use pxgamer\Arionum\Console\BaseCommand;
 use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -17,7 +18,14 @@ class TransactionsCommand extends BaseCommand
     {
         $this
             ->setName('transactions')
-            ->setDescription('Display the latest transactions.');
+            ->setDescription('Display the latest transactions.')
+            ->addArgument(
+                'address',
+                InputArgument::OPTIONAL,
+                'A specific wallet address.'
+            );
+
+        parent::configure();
     }
 
     /**
@@ -30,7 +38,15 @@ class TransactionsCommand extends BaseCommand
     {
         parent::execute($input, $output);
 
-        $result = Api::getTransactions($this->wallet->getAddress());
+        if ($address = $input->getArgument('address')) {
+            $output->writeln('Checking transactions of the specified address: '.$address);
+
+            if (!$this->wallet->validAddress($address)) {
+                throw new \Exception('Invalid address format provided.');
+            }
+        }
+
+        $result = Api::getTransactions($address ?? $this->wallet->getAddress());
 
         if ($result['status'] !== Api::API_STATUS_OK) {
             $output->writeln('<error>ERROR: '.$result['data'].'</error>');

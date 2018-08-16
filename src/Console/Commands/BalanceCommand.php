@@ -23,6 +23,8 @@ class BalanceCommand extends BaseCommand
                 InputArgument::OPTIONAL,
                 'A specific wallet address.'
             );
+
+        parent::configure();
     }
 
     /**

@@ -37,6 +37,8 @@ class MinerCommand extends BaseCommand
                 InputOption::VALUE_REQUIRED,
                 'The node to use when mining (defaults to AroPool).'
             );
+
+        parent::configure();
     }
 
     /**

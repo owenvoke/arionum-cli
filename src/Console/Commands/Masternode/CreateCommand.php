@@ -22,6 +22,8 @@ class CreateCommand extends MasternodeCommand
                 InputArgument::REQUIRED,
                 'The IP address for the masternode.'
             );
+
+        parent::configure();
     }
 
     /**
