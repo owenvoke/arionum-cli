@@ -4,6 +4,12 @@ All notable changes to `arionum-cli` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) principles.
 
+## v1.4.0 - 2018-08-16
+
+### Added
+- Add support for custom peers ([#5](https://github.com/pxgamer/arionum-cli/issues/5))
+- Add support for an address in the `transactions` command ([#7](https://github.com/pxgamer/arionum-cli/issues/7))
+
 ## v1.3.0 - 2018-08-10
 
 ### Added
