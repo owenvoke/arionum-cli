@@ -4,6 +4,11 @@ All notable changes to `arionum-cli` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) principles.
 
+## v1.4.1 - 2018-08-23
+
+### Added
+- Add support for `arionum/node` v0.4.2 and the latest hardfork ([2a509f4](https://github.com/pxgamer/arionum-cli/commit/2a509f4d593dacffe0ea5b70a24f972f9b68702f))
+
 ## v1.4.0 - 2018-08-16
 
 ### Added

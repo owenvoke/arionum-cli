@@ -89,6 +89,10 @@ class Miner
      * @var int
      */
     private $found = 0;
+    /**
+     * @var int
+     */
+    private $height = null;
 
     /**
      * Miner constructor.
@@ -119,15 +123,25 @@ class Miner
         $nonce = preg_replace('/[^a-zA-Z0-9]/', '', $nonce);
         $base = $this->publicKey.'-'.$nonce.'-'.$this->block.'-'.$this->difficulty;
 
-        $argon = password_hash(
-            $base,
-            PASSWORD_ARGON2I,
-            [
-                'memory_cost' => 524288,
-                'time_cost'   => 1,
-                'threads'     => 1,
-            ]
-        );
+        $argon = ($this->height > 10800 && ($this->height < 80000 || $this->height % 3 == 0)) ?
+            password_hash(
+                $base,
+                PASSWORD_ARGON2I,
+                [
+                    'memory_cost' => 524288,
+                    'time_cost'   => 1,
+                    'threads'     => 1,
+                ]
+            ) :
+            password_hash(
+                $base,
+                PASSWORD_ARGON2I,
+                [
+                    'memory_cost' => 16384,
+                    "time"."_cost"   => 4,
+                    'threads'     => 4,
+                ]
+            );
 
         $hash = $base.$argon;
 
@@ -140,13 +154,13 @@ class Miner
         $m = str_split($hash, 2);
 
         $duration = hexdec($m[10])
-                    .hexdec($m[15])
-                    .hexdec($m[20])
-                    .hexdec($m[23])
-                    .hexdec($m[31])
-                    .hexdec($m[40])
-                    .hexdec($m[45])
-                    .hexdec($m[55]);
+            .hexdec($m[15])
+            .hexdec($m[20])
+            .hexdec($m[23])
+            .hexdec($m[31])
+            .hexdec($m[40])
+            .hexdec($m[45])
+            .hexdec($m[55]);
 
         $duration = ltrim($duration, '0');
 
@@ -208,17 +222,22 @@ class Miner
             $this->limit = 240;
         }
 
+        $this->height = $data['height'];
+
         return true;
     }
 
     /**
-     * @param $nonce
-     * @param $argon
+     * @param string $nonce
+     * @param string $argon
      * @return bool
      */
-    private function submit($nonce, $argon)
+    private function submit(string $nonce, string $argon): bool
     {
-        $argon = substr($argon, 30);
+        $argon = ($this->height > 10800 && ($this->height < 80000 || $this->height % 2 == 0)) ?
+            substr($argon, 30) :
+            substr($argon, 29);
+
         $postData = http_build_query(
             [
                 'argon'       => $argon,
