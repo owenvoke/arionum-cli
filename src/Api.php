@@ -3,6 +3,7 @@
 namespace pxgamer\Arionum;
 
 use GuzzleHttp\Client;
+use function GuzzleHttp\json_decode;
 
 /**
  * Class Api
