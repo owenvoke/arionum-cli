@@ -2,6 +2,8 @@
 
 namespace pxgamer\Arionum;
 
+use GuzzleHttp\Client;
+
 /**
  * Class Api
  */
@@ -35,27 +37,23 @@ class Api
             return false;
         }
 
-        $postData = http_build_query(
+        $client = new Client();
+
+        $postData = [
+            'data' => json_encode($data),
+            'coin' => 'arionum',
+        ];
+
+        $response = $client->request(
+            'POST',
+            $peer.$url,
             [
-                'data' => json_encode($data),
-                'coin' => 'arionum',
+                'timeout' => 300,
+                'form_params' => $postData,
             ]
         );
 
-        $opts = [
-            'http' =>
-                [
-                    'timeout' => '300',
-                    'method'  => 'POST',
-                    'header'  => 'Content-type: application/x-www-form-urlencoded',
-                    'content' => $postData,
-                ],
-        ];
-
-        $context = stream_context_create($opts);
-        $result = file_get_contents($peer.$url, false, $context);
-
-        return json_decode($result, true);
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
