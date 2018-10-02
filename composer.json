@@ -12,7 +12,8 @@
         "ext-json": "*",
         "ext-openssl": "*",
         "symfony/console": "^4.0",
-        "stephenhill/base58": "^1.1"
+        "stephenhill/base58": "^1.1",
+        "guzzlehttp/guzzle": "^6.3"
     },
     "require-dev": {
         "humbug/box": "^3.0",

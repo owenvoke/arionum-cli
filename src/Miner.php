@@ -2,6 +2,8 @@
 
 namespace pxgamer\Arionum;
 
+use GuzzleHttp\Client;
+
 /**
  * Class Miner
  */
@@ -204,8 +206,14 @@ class Miner
             $extra = '&worker='.$this->worker.'&address='.$this->privateKey.'&hashrate='.$this->speed;
         }
 
-        $res = file_get_contents($this->node.'/mine.php?q=info'.$extra);
-        $info = json_decode($res, true);
+        $client = new Client();
+
+        $response = $client->request(
+            'GET',
+            $this->node.'/mine.php?q=info'.$extra
+        );
+
+        $info = json_decode($response->getBody()->getContents(), true);
 
         if ($info['status'] !== Api::API_STATUS_OK) {
             return false;
@@ -238,29 +246,25 @@ class Miner
             substr($argon, 30) :
             substr($argon, 29);
 
-        $postData = http_build_query(
+        $client = new Client();
+
+        $postData = [
+            'argon'       => $argon,
+            'nonce'       => $nonce,
+            'private_key' => $this->privateKey,
+            'public_key'  => $this->publicKey,
+            'address'     => $this->privateKey,
+        ];
+
+        $response = $client->request(
+            'POST',
+            $this->node.'/mine.php?q=submitNonce',
             [
-                'argon'       => $argon,
-                'nonce'       => $nonce,
-                'private_key' => $this->privateKey,
-                'public_key'  => $this->publicKey,
-                'address'     => $this->privateKey,
+                'form_params' => $postData,
             ]
         );
 
-        $opts = [
-            'http' =>
-                [
-                    'method'  => 'POST',
-                    'header'  => 'Content-type: application/x-www-form-urlencoded',
-                    'content' => $postData,
-                ],
-        ];
-
-        $context = stream_context_create($opts);
-
-        $res = file_get_contents($this->node.'/mine.php?q=submitNonce', false, $context);
-        $data = json_decode($res, true);
+        $data = json_decode($response->getBody()->getContents(), true);
 
         if ($data['status'] === 'ok') {
             return true;
