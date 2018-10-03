@@ -10,6 +10,7 @@
         "php": "^7.2",
         "ext-gmp": "*",
         "ext-json": "*",
+        "ext-dom": "*",
         "ext-openssl": "*",
         "symfony/console": "^4.0",
         "stephenhill/base58": "^1.1"

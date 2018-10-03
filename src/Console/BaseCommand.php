@@ -3,6 +3,7 @@
 namespace pxgamer\Arionum\Console;
 
 use pxgamer\Arionum\Api;
+use pxgamer\Arionum\Console\Output\Factory;
 use pxgamer\Arionum\Wallet;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -17,9 +18,15 @@ use Symfony\Component\Console\Question\Question;
 class BaseCommand extends Command
 {
     /**
+     * @var Factory
+     */
+    protected $outputFactory;
+
+    /**
      * @var QuestionHelper
      */
     protected $questionHelper;
+
     /**
      * @var Wallet
      */
@@ -29,6 +36,18 @@ class BaseCommand extends Command
      * @var bool
      */
     protected $requiresExistingWallet = true;
+
+    /**
+     * BaseCommand constructor.
+     *
+     * @param Factory|null $outputFactory
+     */
+    public function __construct(?Factory $outputFactory = null)
+    {
+        $this->outputFactory = $outputFactory;
+
+        parent::__construct();
+    }
 
     protected function configure()
     {
