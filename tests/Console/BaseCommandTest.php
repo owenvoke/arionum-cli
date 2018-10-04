@@ -9,14 +9,16 @@ class BaseCommandTest extends TestCase
 {
     public function testConstructor()
     {
-        $command = new class extends BaseCommand {};
+        $command = new class extends BaseCommand {
+        };
 
         $this->assertAttributeEquals(null, 'wallet', $command);
         $this->assertAttributeEquals(null, 'questionHelper', $command);
         $this->assertAttributeEquals(null, 'outputFactory', $command);
 
         $factory = new Factory();
-        $command = new class($factory) extends BaseCommand {};
+        $command = new class($factory) extends BaseCommand {
+        };
 
         $this->assertAttributeInstanceOf(Factory::class, 'outputFactory', $command);
     }
