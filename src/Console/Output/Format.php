@@ -2,6 +2,10 @@
 
 namespace pxgamer\Arionum\Console\Output;
 
+/**
+ * Class Format
+ * @package pxgamer\Arionum\Console\Output
+ */
 class Format
 {
     public const TABLE = 'table';

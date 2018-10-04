@@ -89,6 +89,8 @@ class Factory
     private function createXml(array $data, array $columns): void
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
+        $document->preserveWhiteSpace = false;
+        $document->formatOutput = true;
 
         $root = $document->createElement('data');
         $root = $document->appendChild($root);
