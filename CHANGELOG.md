@@ -4,6 +4,14 @@ All notable changes to `arionum-cli` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) principles.
 
+## Unreleased
+
+### Added
+- Add support for exporting transactions to JSON, XML, CSV or table ([#6](https://github.com/pxgamer/arionum-cli/issues/6))
+
+### Changed
+- Update to use Guzzle for all API calls ([#4](https://github.com/pxgamer/arionum-cli/issues/4))
+
 ## v1.4.1 - 2018-08-23
 
 ### Added
