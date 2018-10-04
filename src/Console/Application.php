@@ -2,6 +2,7 @@
 
 namespace pxgamer\Arionum\Console;
 
+use pxgamer\Arionum\Console\Output\Factory;
 use Symfony\Component\Console\Application as BaseApplication;
 
 /**
@@ -13,13 +14,20 @@ class Application extends BaseApplication
     const VERSION = '@git-version@';
 
     /**
+     * @var Factory
+     */
+    private $outputFactory;
+
+    /**
      * Application constructor.
      *
-     * @param null $name
-     * @param null $version
+     * @param null|string $name
+     * @param null|string $version
      */
-    public function __construct($name = null, $version = null)
+    public function __construct(?string $name = null, ?string $version = null)
     {
+        $this->outputFactory = new Factory();
+
         parent::__construct(
             $name ?: static::NAME,
             $version ?: (static::VERSION === '@'.'git-version@' ? 'source' : static::VERSION)
@@ -43,7 +51,7 @@ class Application extends BaseApplication
         $commands[] = new Commands\MinerCommand();
         $commands[] = new Commands\SendCommand();
         $commands[] = new Commands\TransactionCommand();
-        $commands[] = new Commands\TransactionsCommand();
+        $commands[] = new Commands\TransactionsCommand($this->outputFactory);
 
         // Alias Commands
         $commands[] = new Commands\Alias\SendCommand();
