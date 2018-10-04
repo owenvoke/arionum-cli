@@ -70,8 +70,8 @@ class Factory
      */
     private function createJson(array $data, array $columns): void
     {
-        $data = array_map(function (array $row) use ($columns) {
-            return array_combine($columns, $row);
+        $data = \array_map(function (array $row) use ($columns) {
+            return \array_combine($columns, $row);
         }, $data);
 
         $encoded = \json_encode($data, JSON_PRETTY_PRINT);
@@ -99,7 +99,7 @@ class Factory
             $item = $document->createElement('item');
             $item = $root->appendChild($item);
 
-            $row = array_combine($columns, $row);
+            $row = \array_combine($columns, $row);
 
             foreach ($row as $key => $value) {
                 $item->appendChild($document->createElement($key, $value));
@@ -115,14 +115,14 @@ class Factory
      */
     private function createCsv(array $data, array $columns): void
     {
-        ob_start();
-        $fd = fopen('php://output', 'w');
-        fputcsv($fd, $columns);
+        \ob_start();
+        $fd = \fopen('php://output', 'w');
+        \fputcsv($fd, $columns);
         foreach ($data as $row) {
-            fputcsv($fd, $row);
+            \fputcsv($fd, $row);
         }
-        fclose($fd);
-        $csv = ob_get_clean();
+        \fclose($fd);
+        $csv = \ob_get_clean();
 
         $this->output->write($csv);
     }

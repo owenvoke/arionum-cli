@@ -15,7 +15,7 @@ use Symfony\Component\Console\Question\Question;
 /**
  * Class BaseCommand
  */
-class BaseCommand extends Command
+abstract class BaseCommand extends Command
 {
     /**
      * @var Factory
