@@ -3,7 +3,19 @@
 namespace pxgamer\Arionum;
 
 use GuzzleHttp\Client;
+use function base64_encode;
+use function gmp_div;
 use function GuzzleHttp\json_decode;
+use function hash;
+use function hexdec;
+use function ltrim;
+use function microtime;
+use function openssl_random_pseudo_bytes;
+use function password_hash;
+use function preg_replace;
+use function str_split;
+use function substr;
+use function time;
 
 /**
  * Class Miner
@@ -95,7 +107,7 @@ class Miner
     /**
      * @var int
      */
-    private $height = null;
+    private $height;
 
     /**
      * Miner constructor.
@@ -118,15 +130,21 @@ class Miner
      * @param array $stats
      * @return array
      */
-    public function run(array $stats)
+    public function run(array $stats): array
     {
         $this->counter++;
 
-        $nonce = base64_encode(openssl_random_pseudo_bytes(32));
+        $random = openssl_random_pseudo_bytes(32, $isSourceStrong);
+
+        if (false === $isSourceStrong || false === $random) {
+            throw new \RuntimeException('IV generation failed');
+        }
+
+        $nonce = base64_encode($random);
         $nonce = preg_replace('/[^a-zA-Z0-9]/', '', $nonce);
         $base = $this->publicKey.'-'.$nonce.'-'.$this->block.'-'.$this->difficulty;
 
-        $argon = ($this->height > 10800 && ($this->height < 80000 || $this->height % 3 == 0)) ?
+        $argon = ($this->height > 10800 && ($this->height < 80000 || $this->height % 3 === 0)) ?
             password_hash(
                 $base,
                 PASSWORD_ARGON2I,
@@ -140,9 +158,9 @@ class Miner
                 $base,
                 PASSWORD_ARGON2I,
                 [
-                    'memory_cost'  => 16384,
-                    "time"."_cost" => 4,
-                    'threads'      => 4,
+                    'memory_cost' => 16384,
+                    'time_cost'   => 4,
+                    'threads'     => 4,
                 ]
             );
 
@@ -198,7 +216,7 @@ class Miner
     /**
      * @return bool
      */
-    public function update()
+    public function update(): bool
     {
         $this->lastUpdate = time();
         $extra = '';
