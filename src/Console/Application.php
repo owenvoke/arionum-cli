@@ -29,9 +29,15 @@ class Application extends BaseApplication
     {
         $this->outputFactory = new Factory();
 
+        if (!$version) {
+            $version = static::VERSION === '@'.'git-version@' ?
+                'source' :
+                static::VERSION;
+        }
+
         parent::__construct(
             $name ?: static::NAME,
-            $version ?: (static::VERSION === '@'.'git-version@' ? 'source' : static::VERSION)
+            $version
         );
     }
 
