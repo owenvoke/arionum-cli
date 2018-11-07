@@ -3,7 +3,12 @@
 namespace pxgamer\Arionum;
 
 use GuzzleHttp\Client;
+use function file;
 use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
+use function shuffle;
+use function strlen;
+use function trim;
 
 /**
  * Class Api
@@ -23,12 +28,13 @@ class Api
     /**
      * @var null|string
      */
-    public static $customPeer = null;
+    public static $customPeer;
 
     /**
      * @param string $url
      * @param array  $data
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function post(string $url, $data = [])
     {
@@ -60,6 +66,7 @@ class Api
     /**
      * @param string $address
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getBalance($address)
     {
@@ -73,6 +80,7 @@ class Api
 
     /**
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getCurrentBlock()
     {
@@ -82,6 +90,7 @@ class Api
     /**
      * @param string $id
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getTransaction(string $id)
     {
@@ -96,6 +105,7 @@ class Api
     /**
      * @param string $address
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getTransactions(string $address)
     {
@@ -116,6 +126,7 @@ class Api
      * @param int    $date
      * @param int    $version
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function send(
         string $address,
