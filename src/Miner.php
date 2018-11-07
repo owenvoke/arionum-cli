@@ -129,6 +129,7 @@ class Miner
     /**
      * @param array $stats
      * @return array
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function run(array $stats): array
     {
@@ -201,7 +202,7 @@ class Miner
 
         $stats['iterator']++;
 
-        if ($stats['iterator'] == 10) {
+        if ($stats['iterator'] === 10) {
             $stats['iterator'] = 0;
             $end = microtime(true);
 
@@ -215,13 +216,14 @@ class Miner
 
     /**
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function update(): bool
     {
         $this->lastUpdate = time();
         $extra = '';
 
-        if ($this->mode == self::MODE_POOL) {
+        if ($this->mode === self::MODE_POOL) {
             $extra = '&worker='.$this->worker.'&address='.$this->privateKey.'&hashrate='.$this->speed;
         }
 
@@ -241,12 +243,11 @@ class Miner
         $data = $info['data'];
         $this->block = $data['block'];
         $this->difficulty = $data['difficulty'];
+        $this->limit = 240;
 
-        if ($this->mode == self::MODE_POOL) {
+        if ($this->mode === self::MODE_POOL) {
             $this->limit = $data['limit'];
             $this->publicKey = $data['public_key'];
-        } else {
-            $this->limit = 240;
         }
 
         $this->height = $data['height'];
@@ -258,17 +259,18 @@ class Miner
      * @param string $nonce
      * @param string $argon
      * @return bool
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     private function submit(string $nonce, string $argon): bool
     {
-        $argon = ($this->height > 10800 && ($this->height < 80000 || $this->height % 2 == 0)) ?
+        $argonValue = ($this->height > 10800 && ($this->height < 80000 || $this->height % 2 === 0)) ?
             substr($argon, 30) :
             substr($argon, 29);
 
         $client = new Client();
 
         $postData = [
-            'argon'       => $argon,
+            'argon'       => $argonValue,
             'nonce'       => $nonce,
             'private_key' => $this->privateKey,
             'public_key'  => $this->publicKey,
@@ -285,11 +287,7 @@ class Miner
 
         $data = json_decode($response->getBody()->getContents(), true);
 
-        if ($data['status'] === 'ok') {
-            return true;
-        } else {
-            return false;
-        }
+        return $data['status'] === 'ok';
     }
 
     /**
