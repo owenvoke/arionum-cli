@@ -8,7 +8,11 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 class FactoryTest extends TestCase
 {
-    public function testSetOutput()
+    /**
+     * @test
+     * @return void
+     */
+    public function itCanSetTheOutputOfAFactory(): void
     {
         /** @var OutputInterface|MockObject $output */
         $output = $this->getMockBuilder(OutputInterface::class)

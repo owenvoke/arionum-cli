@@ -7,7 +7,11 @@ use pxgamer\Arionum\Console\Output\Factory;
 
 class ApplicationTest extends TestCase
 {
-    public function testConstructorDefault()
+    /**
+     * @test
+     * @return void
+     */
+    public function itCanConstructADefaultApplication(): void
     {
         $app = new Application();
 
@@ -16,7 +20,11 @@ class ApplicationTest extends TestCase
         $this->assertAttributeInstanceOf(Factory::class, 'outputFactory', $app);
     }
 
-    public function testConstructor()
+    /**
+     * @test
+     * @return void
+     */
+    public function itCanConstructAnApplicationWithCustomParameters(): void
     {
         $app = new Application('foo', 'bar');
 
