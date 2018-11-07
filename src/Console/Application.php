@@ -4,6 +4,7 @@ namespace pxgamer\Arionum\Console;
 
 use pxgamer\Arionum\Console\Output\Factory;
 use Symfony\Component\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command;
 
 /**
  * Class Application
@@ -35,9 +36,9 @@ class Application extends BaseApplication
     }
 
     /**
-     * @return array|\Symfony\Component\Console\Command\Command[]
+     * @return array|Command[]
      */
-    protected function getDefaultCommands()
+    protected function getDefaultCommands(): array
     {
         $commands = parent::getDefaultCommands();
 
