@@ -12,8 +12,8 @@ class Wallet
     /**
      * The default wallet file name.
      */
-    const WALLET_NAME = 'wallet.aro';
-    const MIN_KEY_LENGTH = 20;
+    public const WALLET_NAME = 'wallet.aro';
+    public const MIN_KEY_LENGTH = 20;
 
     /**
      * @var string

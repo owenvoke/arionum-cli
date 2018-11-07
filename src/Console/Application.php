@@ -10,8 +10,8 @@ use Symfony\Component\Console\Application as BaseApplication;
  */
 class Application extends BaseApplication
 {
-    const NAME = 'Arionum Light Wallet';
-    const VERSION = '@git-version@';
+    public const NAME = 'Arionum Light Wallet';
+    public const VERSION = '@git-version@';
 
     /**
      * @var Factory

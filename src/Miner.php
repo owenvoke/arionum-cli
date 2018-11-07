@@ -140,9 +140,9 @@ class Miner
                 $base,
                 PASSWORD_ARGON2I,
                 [
-                    'memory_cost' => 16384,
-                    "time"."_cost"   => 4,
-                    'threads'     => 4,
+                    'memory_cost'  => 16384,
+                    "time"."_cost" => 4,
+                    'threads'      => 4,
                 ]
             );
 
