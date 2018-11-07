@@ -2,6 +2,7 @@
 
 namespace pxgamer\Arionum\Console;
 
+use Exception;
 use pxgamer\Arionum\Api;
 use pxgamer\Arionum\Console\Output\Factory;
 use pxgamer\Arionum\Wallet;
@@ -49,7 +50,7 @@ abstract class BaseCommand extends Command
         parent::__construct();
     }
 
-    protected function configure()
+    protected function configure(): void
     {
         $this->addOption(
             'peer',
@@ -75,7 +76,7 @@ abstract class BaseCommand extends Command
         $this->wallet = new Wallet();
 
         if ($this->requiresExistingWallet && !$this->wallet->exists()) {
-            throw new \Exception('A wallet file is required for this command.');
+            throw new Exception('A wallet file is required for this command.');
         }
 
         if ($this->wallet->exists()) {
@@ -106,7 +107,7 @@ abstract class BaseCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
-    protected function decryptWallet(InputInterface $input, OutputInterface $output)
+    protected function decryptWallet(InputInterface $input, OutputInterface $output): void
     {
         if ($this->wallet->isEncrypted()) {
             $output->writeln('This wallet is encrypted.');

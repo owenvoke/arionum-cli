@@ -2,6 +2,7 @@
 
 namespace pxgamer\Arionum\Console\Commands;
 
+use Exception;
 use pxgamer\Arionum\Api;
 use pxgamer\Arionum\Console\BaseCommand;
 use pxgamer\Arionum\Console\Output\Format;
@@ -15,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TransactionsCommand extends BaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('transactions')
@@ -41,6 +42,7 @@ class TransactionsCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -50,7 +52,7 @@ class TransactionsCommand extends BaseCommand
             $output->writeln('Checking transactions of the specified address: '.$address);
 
             if (!$this->wallet->validAddress($address)) {
-                throw new \Exception('Invalid address format provided.');
+                throw new Exception('Invalid address format provided.');
             }
         }
 

@@ -11,7 +11,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class DecryptCommand extends BaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('decrypt')

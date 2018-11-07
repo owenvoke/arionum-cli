@@ -9,6 +9,9 @@ use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use function microtime;
+use function time;
+use function uniqid;
 
 /**
  * Class MinerCommand
@@ -20,7 +23,7 @@ class MinerCommand extends BaseCommand
      */
     protected $requiresExistingWallet = false;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('miner')
@@ -46,6 +49,7 @@ class MinerCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -55,7 +59,7 @@ class MinerCommand extends BaseCommand
         $publicKey = $this->wallet->getPublicKey();
         $privateKey = $this->wallet->getPrivateKey();
         $node = $input->getOption('node') ?? Miner::DEFAULT_NODE;
-        $worker = uniqid('arionum_');
+        $worker = uniqid('arionum_', false);
 
         if ($mode === Miner::MODE_POOL) {
             $privateKey = $this->wallet->getAddress();

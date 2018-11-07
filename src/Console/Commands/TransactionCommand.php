@@ -13,7 +13,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TransactionCommand extends BaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('transaction')
@@ -32,6 +32,7 @@ class TransactionCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
