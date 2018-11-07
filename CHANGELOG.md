@@ -11,6 +11,9 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ### Changed
 - Update to use Guzzle for all API calls ([#4](https://github.com/pxgamer/arionum-cli/issues/4))
+- Update the visibility of class constants ([38aa74ff](https://github.com/pxgamer/arionum-cli/commit/38aa74ff790123ee17c1feab05887ff6c354dc79))
+- Optimise the imports for classes and functions
+- Update the naming of the new unit tests ([692097ee](https://github.com/pxgamer/arionum-cli/commit/692097eead845dc12da95c9de85b9b7b131d1e9a))
 
 ## v1.4.1 - 2018-08-23
 
