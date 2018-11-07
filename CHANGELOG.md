@@ -15,6 +15,9 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 - Optimise the imports for classes and functions
 - Update the naming of the new unit tests ([692097ee](https://github.com/pxgamer/arionum-cli/commit/692097eead845dc12da95c9de85b9b7b131d1e9a))
 
+### Deprecated
+- Deprecate the `miner`/`mine` commands ([#12](https://github.com/pxgamer/arionum-cli/issues/12))
+
 ## v1.4.1 - 2018-08-23
 
 ### Added
