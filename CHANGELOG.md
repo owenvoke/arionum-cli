@@ -6,6 +6,9 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+### Removed
+- Remove the `miner`/`mine` commands ([#12](https://github.com/pxgamer/arionum-cli/issues/12))
+
 ## [v1.5.0] - 2018-11-08
 
 ### Added
