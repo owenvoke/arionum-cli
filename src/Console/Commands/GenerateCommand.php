@@ -4,6 +4,7 @@ namespace pxgamer\ArionumCLI\Console\Commands;
 
 use Exception;
 use pxgamer\ArionumCLI\Console\BaseCommand;
+use pxgamer\ArionumCLI\Console\Output\Factory;
 use pxgamer\ArionumCLI\Wallet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -15,8 +16,18 @@ use function strlen;
  */
 final class GenerateCommand extends BaseCommand
 {
-    /** @var bool */
-    protected $requiresExistingWallet = false;
+    /**
+     * GenerateCommand constructor.
+     *
+     * @param Factory|null $outputFactory
+     */
+    public function __construct(?Factory $outputFactory = null)
+    {
+        $this->requiresExistingWallet = false;
+        $this->outputFactory = $outputFactory;
+
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
