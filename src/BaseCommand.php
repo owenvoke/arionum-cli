@@ -107,14 +107,18 @@ abstract class BaseCommand extends Command
      */
     protected function decryptWallet(InputInterface $input, OutputInterface $output): void
     {
-        if ($this->wallet->isEncrypted()) {
+        $isEncrypted = $this->wallet->isEncrypted();
+
+        if ($isEncrypted) {
             $output->writeln('This wallet is encrypted.');
             do {
                 $password = $this->askForPassword($input, $output);
 
                 $this->wallet->decrypt($password);
 
-                if (!$this->wallet->isEncrypted()) {
+                $isEncrypted = $this->wallet->isEncrypted();
+
+                if (!$isEncrypted) {
                     break;
                 }
 
