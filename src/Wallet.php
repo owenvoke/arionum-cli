@@ -292,11 +292,13 @@ final class Wallet
      */
     public function pem2coin(string $data)
     {
-        $data = str_replace("-----BEGIN PUBLIC KEY-----", "", $data);
-        $data = str_replace("-----END PUBLIC KEY-----", "", $data);
-        $data = str_replace("-----BEGIN EC PRIVATE KEY-----", "", $data);
-        $data = str_replace("-----END EC PRIVATE KEY-----", "", $data);
-        $data = str_replace("\n", "", $data);
+        $data = str_replace(array(
+            '-----BEGIN PUBLIC KEY-----',
+            '-----END PUBLIC KEY-----',
+            '-----BEGIN EC PRIVATE KEY-----',
+            '-----END EC PRIVATE KEY-----',
+            "\n"
+        ), '', $data);
 
         $data = base64_decode($data);
 
