@@ -126,7 +126,7 @@ final class Factory
     private function createCsv(array $data, array $columns): void
     {
         ob_start();
-        $fd = fopen('php://output', 'w');
+        $fd = fopen('php://output', 'wb');
         fputcsv($fd, $columns);
         foreach ($data as $row) {
             fputcsv($fd, $row);
