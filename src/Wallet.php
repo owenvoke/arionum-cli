@@ -63,9 +63,9 @@ final class Wallet
      * Wallet constructor.
      * @param string $path
      */
-    public function __construct(string $path = self::WALLET_NAME)
+    public function __construct(?string $path = null)
     {
-        $this->path = $path;
+        $this->path = $path ?? self::WALLET_NAME;
         $this->exists = file_exists($this->path);
 
         if ($this->exists) {
@@ -211,7 +211,7 @@ final class Wallet
         $address,
         $message,
         $date,
-        int $version = 1
+        ?int $version = null
     ): string {
         return $value
             .'-'
@@ -221,7 +221,7 @@ final class Wallet
             .'-'
             .$message
             .'-'
-            .$version
+            .$version ?? 1
             .'-'
             .$this->publicKey
             .'-'
@@ -270,7 +270,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function coin2pem($data, $isPrivateKey = false): string
+    public function coin2pem($data, ?$isPrivateKey = null): string
     {
         $data = (new Base58())->decode($data);
 

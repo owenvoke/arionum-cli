@@ -37,8 +37,10 @@ final class Api
      * @return bool|mixed
      * @throws GuzzleException
      */
-    public static function post(string $url, $data = [])
+    public static function post(string $url, ?$data = null)
     {
+        $data = $data ?? [];
+
         $peer = self::getPeer();
 
         if (empty($peer)) {
@@ -136,8 +138,10 @@ final class Api
         string $publicKey,
         string $message,
         int $date,
-        int $version = 1
+        ?int $version = null
     ) {
+        $version = $version ?? 1;
+
         return self::post('/api.php?q=send', [
             'dst'        => $address,
             'val'        => $value,
