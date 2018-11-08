@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+## [v1.5.1] - 2018-11-08
+
+### Fixed
+- Fix a typo in the masternode commands ([7eb699e7](https://github.com/pxgamer/arionum-cli/commit/7eb699e791e678ed4f7fbeae9b349c51b7f542f5))
+
 ## [v1.5.0] - 2018-11-08
 
 ### Added
@@ -62,6 +67,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 - Add Symfony Console v4
 
 [Unreleased]: https://github.com/pxgamer/arionum-cli/compare/master...develop
+[v1.5.1]: https://github.com/pxgamer/arionum-cli/compare/v1.5.0...v1.5.1
 [v1.5.0]: https://github.com/pxgamer/arionum-cli/compare/v1.4.1...v1.5.0
 [v1.4.1]: https://github.com/pxgamer/arionum-cli/compare/v1.4.0...v1.4.1
 [v1.4.0]: https://github.com/pxgamer/arionum-cli/compare/v1.3.0...v1.4.0
