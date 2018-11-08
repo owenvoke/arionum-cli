@@ -5,13 +5,14 @@ namespace pxgamer\Arionum\Console\Commands;
 use pxgamer\Arionum\Console\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use function strlen;
 
 /**
  * Class EncryptCommand
  */
 class EncryptCommand extends BaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('encrypt')

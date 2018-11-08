@@ -2,11 +2,13 @@
 
 namespace pxgamer\Arionum\Console\Commands;
 
+use Exception;
 use pxgamer\Arionum\Api;
 use pxgamer\Arionum\Console\BaseCommand;
-use Symfony\Component\Console\Helper\Table;
+use pxgamer\Arionum\Console\Output\Format;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
@@ -14,7 +16,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class TransactionsCommand extends BaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('transactions')
@@ -23,6 +25,13 @@ class TransactionsCommand extends BaseCommand
                 'address',
                 InputArgument::OPTIONAL,
                 'A specific wallet address.'
+            )
+            ->addOption(
+                'output',
+                null,
+                InputOption::VALUE_OPTIONAL,
+                'The output format (table, xml, json, csv)',
+                Format::TABLE
             );
 
         parent::configure();
@@ -33,6 +42,7 @@ class TransactionsCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -42,7 +52,7 @@ class TransactionsCommand extends BaseCommand
             $output->writeln('Checking transactions of the specified address: '.$address);
 
             if (!$this->wallet->validAddress($address)) {
-                throw new \Exception('Invalid address format provided.');
+                throw new Exception('Invalid address format provided.');
             }
         }
 
@@ -54,17 +64,12 @@ class TransactionsCommand extends BaseCommand
         }
 
         $rows = [];
-
         foreach ($result['data'] as $key => $value) {
             $rows[] = [$value['id'], $value['dst'], $value['type'], $value['val']];
         }
 
-        $table = new Table($output);
-
-        $table
-            ->setHeaders(['ID', 'To', 'Type', 'Amount'])
-            ->setRows($rows);
-
-        $table->render();
+        $this->outputFactory
+            ->setOutput($output)
+            ->writeOutput($input->getOption('output'), $rows, ['ID', 'To', 'Type', 'Amount']);
     }
 }

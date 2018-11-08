@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class BlockCommand extends BaseCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('block')
@@ -26,6 +26,7 @@ class BlockCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

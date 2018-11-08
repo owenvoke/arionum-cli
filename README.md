@@ -79,12 +79,6 @@ Send a transaction (with an optional message):
 arionum send [address] [value] [message]
 ```
 
-Mine Arionum using the current wallet:
-
-```bash
-arionum mine
-```
-
 #### Alias
 
 Set your account alias:

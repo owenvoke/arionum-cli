@@ -2,17 +2,23 @@
 
 namespace pxgamer\Arionum\Console\Commands;
 
+use Exception;
 use pxgamer\Arionum\Console\BaseCommand;
 use pxgamer\Arionum\Wallet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
+use function strlen;
 
+/**
+ * Class GenerateCommand
+ */
 class GenerateCommand extends BaseCommand
 {
+    /** @var bool */
     protected $requiresExistingWallet = false;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('generate')
@@ -37,7 +43,7 @@ class GenerateCommand extends BaseCommand
         if ($this->wallet->exists()) {
             $existsQuestion = new ConfirmationQuestion('A wallet already exists, overwrite it? (y\N) ', false);
             if (!$this->questionHelper->ask($input, $output, $existsQuestion)) {
-                throw new \Exception('Wallet exists. Aborting.');
+                throw new Exception('Wallet exists. Aborting.');
             }
         }
 

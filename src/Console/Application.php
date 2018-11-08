@@ -2,34 +2,49 @@
 
 namespace pxgamer\Arionum\Console;
 
+use pxgamer\Arionum\Console\Output\Factory;
 use Symfony\Component\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command;
 
 /**
  * Class Application
  */
 class Application extends BaseApplication
 {
-    const NAME = 'Arionum Light Wallet';
-    const VERSION = '@git-version@';
+    public const NAME = 'Arionum Light Wallet';
+    public const VERSION = '@git-version@';
+
+    /**
+     * @var Factory
+     */
+    private $outputFactory;
 
     /**
      * Application constructor.
      *
-     * @param null $name
-     * @param null $version
+     * @param null|string $name
+     * @param null|string $version
      */
-    public function __construct($name = null, $version = null)
+    public function __construct(?string $name = null, ?string $version = null)
     {
+        $this->outputFactory = new Factory();
+
+        if (!$version) {
+            $version = static::VERSION === '@'.'git-version@' ?
+                'source' :
+                static::VERSION;
+        }
+
         parent::__construct(
             $name ?: static::NAME,
-            $version ?: (static::VERSION === '@'.'git-version@' ? 'source' : static::VERSION)
+            $version
         );
     }
 
     /**
-     * @return array|\Symfony\Component\Console\Command\Command[]
+     * @return array|Command[]
      */
-    protected function getDefaultCommands()
+    protected function getDefaultCommands(): array
     {
         $commands = parent::getDefaultCommands();
 
@@ -43,7 +58,7 @@ class Application extends BaseApplication
         $commands[] = new Commands\MinerCommand();
         $commands[] = new Commands\SendCommand();
         $commands[] = new Commands\TransactionCommand();
-        $commands[] = new Commands\TransactionsCommand();
+        $commands[] = new Commands\TransactionsCommand($this->outputFactory);
 
         // Alias Commands
         $commands[] = new Commands\Alias\SendCommand();

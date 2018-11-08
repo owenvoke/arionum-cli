@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ResumeCommand extends MasternodeCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('masternode:resume')
@@ -24,6 +24,7 @@ class ResumeCommand extends MasternodeCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

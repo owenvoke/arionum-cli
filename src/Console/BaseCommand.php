@@ -2,7 +2,9 @@
 
 namespace pxgamer\Arionum\Console;
 
+use Exception;
 use pxgamer\Arionum\Api;
+use pxgamer\Arionum\Console\Output\Factory;
 use pxgamer\Arionum\Wallet;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -14,12 +16,18 @@ use Symfony\Component\Console\Question\Question;
 /**
  * Class BaseCommand
  */
-class BaseCommand extends Command
+abstract class BaseCommand extends Command
 {
+    /**
+     * @var Factory
+     */
+    protected $outputFactory;
+
     /**
      * @var QuestionHelper
      */
     protected $questionHelper;
+
     /**
      * @var Wallet
      */
@@ -30,7 +38,19 @@ class BaseCommand extends Command
      */
     protected $requiresExistingWallet = true;
 
-    protected function configure()
+    /**
+     * BaseCommand constructor.
+     *
+     * @param Factory|null $outputFactory
+     */
+    public function __construct(?Factory $outputFactory = null)
+    {
+        $this->outputFactory = $outputFactory;
+
+        parent::__construct();
+    }
+
+    protected function configure(): void
     {
         $this->addOption(
             'peer',
@@ -56,7 +76,7 @@ class BaseCommand extends Command
         $this->wallet = new Wallet();
 
         if ($this->requiresExistingWallet && !$this->wallet->exists()) {
-            throw new \Exception('A wallet file is required for this command.');
+            throw new Exception('A wallet file is required for this command.');
         }
 
         if ($this->wallet->exists()) {
@@ -87,7 +107,7 @@ class BaseCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      */
-    protected function decryptWallet(InputInterface $input, OutputInterface $output)
+    protected function decryptWallet(InputInterface $input, OutputInterface $output): void
     {
         if ($this->wallet->isEncrypted()) {
             $output->writeln('This wallet is encrypted.');

@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 class ReleaseCommand extends MasternodeCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('masternode:release')
@@ -24,6 +24,7 @@ class ReleaseCommand extends MasternodeCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

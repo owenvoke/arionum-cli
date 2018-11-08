@@ -2,6 +2,14 @@
 
 namespace pxgamer\Arionum;
 
+use GuzzleHttp\Client;
+use function file;
+use function GuzzleHttp\json_decode;
+use function GuzzleHttp\json_encode;
+use function shuffle;
+use function strlen;
+use function trim;
+
 /**
  * Class Api
  */
@@ -11,7 +19,7 @@ class Api
      * The URI for retrieving peer nodes.
      * @link https://api.arionum.com/peers.txt
      */
-    const PEERS_URI = 'https://api.arionum.com/peers.txt';
+    public const PEERS_URI = 'https://api.arionum.com/peers.txt';
     /**
      * The API status code for a successful response.
      */
@@ -20,12 +28,13 @@ class Api
     /**
      * @var null|string
      */
-    public static $customPeer = null;
+    public static $customPeer;
 
     /**
      * @param string $url
      * @param array  $data
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function post(string $url, $data = [])
     {
@@ -35,32 +44,29 @@ class Api
             return false;
         }
 
-        $postData = http_build_query(
+        $client = new Client();
+
+        $postData = [
+            'data' => json_encode($data),
+            'coin' => 'arionum',
+        ];
+
+        $response = $client->request(
+            'POST',
+            $peer.$url,
             [
-                'data' => json_encode($data),
-                'coin' => 'arionum',
+                'timeout'     => 300,
+                'form_params' => $postData,
             ]
         );
 
-        $opts = [
-            'http' =>
-                [
-                    'timeout' => '300',
-                    'method'  => 'POST',
-                    'header'  => 'Content-type: application/x-www-form-urlencoded',
-                    'content' => $postData,
-                ],
-        ];
-
-        $context = stream_context_create($opts);
-        $result = file_get_contents($peer.$url, false, $context);
-
-        return json_decode($result, true);
+        return json_decode($response->getBody()->getContents(), true);
     }
 
     /**
      * @param string $address
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getBalance($address)
     {
@@ -74,6 +80,7 @@ class Api
 
     /**
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getCurrentBlock()
     {
@@ -83,6 +90,7 @@ class Api
     /**
      * @param string $id
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getTransaction(string $id)
     {
@@ -97,6 +105,7 @@ class Api
     /**
      * @param string $address
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function getTransactions(string $address)
     {
@@ -117,6 +126,7 @@ class Api
      * @param int    $date
      * @param int    $version
      * @return bool|mixed
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public static function send(
         string $address,

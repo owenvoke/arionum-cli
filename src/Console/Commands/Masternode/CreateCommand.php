@@ -6,13 +6,17 @@ use pxgamer\Arionum\Api;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use function filter_var;
+use function number_format;
+use function preg_match;
+use function time;
 
 /**
  * Class CreateCommand
  */
 class CreateCommand extends MasternodeCommand
 {
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('masternode:create')
@@ -31,6 +35,7 @@ class CreateCommand extends MasternodeCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

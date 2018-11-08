@@ -7,6 +7,11 @@ use pxgamer\Arionum\Console\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use function number_format;
+use function preg_match;
+use function strlen;
+use function strtoupper;
+use function time;
 
 /**
  * Class SendCommand
@@ -15,7 +20,7 @@ class SendCommand extends BaseCommand
 {
     private const ALIAS_SEND_VERSION = 2;
 
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('alias:send')
@@ -45,6 +50,7 @@ class SendCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -53,7 +59,8 @@ class SendCommand extends BaseCommand
         $alias = $input->getArgument('alias');
         $message = $input->getArgument('message');
 
-        if (!$alias || !preg_match('/[a-zA-Z0-9]+/', $alias) || strlen($alias) < 4 || strlen($alias) > 25) {
+        $aliasLength = strlen($alias);
+        if (!$alias || $aliasLength < 4 || $aliasLength > 25 || !preg_match('/[a-zA-Z0-9]+/', $alias)) {
             $output->writeln('<error>ERROR: Invalid destination alias.</error>');
             return;
         }
