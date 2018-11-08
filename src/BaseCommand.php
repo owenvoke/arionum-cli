@@ -69,7 +69,7 @@ abstract class BaseCommand extends Command
         $this->questionHelper = $this->getHelper('question');
 
         // Set a custom peer if it's been provided
-        Api::$customPeer = $input->getOption('peer');
+        Api::setCustomPeer($input->getOption('peer'));
 
         $this->wallet = new Wallet();
 

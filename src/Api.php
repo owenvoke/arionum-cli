@@ -170,4 +170,12 @@ final class Api
 
         return false;
     }
+
+    /**
+     * @param string|null $customPeer
+     */
+    public static function setCustomPeer(?string $customPeer): void
+    {
+        self::$customPeer = $customPeer;
+    }
 }
