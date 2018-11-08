@@ -77,7 +77,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function create()
+    public function create(): string
     {
         $args = [
             'curve_name'       => 'secp256k1',
@@ -103,7 +103,7 @@ final class Wallet
     /**
      * @return bool
      */
-    public function isEncrypted()
+    public function isEncrypted(): bool
     {
         return substr($this->rawData, 0, 7) !== 'arionum';
     }
@@ -111,7 +111,7 @@ final class Wallet
     /**
      * @param string $password
      */
-    public function decrypt(string $password)
+    public function decrypt(string $password): void
     {
         $decodedData = base64_decode($this->rawData);
         $iv = substr($decodedData, 0, 16);
@@ -130,7 +130,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function encrypt(string $password, string $walletRaw = null)
+    public function encrypt(string $password, string $walletRaw = null): string
     {
         if (!$walletRaw) {
             $walletRaw = 'arionum:'.$this->getPrivateKey().':'.$this->getPublicKey();
@@ -159,7 +159,7 @@ final class Wallet
      *
      * @throws \Exception
      */
-    public function decode()
+    public function decode(): void
     {
         if (!$this->isEncrypted()) {
             $decoded = explode(":", $this->rawData);
@@ -174,7 +174,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    private function getAddressFromPublicKey()
+    private function getAddressFromPublicKey(): string
     {
         $hash = $this->publicKey;
 
@@ -212,7 +212,7 @@ final class Wallet
         $message,
         $date,
         int $version = 1
-    ) {
+    ): string {
         return $value
             ."-"
             .$fee
@@ -253,7 +253,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function sign($data, string $privateKey)
+    public function sign($data, string $privateKey): string
     {
         $private_key = $this->coin2pem($privateKey, true);
 
@@ -270,7 +270,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function coin2pem($data, $isPrivateKey = false)
+    public function coin2pem($data, $isPrivateKey = false): string
     {
         $data = (new Base58())->decode($data);
 
@@ -290,7 +290,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function pem2coin(string $data)
+    public function pem2coin(string $data): string
     {
         $data = str_replace(array(
             '-----BEGIN PUBLIC KEY-----',
@@ -308,7 +308,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
@@ -316,7 +316,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getPublicKey()
+    public function getPublicKey(): string
     {
         return $this->publicKey;
     }
@@ -324,7 +324,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getPrivateKey()
+    public function getPrivateKey(): string
     {
         return $this->privateKey;
     }
@@ -332,7 +332,7 @@ final class Wallet
     /**
      * @return bool
      */
-    public function exists()
+    public function exists(): bool
     {
         return $this->exists;
     }
@@ -340,7 +340,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }
