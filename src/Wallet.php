@@ -162,7 +162,7 @@ final class Wallet
     public function decode(): void
     {
         if (!$this->isEncrypted()) {
-            $decoded = explode(":", $this->rawData);
+            $decoded = explode(':', $this->rawData);
 
             $this->publicKey = $decoded[2];
             $this->privateKey = $decoded[1];
@@ -214,17 +214,17 @@ final class Wallet
         int $version = 1
     ): string {
         return $value
-            ."-"
+            .'-'
             .$fee
-            ."-"
+            .'-'
             .$address
-            ."-"
+            .'-'
             .$message
-            ."-"
+            .'-'
             .$version
-            ."-"
+            .'-'
             .$this->publicKey
-            ."-"
+            .'-'
             .$date;
     }
 
