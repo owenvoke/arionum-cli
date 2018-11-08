@@ -8,4 +8,8 @@ if (file_exists(__DIR__.'/../../../autoload.php')) {
 }
 
 $app = new pxgamer\ArionumCLI\Console\Application();
-$app->run();
+try {
+    $app->run();
+} catch (\Exception $exception) {
+    exit($exception->getMessage());
+}
