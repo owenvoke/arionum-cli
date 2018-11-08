@@ -6,6 +6,8 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+## [v1.5.0] - 2018-11-08
+
 ### Added
 - Add support for exporting transactions to JSON, XML, CSV or table ([#6](https://github.com/pxgamer/arionum-cli/issues/6))
 
