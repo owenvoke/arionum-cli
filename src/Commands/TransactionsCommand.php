@@ -2,8 +2,8 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
-use Exception;
 use pxgamer\ArionumCLI\Api;
+use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
 use pxgamer\ArionumCLI\Output\Format;
 use Symfony\Component\Console\Input\InputArgument;
@@ -52,7 +52,7 @@ final class TransactionsCommand extends BaseCommand
             $output->writeln('Checking transactions of the specified address: '.$address);
 
             if (!$this->wallet->validAddress($address)) {
-                throw new Exception('Invalid address format provided.');
+                throw new ArionumException('Invalid address format provided.');
             }
         }
 

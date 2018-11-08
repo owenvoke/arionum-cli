@@ -5,6 +5,7 @@ namespace pxgamer\ArionumCLI\Commands\Masternode;
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
 use pxgamer\ArionumCLI\Api;
+use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
 use function number_format;
 use function time;
@@ -50,7 +51,7 @@ class MasternodeCommand extends BaseCommand
         $balanceResult = Api::getBalance($this->wallet->getAddress());
 
         if ($balanceResult['status'] !== Api::API_STATUS_OK) {
-            throw new Exception('ERROR: '.$balanceResult['data']);
+            throw new ArionumException('ERROR: '.$balanceResult['data']);
         }
 
         $balance = $balanceResult['data'];
@@ -61,7 +62,7 @@ class MasternodeCommand extends BaseCommand
         $fee = number_format(self::DEFAULT_COMMAND_FEE, 8, '.', '');
 
         if ($balance < $total) {
-            throw new Exception('ERROR: Not enough funds in balance.');
+            throw new ArionumException('ERROR: Not enough funds in balance.');
         }
 
         $date = time();
@@ -88,7 +89,7 @@ class MasternodeCommand extends BaseCommand
         );
 
         if ($result['status'] !== Api::API_STATUS_OK) {
-            throw new Exception('ERROR: '.$result['data']);
+            throw new ArionumException('ERROR: '.$result['data']);
         }
 
         return $result;
