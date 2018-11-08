@@ -2,6 +2,7 @@
 
 namespace pxgamer\ArionumCLI\Commands\Masternode;
 
+use GuzzleHttp\Exception\GuzzleException;
 use pxgamer\ArionumCLI\Api;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -35,7 +36,7 @@ final class CreateCommand extends MasternodeCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

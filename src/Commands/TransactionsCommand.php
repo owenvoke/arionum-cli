@@ -2,6 +2,7 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
+use GuzzleHttp\Exception\GuzzleException;
 use pxgamer\ArionumCLI\Api;
 use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
@@ -42,7 +43,7 @@ final class TransactionsCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {

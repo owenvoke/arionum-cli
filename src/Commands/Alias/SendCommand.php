@@ -2,6 +2,7 @@
 
 namespace pxgamer\ArionumCLI\Commands\Alias;
 
+use GuzzleHttp\Exception\GuzzleException;
 use pxgamer\ArionumCLI\Api;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -50,7 +51,7 @@ final class SendCommand extends BaseCommand
      * @param OutputInterface $output
      * @return int|null|void
      * @throws \Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
