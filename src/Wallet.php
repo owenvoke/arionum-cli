@@ -105,7 +105,7 @@ final class Wallet
      */
     public function isEncrypted(): bool
     {
-        return strpos($this->rawData, 'arionum') !== 0;
+        return strncmp($this->rawData, 'arionum', 7) !== 0;
     }
 
     /**
@@ -119,7 +119,7 @@ final class Wallet
         $hashedPassword = substr(hash('sha256', $password, true), 0, 32);
         $decrypted = openssl_decrypt(base64_decode($enc), 'aes-256-cbc', $hashedPassword, OPENSSL_RAW_DATA, $iv);
 
-        if (strpos($decrypted, 'arionum') === 0) {
+        if (strncmp($decrypted, 'arionum', 7) === 0) {
             $this->rawData = $decrypted;
         }
     }
