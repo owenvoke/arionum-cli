@@ -13,7 +13,7 @@ use function time;
 /**
  * Class SendCommand
  */
-class SendCommand extends BaseCommand
+final class SendCommand extends BaseCommand
 {
     protected function configure(): void
     {

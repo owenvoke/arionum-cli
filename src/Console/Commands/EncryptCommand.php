@@ -10,7 +10,7 @@ use function strlen;
 /**
  * Class EncryptCommand
  */
-class EncryptCommand extends BaseCommand
+final class EncryptCommand extends BaseCommand
 {
     protected function configure(): void
     {

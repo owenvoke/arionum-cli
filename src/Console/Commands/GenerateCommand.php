@@ -13,7 +13,7 @@ use function strlen;
 /**
  * Class GenerateCommand
  */
-class GenerateCommand extends BaseCommand
+final class GenerateCommand extends BaseCommand
 {
     /** @var bool */
     protected $requiresExistingWallet = false;

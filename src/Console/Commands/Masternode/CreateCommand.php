@@ -14,7 +14,7 @@ use function time;
 /**
  * Class CreateCommand
  */
-class CreateCommand extends MasternodeCommand
+final class CreateCommand extends MasternodeCommand
 {
     protected function configure(): void
     {

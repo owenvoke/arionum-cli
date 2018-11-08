@@ -13,7 +13,7 @@ use function trim;
 /**
  * Class Api
  */
-class Api
+final class Api
 {
     /**
      * The URI for retrieving peer nodes.

@@ -16,7 +16,7 @@ use function time;
 /**
  * Class SendCommand
  */
-class SendCommand extends BaseCommand
+final class SendCommand extends BaseCommand
 {
     private const ALIAS_SEND_VERSION = 2;
 

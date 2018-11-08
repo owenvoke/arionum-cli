@@ -7,7 +7,7 @@ use StephenHill\Base58;
 /**
  * Class Wallet
  */
-class Wallet
+final class Wallet
 {
     /**
      * The default wallet file name.

@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ReleaseCommand
  */
-class ReleaseCommand extends MasternodeCommand
+final class ReleaseCommand extends MasternodeCommand
 {
     protected function configure(): void
     {

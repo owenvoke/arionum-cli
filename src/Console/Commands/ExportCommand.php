@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ExportCommand
  */
-class ExportCommand extends BaseCommand
+final class ExportCommand extends BaseCommand
 {
     protected function configure(): void
     {

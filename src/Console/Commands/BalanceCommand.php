@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class BalanceCommand
  */
-class BalanceCommand extends BaseCommand
+final class BalanceCommand extends BaseCommand
 {
     protected function configure(): void
     {

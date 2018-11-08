@@ -9,7 +9,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class DecryptCommand
  */
-class DecryptCommand extends BaseCommand
+final class DecryptCommand extends BaseCommand
 {
     protected function configure(): void
     {

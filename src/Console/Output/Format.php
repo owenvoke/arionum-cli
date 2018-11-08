@@ -6,7 +6,7 @@ namespace pxgamer\ArionumCLI\Console\Output;
  * Class Format
  * @package pxgamer\Arionum\Console\Output
  */
-class Format
+final class Format
 {
     public const TABLE = 'table';
     public const XML = 'xml';

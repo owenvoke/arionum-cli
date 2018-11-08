@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class TransactionsCommand
  */
-class TransactionsCommand extends BaseCommand
+final class TransactionsCommand extends BaseCommand
 {
     protected function configure(): void
     {

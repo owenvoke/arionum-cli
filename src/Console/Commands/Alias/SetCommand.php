@@ -16,7 +16,7 @@ use function time;
 /**
  * Class SetCommand
  */
-class SetCommand extends BaseCommand
+final class SetCommand extends BaseCommand
 {
     private const ALIAS_SET_VERSION = 3;
 

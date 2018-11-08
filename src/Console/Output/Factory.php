@@ -19,7 +19,7 @@ use function ob_start;
  * Class Factory
  * @package pxgamer\Arionum\Console\Output
  */
-class Factory
+final class Factory
 {
     /**
      * @var OutputInterface

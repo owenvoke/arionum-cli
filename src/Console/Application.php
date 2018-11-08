@@ -9,7 +9,7 @@ use Symfony\Component\Console\Command\Command;
 /**
  * Class Application
  */
-class Application extends BaseApplication
+final class Application extends BaseApplication
 {
     public const NAME = 'Arionum';
     public const VERSION = '@git-version@';

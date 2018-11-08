@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class ResumeCommand
  */
-class ResumeCommand extends MasternodeCommand
+final class ResumeCommand extends MasternodeCommand
 {
     protected function configure(): void
     {

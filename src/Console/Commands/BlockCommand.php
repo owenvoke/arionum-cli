@@ -10,7 +10,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class BlockCommand
  */
-class BlockCommand extends BaseCommand
+final class BlockCommand extends BaseCommand
 {
     protected function configure(): void
     {

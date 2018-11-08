@@ -8,7 +8,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class PauseCommand
  */
-class PauseCommand extends MasternodeCommand
+final class PauseCommand extends MasternodeCommand
 {
     protected function configure(): void
     {
