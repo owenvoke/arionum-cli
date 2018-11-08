@@ -93,7 +93,7 @@ final class Wallet
 
         $publicKey = $this->pem2coin($pub['key']);
 
-        if (strlen($privateKey) < Wallet::MIN_KEY_LENGTH || strlen($publicKey) < Wallet::MIN_KEY_LENGTH) {
+        if (strlen($privateKey) < self::MIN_KEY_LENGTH || strlen($publicKey) < self::MIN_KEY_LENGTH) {
             throw new \Exception('Failed to create the EC key pair. Please check the openssl binaries.');
         }
 
