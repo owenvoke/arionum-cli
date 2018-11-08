@@ -1,22 +1,21 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Commands;
+namespace pxgamer\ArionumCLI\Commands;
 
-use pxgamer\ArionumCLI\Console\BaseCommand;
+use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use function strlen;
 
 /**
- * Class EncryptCommand
+ * Class DecryptCommand
  */
-final class EncryptCommand extends BaseCommand
+final class DecryptCommand extends BaseCommand
 {
     protected function configure(): void
     {
         $this
-            ->setName('encrypt')
-            ->setDescription('Encrypt the wallet.');
+            ->setName('decrypt')
+            ->setDescription('Decrypt the wallet.');
 
         parent::configure();
     }
@@ -31,26 +30,9 @@ final class EncryptCommand extends BaseCommand
     {
         parent::execute($input, $output);
 
-        do {
-            $password = $this->askForPassword($input, $output);
+        $walletRaw = 'arionum:'.$this->wallet->getPrivateKey().':'.$this->wallet->getPublicKey();
 
-            if (strlen($password) < 8) {
-                $output->writeln('The password must be at least 8 characters long.');
-                continue;
-            }
-
-            $passConfirm = $this->askForPassword($input, $output, 'Please confirm your password: ');
-
-            if ($password === $passConfirm) {
-                break;
-            }
-
-            $output->writeln('<comment>The passwords did not match!</comment>');
-        } while (true);
-
-        $walletEncrypted = $this->wallet->encrypt($password);
-
-        $result = $this->wallet->saveRaw($walletEncrypted);
+        $result = $this->wallet->saveRaw($walletRaw);
 
         if ($result === false || $result < 30) {
             $output->writeln($this->wallet->getPrivateKey());
@@ -60,6 +42,9 @@ final class EncryptCommand extends BaseCommand
             $output->writeln(
                 '<error>Please check the permissions on the current directory and save a backup of these keys.</error>'
             );
+            return;
         }
+
+        $output->writeln('The wallet has been decrypted!');
     }
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Commands\Masternode;
+namespace pxgamer\ArionumCLI\Commands\Masternode;
 
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

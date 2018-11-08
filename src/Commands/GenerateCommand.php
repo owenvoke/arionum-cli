@@ -3,8 +3,8 @@
 namespace pxgamer\ArionumCLI\Console\Commands;
 
 use Exception;
-use pxgamer\ArionumCLI\Console\BaseCommand;
-use pxgamer\ArionumCLI\Console\Output\Factory;
+use pxgamer\ArionumCLI\BaseCommand;
+use pxgamer\ArionumCLI\Output\Factory;
 use pxgamer\ArionumCLI\Wallet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

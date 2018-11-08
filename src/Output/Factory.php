@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Output;
+namespace pxgamer\ArionumCLI\Output;
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;

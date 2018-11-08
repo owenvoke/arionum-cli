@@ -1,11 +1,11 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Commands;
+namespace pxgamer\ArionumCLI\Commands;
 
 use Exception;
 use pxgamer\ArionumCLI\Api;
-use pxgamer\ArionumCLI\Console\BaseCommand;
-use pxgamer\ArionumCLI\Console\Output\Format;
+use pxgamer\ArionumCLI\BaseCommand;
+use pxgamer\ArionumCLI\Output\Format;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
