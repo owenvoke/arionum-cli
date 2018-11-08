@@ -72,7 +72,7 @@ class MasternodeCommand extends BaseCommand
             $this->wallet->getAddress(),
             '',
             $date,
-            self::COMMAND_VERSION_PAUSE
+            $commandType
         );
 
         $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
@@ -84,7 +84,7 @@ class MasternodeCommand extends BaseCommand
             $this->wallet->getPublicKey(),
             '',
             $date,
-            self::COMMAND_VERSION_PAUSE
+            $commandType
         );
 
         if ($result['status'] !== Api::API_STATUS_OK) {
