@@ -4,7 +4,9 @@ All notable changes to `arionum-cli` will be documented in this file.
 
 Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) principles.
 
-## Unreleased
+## [Unreleased]
+
+## [v1.5.0] - 2018-11-08
 
 ### Added
 - Add support for exporting transactions to JSON, XML, CSV or table ([#6](https://github.com/pxgamer/arionum-cli/issues/6))
@@ -18,28 +20,28 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 ### Deprecated
 - Deprecate the `miner`/`mine` commands ([#12](https://github.com/pxgamer/arionum-cli/issues/12))
 
-## v1.4.1 - 2018-08-23
+## [v1.4.1] - 2018-08-23
 
 ### Added
 - Add support for `arionum/node` v0.4.2 and the latest hardfork ([2a509f4](https://github.com/pxgamer/arionum-cli/commit/2a509f4d593dacffe0ea5b70a24f972f9b68702f))
 
-## v1.4.0 - 2018-08-16
+## [v1.4.0] - 2018-08-16
 
 ### Added
 - Add support for custom peers ([#5](https://github.com/pxgamer/arionum-cli/issues/5))
 - Add support for an address in the `transactions` command ([#7](https://github.com/pxgamer/arionum-cli/issues/7))
 
-## v1.3.0 - 2018-08-10
+## [v1.3.0] - 2018-08-10
 
 ### Added
 - Add support for masternode commands ([#3](https://github.com/pxgamer/arionum-cli/issues/3))
 
-## v1.2.0 - 2018-08-10
+## [v1.2.0] - 2018-08-10
 
 ### Added
 - Add support for alias commands ([#2](https://github.com/pxgamer/arionum-cli/issues/2))
 
-## v1.1.0 - 2018-08-06
+## [v1.1.0] - 2018-08-06
 
 ### Added
 - Add the PHP miner into the CLI ([bb61cc4](https://github.com/pxgamer/arionum-cli/commit/bb61cc4d2afa682f3b9b1eb6b222b1207b18bd5d))
@@ -58,3 +60,11 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 - Complete restructure using Composer
 - Add Box Phar support
 - Add Symfony Console v4
+
+[Unreleased]: https://github.com/pxgamer/arionum-cli/compare/master...develop
+[v1.5.0]: https://github.com/pxgamer/arionum-cli/compare/v1.4.1...v1.5.0
+[v1.4.1]: https://github.com/pxgamer/arionum-cli/compare/v1.4.0...v1.4.1
+[v1.4.0]: https://github.com/pxgamer/arionum-cli/compare/v1.3.0...v1.4.0
+[v1.3.0]: https://github.com/pxgamer/arionum-cli/compare/v1.2.0...v1.3.0
+[v1.2.0]: https://github.com/pxgamer/arionum-cli/compare/v1.1.0...v1.2.0
+[v1.1.0]: https://github.com/pxgamer/arionum-cli/compare/v1.0.0...v1.1.0
