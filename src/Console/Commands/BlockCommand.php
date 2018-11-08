@@ -1,9 +1,9 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Commands;
+namespace pxgamer\ArionumCLI\Console\Commands;
 
-use pxgamer\Arionum\Api;
-use pxgamer\Arionum\Console\BaseCommand;
+use pxgamer\ArionumCLI\Api;
+use pxgamer\ArionumCLI\Console\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

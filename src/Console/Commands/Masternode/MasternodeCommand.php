@@ -1,11 +1,11 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Commands\Masternode;
+namespace pxgamer\ArionumCLI\Console\Commands\Masternode;
 
 use Exception;
 use GuzzleHttp\Exception\GuzzleException;
-use pxgamer\Arionum\Api;
-use pxgamer\Arionum\Console\BaseCommand;
+use pxgamer\ArionumCLI\Api;
+use pxgamer\ArionumCLI\Console\BaseCommand;
 use function number_format;
 use function time;
 

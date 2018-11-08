@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\Arionum;
+namespace pxgamer\ArionumCLI;
 
 use GuzzleHttp\Client;
 use function file;

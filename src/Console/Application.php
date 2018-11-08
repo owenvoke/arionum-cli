@@ -1,8 +1,8 @@
 <?php
 
-namespace pxgamer\Arionum\Console;
+namespace pxgamer\ArionumCLI\Console;
 
-use pxgamer\Arionum\Console\Output\Factory;
+use pxgamer\ArionumCLI\Console\Output\Factory;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command;
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Output;
+namespace pxgamer\ArionumCLI\Console\Output;
 
 /**
  * Class Format

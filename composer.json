@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "pxgamer\\Arionum\\": "src"
+            "pxgamer\\ArionumCLI\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "pxgamer\\Arionum\\": "tests"
+            "pxgamer\\ArionumCLI\\": "tests"
         }
     },
     "scripts": {

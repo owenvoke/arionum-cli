@@ -1,11 +1,11 @@
 <?php
 
-namespace pxgamer\Arionum\Console;
+namespace pxgamer\ArionumCLI\Console;
 
 use Exception;
-use pxgamer\Arionum\Api;
-use pxgamer\Arionum\Console\Output\Factory;
-use pxgamer\Arionum\Wallet;
+use pxgamer\ArionumCLI\Api;
+use pxgamer\ArionumCLI\Console\Output\Factory;
+use pxgamer\ArionumCLI\Wallet;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
