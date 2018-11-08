@@ -37,7 +37,7 @@ final class Api
      * @return bool|mixed
      * @throws GuzzleException
      */
-    public static function post(string $url, ?$data = null)
+    public static function post(string $url, ?array $data = null)
     {
         $data = $data ?? [];
 

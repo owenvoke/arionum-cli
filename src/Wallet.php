@@ -270,7 +270,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function coin2pem($data, ?$isPrivateKey = null): string
+    public function coin2pem($data, ?bool $isPrivateKey = null): string
     {
         $data = (new Base58())->decode($data);
 
