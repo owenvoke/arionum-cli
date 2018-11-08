@@ -3,6 +3,25 @@
 namespace pxgamer\ArionumCLI;
 
 use StephenHill\Base58;
+use function base64_decode;
+use function base64_encode;
+use function explode;
+use function file_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function hash;
+use function implode;
+use function openssl_encrypt;
+use function openssl_pkey_export;
+use function openssl_pkey_get_details;
+use function openssl_pkey_get_private;
+use function openssl_pkey_new;
+use function openssl_sign;
+use function preg_match;
+use function str_replace;
+use function str_split;
+use function strlen;
+use function substr;
 
 /**
  * Class Wallet
