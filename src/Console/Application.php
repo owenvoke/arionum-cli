@@ -11,7 +11,7 @@ use Symfony\Component\Console\Command\Command;
  */
 class Application extends BaseApplication
 {
-    public const NAME = 'Arionum Light Wallet';
+    public const NAME = 'Arionum';
     public const VERSION = '@git-version@';
 
     /**
