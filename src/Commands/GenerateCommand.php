@@ -1,8 +1,8 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Commands;
+namespace pxgamer\ArionumCLI\Commands;
 
-use Exception;
+use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
 use pxgamer\ArionumCLI\Output\Factory;
 use pxgamer\ArionumCLI\Wallet;
@@ -54,7 +54,7 @@ final class GenerateCommand extends BaseCommand
         if ($this->wallet->exists()) {
             $existsQuestion = new ConfirmationQuestion('A wallet already exists, overwrite it? (y\N) ', false);
             if (!$this->questionHelper->ask($input, $output, $existsQuestion)) {
-                throw new Exception('Wallet exists. Aborting.');
+                throw new ArionumException('Wallet exists. Aborting.');
             }
         }
 

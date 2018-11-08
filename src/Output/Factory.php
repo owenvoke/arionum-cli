@@ -17,7 +17,6 @@ use function ob_start;
 
 /**
  * Class Factory
- * @package pxgamer\Arionum\Console\Output
  */
 final class Factory
 {

@@ -2,7 +2,6 @@
 
 namespace pxgamer\ArionumCLI;
 
-use Exception;
 use pxgamer\ArionumCLI\Output\Factory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -62,6 +61,7 @@ abstract class BaseCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return int|null|void
+     * @throws ArionumException
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -74,7 +74,7 @@ abstract class BaseCommand extends Command
         $this->wallet = new Wallet();
 
         if ($this->requiresExistingWallet && !$this->wallet->exists()) {
-            throw new Exception('A wallet file is required for this command.');
+            throw new ArionumException('A wallet file is required for this command.');
         }
 
         if ($this->wallet->exists()) {

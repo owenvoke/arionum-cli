@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Output;
+namespace pxgamer\ArionumCLI\Output;
 
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;

@@ -4,7 +4,6 @@ namespace pxgamer\ArionumCLI\Output;
 
 /**
  * Class Format
- * @package pxgamer\Arionum\Console\Output
  */
 final class Format
 {
