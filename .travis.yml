@@ -29,14 +29,11 @@ script:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 
-before_deploy:
-- mv bin/arionum.phar bin/arionum-${TRAVIS_TAG}.phar
-
 deploy:
     provider: releases
     api_key:
         secure: $GITHUB_DEPLOY_KEY
-    file: bin/arionum-${TRAVIS_TAG}.phar
+    file: bin/arionum.phar
     skip_cleanup: true
     on:
         repo: pxgamer/arionum-cli
