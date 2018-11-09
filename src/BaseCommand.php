@@ -54,6 +54,11 @@ abstract class BaseCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'A custom peer to use for API calls.'
+        )->addOption(
+            'wallet-path',
+            'w',
+            InputOption::VALUE_REQUIRED,
+            'A path to a custom wallet file.'
         );
     }
 
