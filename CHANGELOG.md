@@ -6,6 +6,9 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+### Added
+- Add support for a custom `--wallet-path` option ([4b6ba70f](https://github.com/pxgamer/arionum-cli/commit/4b6ba70f65908d59c69bf70b8f4d4d90b645d525))
+
 ### Changed
 - Apply static analysis changes and updates ([#14](https://github.com/pxgamer/arionum-cli/issues/14))
 
