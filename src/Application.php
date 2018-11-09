@@ -42,7 +42,7 @@ final class Application extends BaseApplication
     }
 
     /**
-     * @return array|Command[]
+     * @return Command[]
      */
     protected function getDefaultCommands(): array
     {
