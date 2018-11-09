@@ -54,6 +54,11 @@ abstract class BaseCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'A custom peer to use for API calls.'
+        )->addOption(
+            'wallet-path',
+            'w',
+            InputOption::VALUE_REQUIRED,
+            'A path to a custom wallet file.'
         );
     }
 
@@ -71,7 +76,8 @@ abstract class BaseCommand extends Command
         // Set a custom peer if it's been provided
         Api::setCustomPeer($input->getOption('peer'));
 
-        $this->wallet = new Wallet();
+        $walletFile = $input->getOption('wallet-file');
+        $this->wallet = new Wallet($walletFile);
 
         if ($this->requiresExistingWallet && !$this->wallet->exists()) {
             throw new ArionumException('A wallet file is required for this command.');
