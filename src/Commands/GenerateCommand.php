@@ -98,7 +98,8 @@ final class GenerateCommand extends BaseCommand
             return;
         }
 
-        $this->wallet = new Wallet();
+        $walletFile = $input->getOption('wallet-file');
+        $this->wallet = new Wallet($walletFile);
 
         $this->decryptWallet($input, $output);
         $this->wallet->decode();

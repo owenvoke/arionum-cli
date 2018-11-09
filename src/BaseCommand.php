@@ -76,7 +76,8 @@ abstract class BaseCommand extends Command
         // Set a custom peer if it's been provided
         Api::setCustomPeer($input->getOption('peer'));
 
-        $this->wallet = new Wallet();
+        $walletFile = $input->getOption('wallet-file');
+        $this->wallet = new Wallet($walletFile);
 
         if ($this->requiresExistingWallet && !$this->wallet->exists()) {
             throw new ArionumException('A wallet file is required for this command.');
