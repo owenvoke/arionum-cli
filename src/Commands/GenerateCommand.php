@@ -54,7 +54,8 @@ final class GenerateCommand extends BaseCommand
         if ($this->wallet->exists()) {
             $existsQuestion = new ConfirmationQuestion('A wallet already exists, overwrite it? (y\N) ', false);
             if (!$this->questionHelper->ask($input, $output, $existsQuestion)) {
-                throw new ArionumException('Wallet exists. Aborting.');
+                $output->writeln('<fg=red>Wallet file already exists. Aborting.</>');
+                return;
             }
         }
 
@@ -98,7 +99,7 @@ final class GenerateCommand extends BaseCommand
             return;
         }
 
-        $walletFile = $input->getOption('wallet-file');
+        $walletFile = $input->getOption('wallet-path');
         $this->wallet = new Wallet($walletFile);
 
         $this->decryptWallet($input, $output);

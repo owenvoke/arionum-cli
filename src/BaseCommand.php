@@ -76,7 +76,7 @@ abstract class BaseCommand extends Command
         // Set a custom peer if it's been provided
         Api::setCustomPeer($input->getOption('peer'));
 
-        $walletFile = $input->getOption('wallet-file');
+        $walletFile = $input->getOption('wallet-path');
         $this->wallet = new Wallet($walletFile);
 
         if ($this->requiresExistingWallet && !$this->wallet->exists()) {
