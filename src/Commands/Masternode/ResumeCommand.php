@@ -1,20 +1,21 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Commands\Masternode;
+namespace pxgamer\ArionumCLI\Commands\Masternode;
 
+use GuzzleHttp\Exception\GuzzleException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 /**
- * Class PauseCommand
+ * Class ResumeCommand
  */
-final class PauseCommand extends MasternodeCommand
+final class ResumeCommand extends MasternodeCommand
 {
     protected function configure(): void
     {
         $this
-            ->setName('masternode:pause')
-            ->setDescription('Pause the masternode.');
+            ->setName('masternode:resume')
+            ->setDescription('Resume the masternode mining.');
 
         parent::configure();
     }
@@ -22,18 +23,18 @@ final class PauseCommand extends MasternodeCommand
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null|void
+     * @return void
      * @throws \Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
         try {
-            $result = $this->sendCommand(self::COMMAND_VERSION_PAUSE);
+            $result = $this->sendCommand(self::COMMAND_VERSION_RESUME);
 
-            $output->writeln('<info>Masternode pause command sent!</info>');
+            $output->writeln('<info>Masternode resume command sent!</info>');
             $output->writeln('<info>ID: '.$result['data'].'</info>');
         } catch (\Exception $exception) {
             $output->writeln('<error>'.$exception->getMessage().'</error>');

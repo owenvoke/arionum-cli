@@ -1,8 +1,8 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console;
+namespace pxgamer\ArionumCLI;
 
-use pxgamer\ArionumCLI\Console\Output\Factory;
+use pxgamer\ArionumCLI\Output\Factory;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command;
 
@@ -42,7 +42,7 @@ final class Application extends BaseApplication
     }
 
     /**
-     * @return array|Command[]
+     * @return Command[]
      */
     protected function getDefaultCommands(): array
     {

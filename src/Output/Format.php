@@ -1,10 +1,9 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Output;
+namespace pxgamer\ArionumCLI\Output;
 
 /**
  * Class Format
- * @package pxgamer\Arionum\Console\Output
  */
 final class Format
 {

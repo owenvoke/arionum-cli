@@ -3,6 +3,25 @@
 namespace pxgamer\ArionumCLI;
 
 use StephenHill\Base58;
+use function base64_decode;
+use function base64_encode;
+use function explode;
+use function file_exists;
+use function file_get_contents;
+use function file_put_contents;
+use function hash;
+use function implode;
+use function openssl_encrypt;
+use function openssl_pkey_export;
+use function openssl_pkey_get_details;
+use function openssl_pkey_get_private;
+use function openssl_pkey_new;
+use function openssl_sign;
+use function preg_match;
+use function str_replace;
+use function str_split;
+use function strlen;
+use function substr;
 
 /**
  * Class Wallet
@@ -24,7 +43,7 @@ final class Wallet
      */
     private $exists;
     /**
-     * @var bool|string
+     * @var string
      */
     private $rawData;
     /**
@@ -44,13 +63,13 @@ final class Wallet
      * Wallet constructor.
      * @param string $path
      */
-    public function __construct(string $path = self::WALLET_NAME)
+    public function __construct(?string $path = null)
     {
-        $this->path = $path;
+        $this->path = $path ?? self::WALLET_NAME;
         $this->exists = file_exists($this->path);
 
         if ($this->exists) {
-            $this->rawData = file_get_contents($this->path);
+            $this->rawData = (string)file_get_contents($this->path);
         }
     }
 
@@ -58,7 +77,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function create()
+    public function create(): string
     {
         $args = [
             'curve_name'       => 'secp256k1',
@@ -74,8 +93,8 @@ final class Wallet
 
         $publicKey = $this->pem2coin($pub['key']);
 
-        if (strlen($privateKey) < Wallet::MIN_KEY_LENGTH || strlen($publicKey) < Wallet::MIN_KEY_LENGTH) {
-            throw new \Exception('Failed to create the EC key pair. Please check the openssl binaries.');
+        if (strlen($privateKey) < self::MIN_KEY_LENGTH || strlen($publicKey) < self::MIN_KEY_LENGTH) {
+            throw new ArionumException('Failed to create the EC key pair. Please check the openssl binaries.');
         }
 
         return 'arionum:'.$privateKey.':'.$publicKey;
@@ -84,15 +103,15 @@ final class Wallet
     /**
      * @return bool
      */
-    public function isEncrypted()
+    public function isEncrypted(): bool
     {
-        return substr($this->rawData, 0, 7) !== 'arionum';
+        return strncmp($this->rawData, 'arionum', 7) !== 0;
     }
 
     /**
      * @param string $password
      */
-    public function decrypt(string $password)
+    public function decrypt(string $password): void
     {
         $decodedData = base64_decode($this->rawData);
         $iv = substr($decodedData, 0, 16);
@@ -100,7 +119,7 @@ final class Wallet
         $hashedPassword = substr(hash('sha256', $password, true), 0, 32);
         $decrypted = openssl_decrypt(base64_decode($enc), 'aes-256-cbc', $hashedPassword, OPENSSL_RAW_DATA, $iv);
 
-        if (substr($decrypted, 0, 7) == 'arionum') {
+        if (strncmp($decrypted, 'arionum', 7) === 0) {
             $this->rawData = $decrypted;
         }
     }
@@ -111,7 +130,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function encrypt(string $password, string $walletRaw = null)
+    public function encrypt(string $password, string $walletRaw = null): string
     {
         if (!$walletRaw) {
             $walletRaw = 'arionum:'.$this->getPrivateKey().':'.$this->getPublicKey();
@@ -140,10 +159,10 @@ final class Wallet
      *
      * @throws \Exception
      */
-    public function decode()
+    public function decode(): void
     {
         if (!$this->isEncrypted()) {
-            $decoded = explode(":", $this->rawData);
+            $decoded = explode(':', $this->rawData);
 
             $this->publicKey = $decoded[2];
             $this->privateKey = $decoded[1];
@@ -155,7 +174,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    private function getAddressFromPublicKey()
+    private function getAddressFromPublicKey(): string
     {
         $hash = $this->publicKey;
 
@@ -174,7 +193,7 @@ final class Wallet
     {
         $address = $address ?? $this->address;
 
-        return preg_match('/^[a-z0-9]+$/i', $address);
+        return (bool)preg_match('/^[a-z0-9]+$/i', $address);
     }
 
     /**
@@ -192,20 +211,20 @@ final class Wallet
         $address,
         $message,
         $date,
-        int $version = 1
-    ) {
+        ?int $version = null
+    ): string {
         return $value
-            ."-"
+            .'-'
             .$fee
-            ."-"
+            .'-'
             .$address
-            ."-"
-            .$message
-            ."-"
-            .$version
-            ."-"
+            .'-'
+            .($message ?? '')
+            .'-'
+            .($version ?? 1)
+            .'-'
             .$this->publicKey
-            ."-"
+            .'-'
             .$date;
     }
 
@@ -234,7 +253,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function sign($data, string $privateKey)
+    public function sign($data, string $privateKey): string
     {
         $private_key = $this->coin2pem($privateKey, true);
 
@@ -251,7 +270,7 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function coin2pem($data, $isPrivateKey = false)
+    public function coin2pem($data, ?bool $isPrivateKey = null): string
     {
         $data = (new Base58())->decode($data);
 
@@ -271,13 +290,15 @@ final class Wallet
      * @return string
      * @throws \Exception
      */
-    public function pem2coin(string $data)
+    public function pem2coin(string $data): string
     {
-        $data = str_replace("-----BEGIN PUBLIC KEY-----", "", $data);
-        $data = str_replace("-----END PUBLIC KEY-----", "", $data);
-        $data = str_replace("-----BEGIN EC PRIVATE KEY-----", "", $data);
-        $data = str_replace("-----END EC PRIVATE KEY-----", "", $data);
-        $data = str_replace("\n", "", $data);
+        $data = str_replace([
+            '-----BEGIN PUBLIC KEY-----',
+            '-----END PUBLIC KEY-----',
+            '-----BEGIN EC PRIVATE KEY-----',
+            '-----END EC PRIVATE KEY-----',
+            "\n",
+        ], '', $data);
 
         $data = base64_decode($data);
 
@@ -287,7 +308,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getAddress()
+    public function getAddress(): string
     {
         return $this->address;
     }
@@ -295,7 +316,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getPublicKey()
+    public function getPublicKey(): string
     {
         return $this->publicKey;
     }
@@ -303,7 +324,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getPrivateKey()
+    public function getPrivateKey(): string
     {
         return $this->privateKey;
     }
@@ -311,7 +332,7 @@ final class Wallet
     /**
      * @return bool
      */
-    public function exists()
+    public function exists(): bool
     {
         return $this->exists;
     }
@@ -319,7 +340,7 @@ final class Wallet
     /**
      * @return string
      */
-    public function getPath()
+    public function getPath(): string
     {
         return $this->path;
     }

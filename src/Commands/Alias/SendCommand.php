@@ -1,9 +1,10 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Commands\Alias;
+namespace pxgamer\ArionumCLI\Commands\Alias;
 
+use GuzzleHttp\Exception\GuzzleException;
 use pxgamer\ArionumCLI\Api;
-use pxgamer\ArionumCLI\Console\BaseCommand;
+use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -14,21 +15,32 @@ use function strtoupper;
 use function time;
 
 /**
- * Class SetCommand
+ * Class SendCommand
  */
-final class SetCommand extends BaseCommand
+final class SendCommand extends BaseCommand
 {
-    private const ALIAS_SET_VERSION = 3;
+    private const ALIAS_SEND_VERSION = 2;
 
     protected function configure(): void
     {
         $this
-            ->setName('alias:set')
-            ->setDescription('Set the alias for the current wallet.')
+            ->setName('alias:send')
+            ->setDescription('Send a transaction to a specific alias.')
             ->addArgument(
                 'alias',
                 InputArgument::REQUIRED,
-                'The alias to use for the wallet.'
+                'A specific wallet alias to send to.'
+            )
+            ->addArgument(
+                'value',
+                InputArgument::REQUIRED,
+                'The amount of Arionum to send.'
+            )
+            ->addArgument(
+                'message',
+                InputArgument::OPTIONAL,
+                'An optional message to attach.',
+                ''
             );
 
         parent::configure();
@@ -37,15 +49,16 @@ final class SetCommand extends BaseCommand
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null|void
+     * @return void
      * @throws \Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
         $alias = $input->getArgument('alias');
+        $message = $input->getArgument('message');
 
         $aliasLength = strlen($alias);
         if (!$alias || $aliasLength < 4 || $aliasLength > 25 || !preg_match('/[a-zA-Z0-9]+/', $alias)) {
@@ -64,11 +77,11 @@ final class SetCommand extends BaseCommand
 
         $balance = $balanceResult['data'];
 
-        $fee = 10;
-        $value = 0.00000001;
-        $total = $value + $fee;
+        $fee = $this->wallet->getFee($input->getArgument('value'));
 
-        $value = number_format($value, 8, '.', '');
+        $total = $input->getArgument('value') + $fee;
+
+        $value = number_format($input->getArgument('value'), 8, '.', '');
         $fee = number_format($fee, 8, '.', '');
 
         if ($balance < $total) {
@@ -81,22 +94,22 @@ final class SetCommand extends BaseCommand
         $info = $this->wallet->generateSignature(
             $value,
             $fee,
-            $this->wallet->getAddress(),
             $alias,
+            $message,
             $date,
-            self::ALIAS_SET_VERSION
+            self::ALIAS_SEND_VERSION
         );
 
         $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
 
         $result = Api::send(
-            $this->wallet->getAddress(),
+            $alias,
             $value,
             $signature,
             $this->wallet->getPublicKey(),
-            $alias,
+            $message,
             $date,
-            self::ALIAS_SET_VERSION
+            self::ALIAS_SEND_VERSION
         );
 
         if ($result['status'] !== Api::API_STATUS_OK) {

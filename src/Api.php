@@ -3,6 +3,7 @@
 namespace pxgamer\ArionumCLI;
 
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
 use function file;
 use function GuzzleHttp\json_decode;
 use function GuzzleHttp\json_encode;
@@ -34,10 +35,12 @@ final class Api
      * @param string $url
      * @param array  $data
      * @return bool|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
-    public static function post(string $url, $data = [])
+    public static function post(string $url, ?array $data = null)
     {
+        $data = $data ?? [];
+
         $peer = self::getPeer();
 
         if (empty($peer)) {
@@ -66,7 +69,7 @@ final class Api
     /**
      * @param string $address
      * @return bool|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public static function getBalance($address)
     {
@@ -80,7 +83,7 @@ final class Api
 
     /**
      * @return bool|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public static function getCurrentBlock()
     {
@@ -90,7 +93,7 @@ final class Api
     /**
      * @param string $id
      * @return bool|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public static function getTransaction(string $id)
     {
@@ -105,7 +108,7 @@ final class Api
     /**
      * @param string $address
      * @return bool|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public static function getTransactions(string $address)
     {
@@ -126,7 +129,7 @@ final class Api
      * @param int    $date
      * @param int    $version
      * @return bool|mixed
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @throws GuzzleException
      */
     public static function send(
         string $address,
@@ -135,8 +138,10 @@ final class Api
         string $publicKey,
         string $message,
         int $date,
-        int $version = 1
+        ?int $version = null
     ) {
+        $version = $version ?? 1;
+
         return self::post('/api.php?q=send', [
             'dst'        => $address,
             'val'        => $value,
@@ -168,5 +173,13 @@ final class Api
         }
 
         return false;
+    }
+
+    /**
+     * @param string|null $customPeer
+     */
+    public static function setCustomPeer(?string $customPeer): void
+    {
+        self::$customPeer = $customPeer;
     }
 }

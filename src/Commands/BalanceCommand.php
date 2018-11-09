@@ -1,10 +1,11 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Commands;
+namespace pxgamer\ArionumCLI\Commands;
 
-use Exception;
+use GuzzleHttp\Exception\GuzzleException;
 use pxgamer\ArionumCLI\Api;
-use pxgamer\ArionumCLI\Console\BaseCommand;
+use pxgamer\ArionumCLI\ArionumException;
+use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,11 +32,11 @@ final class BalanceCommand extends BaseCommand
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null|void
-     * @throws \Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
+     * @return void
+     * @throws ArionumException
+     * @throws GuzzleException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
@@ -43,7 +44,7 @@ final class BalanceCommand extends BaseCommand
             $output->writeln('Checking balance of the specified address: '.$address);
 
             if (!$this->wallet->validAddress($address)) {
-                throw new Exception('Invalid address format provided.');
+                throw new ArionumException('Invalid address format provided.');
             }
         }
 

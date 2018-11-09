@@ -1,6 +1,6 @@
 <?php
 
-namespace pxgamer\ArionumCLI\Console\Output;
+namespace pxgamer\ArionumCLI\Output;
 
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +17,6 @@ use function ob_start;
 
 /**
  * Class Factory
- * @package pxgamer\Arionum\Console\Output
  */
 final class Factory
 {
@@ -126,7 +125,7 @@ final class Factory
     private function createCsv(array $data, array $columns): void
     {
         ob_start();
-        $fd = fopen('php://output', 'w');
+        $fd = fopen('php://output', 'wb');
         fputcsv($fd, $columns);
         foreach ($data as $row) {
             fputcsv($fd, $row);
