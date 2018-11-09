@@ -43,7 +43,7 @@ final class Wallet
      */
     private $exists;
     /**
-     * @var bool|string
+     * @var string
      */
     private $rawData;
     /**
@@ -69,7 +69,7 @@ final class Wallet
         $this->exists = file_exists($this->path);
 
         if ($this->exists) {
-            $this->rawData = file_get_contents($this->path);
+            $this->rawData = (string)file_get_contents($this->path);
         }
     }
 
@@ -193,7 +193,7 @@ final class Wallet
     {
         $address = $address ?? $this->address;
 
-        return preg_match('/^[a-z0-9]+$/i', $address);
+        return (bool)preg_match('/^[a-z0-9]+$/i', $address);
     }
 
     /**
@@ -219,9 +219,9 @@ final class Wallet
             .'-'
             .$address
             .'-'
-            .$message
+            .($message ?? '')
             .'-'
-            .$version ?? 1
+            .($version ?? 1)
             .'-'
             .$this->publicKey
             .'-'
@@ -292,13 +292,13 @@ final class Wallet
      */
     public function pem2coin(string $data): string
     {
-        $data = str_replace(array(
+        $data = str_replace([
             '-----BEGIN PUBLIC KEY-----',
             '-----END PUBLIC KEY-----',
             '-----BEGIN EC PRIVATE KEY-----',
             '-----END EC PRIVATE KEY-----',
-            "\n"
-        ), '', $data);
+            "\n",
+        ], '', $data);
 
         $data = base64_decode($data);
 
