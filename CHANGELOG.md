@@ -6,6 +6,9 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+### Changed
+- Apply static analysis changes and updates ([#14](https://github.com/pxgamer/arionum-cli/issues/14))
+
 ### Removed
 - Remove the `miner`/`mine` commands ([#12](https://github.com/pxgamer/arionum-cli/issues/12))
 
