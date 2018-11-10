@@ -147,7 +147,7 @@ If you discover any security related issues, please email owzie123@gmail.com ins
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-Original code by [@arionum][link-arionum], view the [original license](LICENSE_ORIGINAL).
+Original code by [@arionum][link-arionum].
 
 [ico-version]: https://img.shields.io/packagist/v/pxgamer/arionum-cli.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
