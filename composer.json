@@ -8,13 +8,14 @@
     ],
     "require": {
         "php": "^7.2",
+        "ext-dom": "*",
         "ext-gmp": "*",
         "ext-json": "*",
-        "ext-dom": "*",
         "ext-openssl": "*",
-        "symfony/console": "^4.0",
+        "guzzlehttp/guzzle": "^6.3",
+        "pxgamer/arionum-php": "^2.2",
         "stephenhill/base58": "^1.1",
-        "guzzlehttp/guzzle": "^6.3"
+        "symfony/console": "^4.0"
     },
     "require-dev": {
         "humbug/box": "^3.2",
