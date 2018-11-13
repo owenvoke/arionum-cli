@@ -2,6 +2,7 @@
 
 namespace pxgamer\ArionumCLI;
 
+use pxgamer\Arionum\Arionum;
 use pxgamer\ArionumCLI\Output\Factory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
@@ -15,6 +16,11 @@ use Symfony\Component\Console\Question\Question;
  */
 abstract class BaseCommand extends Command
 {
+    /**
+     * @var Arionum
+     */
+    protected $arionumClient;
+
     /**
      * @var Factory
      */
@@ -73,8 +79,7 @@ abstract class BaseCommand extends Command
     {
         $this->questionHelper = $this->getHelper('question');
 
-        // Set a custom peer if it's been provided
-        Api::setCustomPeer($input->getOption('peer'));
+        $this->arionumClient = new Arionum($input->getOption('peer') ?? Api::getPeer());
 
         $walletFile = $input->getOption('wallet-path');
         $this->wallet = new Wallet($walletFile);
