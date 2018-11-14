@@ -2,8 +2,8 @@
 
 namespace pxgamer\ArionumCLI\Commands\Alias;
 
-use GuzzleHttp\Exception\GuzzleException;
-use pxgamer\ArionumCLI\Api;
+use pxgamer\Arionum\ApiException;
+use pxgamer\Arionum\Transaction;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -19,8 +19,6 @@ use function time;
  */
 final class SendCommand extends BaseCommand
 {
-    private const ALIAS_SEND_VERSION = 2;
-
     protected function configure(): void
     {
         $this
@@ -51,73 +49,68 @@ final class SendCommand extends BaseCommand
      * @param OutputInterface $output
      * @return void
      * @throws \Exception
-     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
-        $alias = $input->getArgument('alias');
-        $message = $input->getArgument('message');
+        try {
+            $alias = $input->getArgument('alias');
+            $message = $input->getArgument('message');
 
-        $aliasLength = strlen($alias);
-        if (!$alias || $aliasLength < 4 || $aliasLength > 25 || !preg_match('/[a-zA-Z0-9]+/', $alias)) {
-            $output->writeln('<error>ERROR: Invalid destination alias.</error>');
-            return;
+            $aliasLength = strlen($alias);
+
+            if (!$alias || $aliasLength < 4 || $aliasLength > 25 || !preg_match('/[a-zA-Z0-9]+/', $alias)) {
+                $output->writeln('<error>ERROR: Invalid destination alias.</error>');
+                return;
+            }
+
+            $alias = strtoupper($alias);
+
+            $balance = $this->arionumClient->getBalance($this->wallet->getAddress());
+
+            $output->writeln('<info>Transaction Information</info>');
+            $output->writeln('');
+
+            $value = $input->getArgument('value');
+            $fee = $this->wallet->getFee($value);
+
+            $total = $value + $fee;
+
+            $value = number_format($input->getArgument('value'), 8, '.', '');
+            $fee = number_format($fee, 8, '.', '');
+
+            if ($balance < $total) {
+                $output->writeln('<error>ERROR: Not enough funds in balance.</error>');
+                return;
+            }
+
+            $date = time();
+
+            $info = $this->wallet->generateSignature(
+                $value,
+                $fee,
+                $alias,
+                $message,
+                $date,
+                Transaction::VERSION_ALIAS_SEND
+            );
+
+            $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
+
+            $transaction = Transaction::makeAliasSendInstance($alias, $value);
+
+            $transaction->setSignature($signature);
+            $transaction->setPublicKey($this->wallet->getPublicKey());
+            $transaction->setMessage($message);
+            $transaction->setDate($date);
+
+            $transactionId = $this->arionumClient->sendTransaction($transaction);
+
+            $output->writeln('<info>Transaction sent successfully!</info>');
+            $output->writeln('<info>ID:</info> '.$transactionId);
+        } catch (ApiException $exception) {
+            $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
-
-        $alias = strtoupper($alias);
-
-        $balanceResult = Api::getBalance($this->wallet->getAddress());
-
-        if ($balanceResult['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$balanceResult['data'].'</error>');
-            return;
-        }
-
-        $balance = $balanceResult['data'];
-
-        $fee = $this->wallet->getFee($input->getArgument('value'));
-
-        $total = $input->getArgument('value') + $fee;
-
-        $value = number_format($input->getArgument('value'), 8, '.', '');
-        $fee = number_format($fee, 8, '.', '');
-
-        if ($balance < $total) {
-            $output->writeln('<error>ERROR: Not enough funds in balance.</error>');
-            return;
-        }
-
-        $date = time();
-
-        $info = $this->wallet->generateSignature(
-            $value,
-            $fee,
-            $alias,
-            $message,
-            $date,
-            self::ALIAS_SEND_VERSION
-        );
-
-        $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
-
-        $result = Api::send(
-            $alias,
-            $value,
-            $signature,
-            $this->wallet->getPublicKey(),
-            $message,
-            $date,
-            self::ALIAS_SEND_VERSION
-        );
-
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-            return;
-        }
-
-        $output->writeln('<info>Transaction sent successfully!</info>');
-        $output->writeln('<info>ID: '.$result['data'].'</info>');
     }
 }
