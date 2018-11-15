@@ -108,7 +108,7 @@ final class SendCommand extends BaseCommand
             $transactionId = $this->arionumClient->sendTransaction($transaction);
 
             $output->writeln('<info>Transaction sent successfully!</info>');
-            $output->writeln('<info>ID:</info> '.$transactionId);
+            $output->writeln('<info>Transaction id:</info> '.$transactionId);
         } catch (ApiException $exception) {
             $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
