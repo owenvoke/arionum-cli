@@ -56,11 +56,11 @@ final class TransactionsCommand extends BaseCommand
         }
 
         try {
-            $result = $this->arionumClient->getTransactions($address ?? $this->wallet->getAddress());
+            $transactions = $this->arionumClient->getTransactions($address ?? $this->wallet->getAddress());
 
             $rows = [];
-            foreach ($result['data'] as $key => $value) {
-                $rows[] = [$value['id'], $value['dst'], $value['type'], $value['val']];
+            foreach ($transactions as $transaction) {
+                $rows[] = [$transaction->id, $transaction->dst, $transaction->type, $transaction->val];
             }
 
             $this->outputFactory
