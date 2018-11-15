@@ -32,7 +32,7 @@ final class BlockCommand extends BaseCommand
         parent::execute($input, $output);
 
         try {
-            $result = $this->arionumClient->getCurrentBlock();
+            $result = (array)$this->arionumClient->getCurrentBlock();
 
             $output->writeln('<info>Latest Block</info>');
             $output->writeln('');
