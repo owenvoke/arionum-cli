@@ -13,15 +13,15 @@ use pxgamer\ArionumCLI\BaseCommand;
 class MasternodeCommand extends BaseCommand
 {
     /**
-     * @param int    $commandType
-     * @param int    $date
-     * @param string $message
+     * @param int         $commandType
+     * @param int         $date
+     * @param string|null $message
      * @return string
      * @throws ApiException
      * @throws ArionumException
      * @throws \Exception
      */
-    protected function returnCommandSignature(int $commandType, int $date, string $message = ''): string
+    protected function returnCommandSignature(int $commandType, int $date, ?string $message = null): string
     {
         $isCreateCommand = $commandType === Transaction::VERSION_MASTERNODE_CREATE;
 
@@ -42,7 +42,7 @@ class MasternodeCommand extends BaseCommand
                 $isCreateCommand ? Transaction::FEE_MASTERNODE_CREATE : Transaction::FEE_MASTERNODE_COMMAND
             ),
             $this->wallet->getAddress(),
-            $message,
+            $message ?? '',
             $date,
             $commandType
         );
