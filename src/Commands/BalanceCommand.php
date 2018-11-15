@@ -48,7 +48,7 @@ final class BalanceCommand extends BaseCommand
             $balance = $this->arionumClient->getBalance($address ?? $this->wallet->getAddress());
 
             $output->writeln('Balance: '.$balance);
-        } catch (ApiException|ArionumException $exception) {
+        } catch (ApiException | ArionumException $exception) {
             $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
     }
