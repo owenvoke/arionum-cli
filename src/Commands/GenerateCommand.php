@@ -1,10 +1,10 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Commands;
+namespace pxgamer\ArionumCLI\Commands;
 
-use Exception;
-use pxgamer\Arionum\Console\BaseCommand;
-use pxgamer\Arionum\Wallet;
+use pxgamer\ArionumCLI\BaseCommand;
+use pxgamer\ArionumCLI\Output\Factory;
+use pxgamer\ArionumCLI\Wallet;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;
@@ -13,10 +13,20 @@ use function strlen;
 /**
  * Class GenerateCommand
  */
-class GenerateCommand extends BaseCommand
+final class GenerateCommand extends BaseCommand
 {
-    /** @var bool */
-    protected $requiresExistingWallet = false;
+    /**
+     * GenerateCommand constructor.
+     *
+     * @param Factory|null $outputFactory
+     */
+    public function __construct(?Factory $outputFactory = null)
+    {
+        $this->requiresExistingWallet = false;
+        $this->outputFactory = $outputFactory;
+
+        parent::__construct();
+    }
 
     protected function configure(): void
     {
@@ -31,10 +41,10 @@ class GenerateCommand extends BaseCommand
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null|void
+     * @return void
      * @throws \Exception
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
@@ -43,7 +53,8 @@ class GenerateCommand extends BaseCommand
         if ($this->wallet->exists()) {
             $existsQuestion = new ConfirmationQuestion('A wallet already exists, overwrite it? (y\N) ', false);
             if (!$this->questionHelper->ask($input, $output, $existsQuestion)) {
-                throw new Exception('Wallet exists. Aborting.');
+                $output->writeln('<fg=red>Wallet file already exists. Aborting.</>');
+                return;
             }
         }
 
@@ -87,7 +98,8 @@ class GenerateCommand extends BaseCommand
             return;
         }
 
-        $this->wallet = new Wallet();
+        $walletFile = $input->getOption('wallet-path');
+        $this->wallet = new Wallet($walletFile);
 
         $this->decryptWallet($input, $output);
         $this->wallet->decode();

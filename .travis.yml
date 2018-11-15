@@ -9,10 +9,6 @@ matrix:
     allow_failures:
     - php: nightly
 
-# This triggers builds to run on the new TravisCI infrastructure.
-# See: https://docs.travis-ci.com/user/reference/trusty#Container-based-with-sudo%3A-false
-sudo: false
-
 ## Cache composer
 cache:
     directories:
@@ -29,14 +25,11 @@ script:
 after_success:
 - bash <(curl -s https://codecov.io/bash)
 
-before_deploy:
-- mv bin/arionum.phar bin/arionum-${TRAVIS_TAG}.phar
-
 deploy:
     provider: releases
     api_key:
         secure: $GITHUB_DEPLOY_KEY
-    file: bin/arionum-${TRAVIS_TAG}.phar
+    file: bin/arionum.phar
     skip_cleanup: true
     on:
         repo: pxgamer/arionum-cli

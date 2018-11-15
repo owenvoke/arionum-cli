@@ -1,9 +1,9 @@
 <?php
 
-namespace pxgamer\Arionum\Console;
+namespace pxgamer\ArionumCLI;
 
 use PHPUnit\Framework\TestCase;
-use pxgamer\Arionum\Console\Output\Factory;
+use pxgamer\ArionumCLI\Output\Factory;
 
 class ApplicationTest extends TestCase
 {

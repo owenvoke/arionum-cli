@@ -70,13 +70,13 @@ arionum transactions
 Display data about a specific transaction:
 
 ```bash
-arionum transaction [id]
+arionum transaction 'id'
 ```
 
 Send a transaction (with an optional message):
 
 ```bash
-arionum send [address] [value] [message]
+arionum send 'address' 'value' [message]
 ```
 
 #### Alias
@@ -84,13 +84,13 @@ arionum send [address] [value] [message]
 Set your account alias:
 
 ```bash
-arionum alias:set [alias]
+arionum alias:set 'alias'
 ```
 
 Send a transaction to an alias (with an optional message):
 
 ```bash
-arionum alias:send [alias] [value] [message]
+arionum alias:send 'alias' 'value' [message]
 ```
 
 #### Masternode
@@ -98,7 +98,7 @@ arionum alias:send [alias] [value] [message]
 Send a masternode announcement transaction:
 
 ```bash
-arionum masternode:create [ip]
+arionum masternode:create 'ip'
 ```
 
 Pause a specific masternode:
@@ -147,7 +147,7 @@ If you discover any security related issues, please email owzie123@gmail.com ins
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-Original code by [@arionum][link-arionum], view the [original license](LICENSE_ORIGINAL).
+Original code by [@arionum][link-arionum].
 
 [ico-version]: https://img.shields.io/packagist/v/pxgamer/arionum-cli.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square

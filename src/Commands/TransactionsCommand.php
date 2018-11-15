@@ -1,11 +1,11 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Commands;
+namespace pxgamer\ArionumCLI\Commands;
 
-use Exception;
-use pxgamer\Arionum\Api;
-use pxgamer\Arionum\Console\BaseCommand;
-use pxgamer\Arionum\Console\Output\Format;
+use pxgamer\Arionum\ApiException;
+use pxgamer\ArionumCLI\ArionumException;
+use pxgamer\ArionumCLI\BaseCommand;
+use pxgamer\ArionumCLI\Output\Format;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
@@ -14,7 +14,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 /**
  * Class TransactionsCommand
  */
-class TransactionsCommand extends BaseCommand
+final class TransactionsCommand extends BaseCommand
 {
     protected function configure(): void
     {
@@ -40,11 +40,10 @@ class TransactionsCommand extends BaseCommand
     /**
      * @param InputInterface  $input
      * @param OutputInterface $output
-     * @return int|null|void
+     * @return void
      * @throws \Exception
-     * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
@@ -52,24 +51,23 @@ class TransactionsCommand extends BaseCommand
             $output->writeln('Checking transactions of the specified address: '.$address);
 
             if (!$this->wallet->validAddress($address)) {
-                throw new Exception('Invalid address format provided.');
+                throw new ArionumException('Invalid address format provided.');
             }
         }
 
-        $result = Api::getTransactions($address ?? $this->wallet->getAddress());
+        try {
+            $transactions = $this->arionumClient->getTransactions($address ?? $this->wallet->getAddress());
 
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-            return;
+            $rows = [];
+            foreach ($transactions as $transaction) {
+                $rows[] = [$transaction->id, $transaction->dst, $transaction->type, $transaction->val];
+            }
+
+            $this->outputFactory
+                ->setOutput($output)
+                ->writeOutput($input->getOption('output'), $rows, ['ID', 'To', 'Type', 'Amount']);
+        } catch (ApiException $exception) {
+            $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
-
-        $rows = [];
-        foreach ($result['data'] as $key => $value) {
-            $rows[] = [$value['id'], $value['dst'], $value['type'], $value['val']];
-        }
-
-        $this->outputFactory
-            ->setOutput($output)
-            ->writeOutput($input->getOption('output'), $rows, ['ID', 'To', 'Type', 'Amount']);
     }
 }

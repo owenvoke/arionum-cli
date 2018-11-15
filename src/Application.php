@@ -1,17 +1,17 @@
 <?php
 
-namespace pxgamer\Arionum\Console;
+namespace pxgamer\ArionumCLI;
 
-use pxgamer\Arionum\Console\Output\Factory;
+use pxgamer\ArionumCLI\Output\Factory;
 use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command;
 
 /**
  * Class Application
  */
-class Application extends BaseApplication
+final class Application extends BaseApplication
 {
-    public const NAME = 'Arionum Light Wallet';
+    public const NAME = 'Arionum';
     public const VERSION = '@git-version@';
 
     /**
@@ -42,7 +42,7 @@ class Application extends BaseApplication
     }
 
     /**
-     * @return array|Command[]
+     * @return Command[]
      */
     protected function getDefaultCommands(): array
     {
@@ -55,7 +55,6 @@ class Application extends BaseApplication
         $commands[] = new Commands\EncryptCommand();
         $commands[] = new Commands\ExportCommand();
         $commands[] = new Commands\GenerateCommand();
-        $commands[] = new Commands\MinerCommand();
         $commands[] = new Commands\SendCommand();
         $commands[] = new Commands\TransactionCommand();
         $commands[] = new Commands\TransactionsCommand($this->outputFactory);

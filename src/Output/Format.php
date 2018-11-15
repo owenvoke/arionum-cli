@@ -1,12 +1,11 @@
 <?php
 
-namespace pxgamer\Arionum\Console\Output;
+namespace pxgamer\ArionumCLI\Output;
 
 /**
  * Class Format
- * @package pxgamer\Arionum\Console\Output
  */
-class Format
+final class Format
 {
     public const TABLE = 'table';
     public const XML = 'xml';

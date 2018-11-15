@@ -6,6 +6,18 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+## [v2.0.0] - 2018-11-15
+
+### Added
+- Add support for a custom `--wallet-path` option ([4b6ba70f](https://github.com/pxgamer/arionum-cli/commit/4b6ba70f65908d59c69bf70b8f4d4d90b645d525))
+
+### Changed
+- Apply static analysis changes and updates ([#14](https://github.com/pxgamer/arionum-cli/issues/14))
+- Update to use the `arionum-php` API wrapper ([#16](https://github.com/pxgamer/arionum-cli/issues/11))
+
+### Removed
+- Remove the `miner`/`mine` commands ([#12](https://github.com/pxgamer/arionum-cli/issues/12))
+
 ## [v1.5.1] - 2018-11-08
 
 ### Fixed
@@ -67,6 +79,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 - Add Symfony Console v4
 
 [Unreleased]: https://github.com/pxgamer/arionum-cli/compare/master...develop
+[v2.0.0]: https://github.com/pxgamer/arionum-cli/compare/v1.5.1...v2.0.0
 [v1.5.1]: https://github.com/pxgamer/arionum-cli/compare/v1.5.0...v1.5.1
 [v1.5.0]: https://github.com/pxgamer/arionum-cli/compare/v1.4.1...v1.5.0
 [v1.4.1]: https://github.com/pxgamer/arionum-cli/compare/v1.4.0...v1.4.1

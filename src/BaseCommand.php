@@ -1,11 +1,9 @@
 <?php
 
-namespace pxgamer\Arionum\Console;
+namespace pxgamer\ArionumCLI;
 
-use Exception;
-use pxgamer\Arionum\Api;
-use pxgamer\Arionum\Console\Output\Factory;
-use pxgamer\Arionum\Wallet;
+use pxgamer\Arionum\Arionum;
+use pxgamer\ArionumCLI\Output\Factory;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;
@@ -18,6 +16,11 @@ use Symfony\Component\Console\Question\Question;
  */
 abstract class BaseCommand extends Command
 {
+    /**
+     * @var Arionum
+     */
+    protected $arionumClient;
+
     /**
      * @var Factory
      */
@@ -57,6 +60,11 @@ abstract class BaseCommand extends Command
             null,
             InputOption::VALUE_REQUIRED,
             'A custom peer to use for API calls.'
+        )->addOption(
+            'wallet-path',
+            'w',
+            InputOption::VALUE_REQUIRED,
+            'A path to a custom wallet file.'
         );
     }
 
@@ -64,19 +72,20 @@ abstract class BaseCommand extends Command
      * @param InputInterface  $input
      * @param OutputInterface $output
      * @return int|null|void
+     * @throws ArionumException
      * @throws \Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $this->questionHelper = $this->getHelper('question');
 
-        // Set a custom peer if it's been provided
-        Api::$customPeer = $input->getOption('peer');
+        $this->arionumClient = new Arionum($input->getOption('peer') ?? Api::getPeer());
 
-        $this->wallet = new Wallet();
+        $walletFile = $input->getOption('wallet-path');
+        $this->wallet = new Wallet($walletFile);
 
         if ($this->requiresExistingWallet && !$this->wallet->exists()) {
-            throw new Exception('A wallet file is required for this command.');
+            throw new ArionumException('A wallet file is required for this command.');
         }
 
         if ($this->wallet->exists()) {
@@ -109,14 +118,18 @@ abstract class BaseCommand extends Command
      */
     protected function decryptWallet(InputInterface $input, OutputInterface $output): void
     {
-        if ($this->wallet->isEncrypted()) {
+        $isEncrypted = $this->wallet->isEncrypted();
+
+        if ($isEncrypted) {
             $output->writeln('This wallet is encrypted.');
             do {
                 $password = $this->askForPassword($input, $output);
 
                 $this->wallet->decrypt($password);
 
-                if (!$this->wallet->isEncrypted()) {
+                $isEncrypted = $this->wallet->isEncrypted();
+
+                if (!$isEncrypted) {
                     break;
                 }
 
