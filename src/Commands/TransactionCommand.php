@@ -38,12 +38,12 @@ final class TransactionCommand extends BaseCommand
         parent::execute($input, $output);
 
         try {
-            $result = $this->arionumClient->getTransaction($input->getArgument('id'));
+            $result = (array)$this->arionumClient->getTransaction($input->getArgument('id'));
 
             $output->writeln('<info>Transaction Information</info>');
             $output->writeln('');
 
-            foreach ($result['data'] as $key => $value) {
+            foreach ($result as $key => $value) {
                 $output->writeln('<comment>'.$key.':</comment> '.$value);
             }
         } catch (ApiException $exception) {
