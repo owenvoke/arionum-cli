@@ -70,13 +70,13 @@ arionum transactions
 Display data about a specific transaction:
 
 ```bash
-arionum transaction [id]
+arionum transaction 'id'
 ```
 
 Send a transaction (with an optional message):
 
 ```bash
-arionum send [address] [value] [message]
+arionum send 'address' 'value' [message]
 ```
 
 #### Alias
@@ -84,13 +84,13 @@ arionum send [address] [value] [message]
 Set your account alias:
 
 ```bash
-arionum alias:set [alias]
+arionum alias:set 'alias'
 ```
 
 Send a transaction to an alias (with an optional message):
 
 ```bash
-arionum alias:send [alias] [value] [message]
+arionum alias:send 'alias' 'value' [message]
 ```
 
 #### Masternode
@@ -98,7 +98,7 @@ arionum alias:send [alias] [value] [message]
 Send a masternode announcement transaction:
 
 ```bash
-arionum masternode:create [ip]
+arionum masternode:create 'ip'
 ```
 
 Pause a specific masternode:
