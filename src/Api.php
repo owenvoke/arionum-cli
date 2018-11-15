@@ -2,14 +2,8 @@
 
 namespace pxgamer\ArionumCLI;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Exception\GuzzleException;
+use function array_rand;
 use function file;
-use function GuzzleHttp\json_decode;
-use function GuzzleHttp\json_encode;
-use function shuffle;
-use function strlen;
-use function trim;
 
 /**
  * Class Api
