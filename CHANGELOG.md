@@ -11,6 +11,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ### Changed
 - Apply static analysis changes and updates ([#14](https://github.com/pxgamer/arionum-cli/issues/14))
+- Update to use the `arionum-php` API wrapper ([#16](https://github.com/pxgamer/arionum-cli/issues/11))
 
 ### Removed
 - Remove the `miner`/`mine` commands ([#12](https://github.com/pxgamer/arionum-cli/issues/12))

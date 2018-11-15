@@ -2,8 +2,7 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
-use GuzzleHttp\Exception\GuzzleException;
-use pxgamer\ArionumCLI\Api;
+use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -33,24 +32,22 @@ final class TransactionCommand extends BaseCommand
      * @param OutputInterface $output
      * @return void
      * @throws \Exception
-     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
-        $result = Api::getTransaction($input->getArgument('id'));
+        try {
+            $result = (array)$this->arionumClient->getTransaction($input->getArgument('id'));
 
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-            return;
-        }
+            $output->writeln('<info>Transaction Information</info>');
+            $output->writeln('');
 
-        $output->writeln('<info>Transaction Information</info>');
-        $output->writeln('');
-
-        foreach ($result['data'] as $key => $value) {
-            $output->writeln('<comment>'.$key.':</comment> '.$value);
+            foreach ($result as $key => $value) {
+                $output->writeln('<comment>'.$key.':</comment> '.$value);
+            }
+        } catch (ApiException $exception) {
+            $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
     }
 }

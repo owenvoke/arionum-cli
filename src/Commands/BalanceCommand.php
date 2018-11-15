@@ -2,8 +2,7 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
-use GuzzleHttp\Exception\GuzzleException;
-use pxgamer\ArionumCLI\Api;
+use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
@@ -34,27 +33,34 @@ final class BalanceCommand extends BaseCommand
      * @param OutputInterface $output
      * @return void
      * @throws ArionumException
-     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
-        if ($address = $input->getArgument('address')) {
-            $output->writeln('Checking balance of the specified address: '.$address);
+        try {
+            if ($address = $input->getArgument('address')) {
+                $this->checkAddressValidity($address);
 
-            if (!$this->wallet->validAddress($address)) {
-                throw new ArionumException('Invalid address format provided.');
+                $output->writeln('Checking balance for: '.$address);
             }
+
+            $balance = $this->arionumClient->getBalance($address ?? $this->wallet->getAddress());
+
+            $output->writeln('Balance: '.$balance);
+        } catch (ApiException | ArionumException $exception) {
+            $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
+    }
 
-        $result = Api::getBalance($address ?? $this->wallet->getAddress());
-
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-            return;
+    /**
+     * @param string $address
+     * @throws ArionumException
+     */
+    private function checkAddressValidity(string $address): void
+    {
+        if (!$this->wallet->validAddress($address)) {
+            throw new ArionumException('Invalid address format provided.');
         }
-
-        $output->writeln('Balance: '.$result['data']);
     }
 }

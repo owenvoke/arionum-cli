@@ -2,8 +2,8 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
-use GuzzleHttp\Exception\GuzzleException;
-use pxgamer\ArionumCLI\Api;
+use pxgamer\Arionum\ApiException;
+use pxgamer\Arionum\Transaction;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -45,63 +45,56 @@ final class SendCommand extends BaseCommand
      * @param OutputInterface $output
      * @return void
      * @throws \Exception
-     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
-        $result = Api::getBalance($this->wallet->getAddress());
+        try {
+            $balance = $this->arionumClient->getBalance($this->wallet->getAddress());
 
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-            return;
+            $output->writeln('<info>Transaction Information</info>');
+            $output->writeln('');
+
+            $fee = $this->wallet->getFee($input->getArgument('value'));
+
+            $total = $input->getArgument('value') + $fee;
+
+            $value = number_format($input->getArgument('value'), 8, '.', '');
+            $fee = number_format($fee, 8, '.', '');
+
+            if ($balance < $total) {
+                $output->writeln('<error>ERROR: Not enough funds in balance.</error>');
+                return;
+            }
+
+            $date = time();
+
+            $info = $this->wallet->generateSignature(
+                $value,
+                $fee,
+                $input->getArgument('address'),
+                $input->getArgument('message'),
+                $date
+            );
+
+            $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
+
+            $transaction = new Transaction();
+
+            $transaction->setDestinationAddress($input->getArgument('address'));
+            $transaction->setValue($value);
+            $transaction->setSignature($signature);
+            $transaction->setPublicKey($this->wallet->getPublicKey());
+            $transaction->setMessage($input->getArgument('message') ?? '');
+            $transaction->setDate($date);
+
+            $transactionId = $this->arionumClient->sendTransaction($transaction);
+
+            $output->writeln('<info>Transaction sent successfully!</info>');
+            $output->writeln('<info>Transaction id:</info> '.$transactionId);
+        } catch (ApiException $exception) {
+            $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
-
-        $output->writeln('<info>Transaction Information</info>');
-        $output->writeln('');
-
-        $balance = $result['data'];
-
-        $fee = $this->wallet->getFee($input->getArgument('value'));
-
-        $total = $input->getArgument('value') + $fee;
-
-        $value = number_format($input->getArgument('value'), 8, '.', '');
-        $fee = number_format($fee, 8, '.', '');
-
-        if ($balance < $total) {
-            $output->writeln('<error>ERROR: Not enough funds in balance.</error>');
-            return;
-        }
-
-        $date = time();
-
-        $info = $this->wallet->generateSignature(
-            $value,
-            $fee,
-            $input->getArgument('address'),
-            $input->getArgument('message'),
-            $date
-        );
-
-        $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
-
-        $transactionResult = Api::send(
-            $input->getArgument('address'),
-            $value,
-            $signature,
-            $this->wallet->getPublicKey(),
-            $input->getArgument('message') ?? '',
-            $date
-        );
-
-        if ($transactionResult['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$transactionResult['data'].'</error>');
-            return;
-        }
-
-        $output->writeln('<info>Transaction sent successfully!</info>');
-        $output->writeln('<info>ID: '.$transactionResult['data'].'</info>');
     }
 }

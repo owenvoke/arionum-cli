@@ -2,8 +2,7 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
-use GuzzleHttp\Exception\GuzzleException;
-use pxgamer\ArionumCLI\Api;
+use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
 use pxgamer\ArionumCLI\Output\Format;
@@ -43,7 +42,6 @@ final class TransactionsCommand extends BaseCommand
      * @param OutputInterface $output
      * @return void
      * @throws \Exception
-     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -57,20 +55,19 @@ final class TransactionsCommand extends BaseCommand
             }
         }
 
-        $result = Api::getTransactions($address ?? $this->wallet->getAddress());
+        try {
+            $transactions = $this->arionumClient->getTransactions($address ?? $this->wallet->getAddress());
 
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-            return;
+            $rows = [];
+            foreach ($transactions as $transaction) {
+                $rows[] = [$transaction->id, $transaction->dst, $transaction->type, $transaction->val];
+            }
+
+            $this->outputFactory
+                ->setOutput($output)
+                ->writeOutput($input->getOption('output'), $rows, ['ID', 'To', 'Type', 'Amount']);
+        } catch (ApiException $exception) {
+            $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
-
-        $rows = [];
-        foreach ($result['data'] as $key => $value) {
-            $rows[] = [$value['id'], $value['dst'], $value['type'], $value['val']];
-        }
-
-        $this->outputFactory
-            ->setOutput($output)
-            ->writeOutput($input->getOption('output'), $rows, ['ID', 'To', 'Type', 'Amount']);
     }
 }

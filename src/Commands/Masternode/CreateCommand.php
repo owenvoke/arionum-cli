@@ -2,13 +2,13 @@
 
 namespace pxgamer\ArionumCLI\Commands\Masternode;
 
-use GuzzleHttp\Exception\GuzzleException;
-use pxgamer\ArionumCLI\Api;
+use pxgamer\Arionum\ApiException;
+use pxgamer\Arionum\Transaction;
+use pxgamer\ArionumCLI\ArionumException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use function filter_var;
-use function number_format;
 use function preg_match;
 use function time;
 
@@ -36,72 +36,38 @@ final class CreateCommand extends MasternodeCommand
      * @param OutputInterface $output
      * @return void
      * @throws \Exception
-     * @throws GuzzleException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
-        $ipAddress = $input->getArgument('ip');
+        try {
+            $ipAddress = $input->getArgument('ip');
+            $address = $this->wallet->getAddress();
 
-        if (!preg_match('/[0-9\.]+/', $ipAddress) ||
-            !filter_var($ipAddress, FILTER_VALIDATE_IP, FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE)
-        ) {
-            $output->writeln('<error>ERROR: Invalid masternode IP address.</error>');
-            $output->writeln('<comment>Provided IP: '.$ipAddress.'</comment>');
-            return;
+            if (!preg_match('/[0-9\.]+/', $ipAddress) ||
+                !filter_var($ipAddress, FILTER_VALIDATE_IP)
+            ) {
+                $output->writeln('<error>ERROR: Invalid masternode IP address.</error>');
+                $output->writeln('<comment>Provided IP: '.$ipAddress.'</comment>');
+                return;
+            }
+
+            $date = time();
+            $signature = $this->returnCommandSignature(Transaction::VERSION_MASTERNODE_CREATE, $date, $ipAddress);
+
+            $transaction = Transaction::makeMasternodeCreateInstance($ipAddress, $address);
+
+            $transaction->setSignature($signature);
+            $transaction->setPublicKey($this->wallet->getPublicKey());
+            $transaction->setDate($date);
+
+            $transactionId = $this->arionumClient->sendTransaction($transaction);
+
+            $output->writeln('<info>Masternode `create` command sent!</info>');
+            $output->writeln('<comment>Transaction id:</comment> '.$transactionId);
+        } catch (ApiException | ArionumException $exception) {
+            $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
-
-        $balanceResult = Api::getBalance($this->wallet->getAddress());
-
-        if ($balanceResult['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$balanceResult['data'].'</error>');
-            return;
-        }
-
-        $balance = $balanceResult['data'];
-
-        $value = 100000;
-        $fee = 10;
-        $total = $value + $fee;
-
-        $value = number_format($value, 8, '.', '');
-        $fee = number_format($fee, 8, '.', '');
-
-        if ($balance < $total) {
-            $output->writeln('<error>ERROR: Not enough funds in balance.</error>');
-            return;
-        }
-
-        $date = time();
-
-        $info = $this->wallet->generateSignature(
-            $value,
-            $fee,
-            $this->wallet->getAddress(),
-            $ipAddress,
-            $date,
-            self::COMMAND_VERSION_CREATE
-        );
-
-        $signature = $this->wallet->sign($info, $this->wallet->getPrivateKey());
-
-        $result = Api::send(
-            $this->wallet->getAddress(),
-            $value,
-            $signature,
-            $this->wallet->getPublicKey(),
-            $ipAddress,
-            $date,
-            self::COMMAND_VERSION_CREATE
-        );
-
-        if ($result['status'] !== Api::API_STATUS_OK) {
-            $output->writeln('<error>ERROR: '.$result['data'].'</error>');
-            return;
-        }
-
-        $output->writeln('<info>Masternode command sent!</info>');
-        $output->writeln('<info>ID: '.$result['data'].'</info>');
     }
 }
