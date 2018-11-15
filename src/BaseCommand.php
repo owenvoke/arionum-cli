@@ -92,8 +92,9 @@ abstract class BaseCommand extends Command
             $this->decryptWallet($input, $output);
             $this->wallet->decode();
 
-            $output->writeln('<info>Your address is: '.$this->wallet->getAddress().'</info>');
-            $output->writeln('');
+            $output->writeln('<info>Connected to node:</info> '.$this->arionumClient->getNodeAddress());
+            $output->writeln('<info>Your address is:</info> '.$this->wallet->getAddress());
+            $output->writeln(null);
         }
     }
 
