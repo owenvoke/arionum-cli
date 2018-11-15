@@ -2,7 +2,6 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
-use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
 use pxgamer\ArionumCLI\Output\Factory;
 use pxgamer\ArionumCLI\Wallet;
