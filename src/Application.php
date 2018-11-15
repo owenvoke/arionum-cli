@@ -56,6 +56,7 @@ final class Application extends BaseApplication
         $commands[] = new Commands\ExportCommand();
         $commands[] = new Commands\GenerateCommand();
         $commands[] = new Commands\SendCommand();
+        $commands[] = new Commands\StatsCommand();
         $commands[] = new Commands\TransactionCommand();
         $commands[] = new Commands\TransactionsCommand($this->outputFactory);
 
