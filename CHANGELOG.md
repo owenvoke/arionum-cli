@@ -6,6 +6,11 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+## [v2.1.1] - 2018-12-11
+
+### Fixed
+- Fix stats command requiring a wallet file ([ba78449](https://github.com/pxgamer/arionum-cli/commit/ba7844989c6c2a4462f199dac5270df18dbbe193))
+
 ## [v2.1.0] - 2018-12-11
 
 ### Added
@@ -86,6 +91,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 - Add Symfony Console v4
 
 [Unreleased]: https://github.com/pxgamer/arionum-cli/compare/master...develop
+[v2.1.1]: https://github.com/pxgamer/arionum-cli/compare/v2.1.0...v2.1.1
 [v2.1.0]: https://github.com/pxgamer/arionum-cli/compare/v2.0.0...v2.1.0
 [v2.0.0]: https://github.com/pxgamer/arionum-cli/compare/v1.5.1...v2.0.0
 [v1.5.1]: https://github.com/pxgamer/arionum-cli/compare/v1.5.0...v1.5.1
