@@ -9,6 +9,7 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 ### Added
 - Add the current node to command output ([a4ed2206](https://github.com/pxgamer/arionum-cli/commit/a4ed220641a7b4f6691c12acf58fdb591b816638))
 - Add a new `stats` command ([556e9bd7](https://github.com/pxgamer/arionum-cli/commit/556e9bd76c1b5034000f6f7fe0d639dac79210d4))
+- Add support for PHP 7.3 ([#15](https://github.com/pxgamer/arionum-cli/pull/15))
 
 ## [v2.0.0] - 2018-11-15
 
