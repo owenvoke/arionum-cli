@@ -12,6 +12,16 @@ use Symfony\Component\Console\Output\OutputInterface;
  */
 final class StatsCommand extends BaseCommand
 {
+    /**
+     * StatsCommand constructor.
+     */
+    public function __construct()
+    {
+        $this->requiresExistingWallet = false;
+
+        parent::__construct();
+    }
+
     protected function configure(): void
     {
         $this
