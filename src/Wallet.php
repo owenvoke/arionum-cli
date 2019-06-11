@@ -139,7 +139,7 @@ final class Wallet
         $passwordHashed = substr(hash('sha256', $password, true), 0, 32);
         $iv = random_bytes(16);
 
-        $walletEncrypted = base64_encode(
+        return base64_encode(
             $iv.
             base64_encode(
                 openssl_encrypt(
@@ -151,8 +151,6 @@ final class Wallet
                 )
             )
         );
-
-        return $walletEncrypted;
     }
 
     /**
