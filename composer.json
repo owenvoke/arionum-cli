@@ -15,7 +15,7 @@
         "guzzlehttp/guzzle": "^6.3",
         "pxgamer/arionum-php": "^2.2",
         "stephenhill/base58": "^1.1",
-        "symfony/console": "^4.0"
+        "symfony/console": "^4.3"
     },
     "require-dev": {
         "humbug/box": "^3.8",
