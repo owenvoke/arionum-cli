@@ -6,6 +6,9 @@ Updates should follow the [Keep a CHANGELOG](https://keepachangelog.com) princip
 
 ## [Unreleased]
 
+### Changed
+- Update PHPUnit, Box, and Symfony Console ([#17](https://github.com/pxgamer/arionum-cli/pull/17))
+
 ## [v2.1.1] - 2018-12-11
 
 ### Fixed
