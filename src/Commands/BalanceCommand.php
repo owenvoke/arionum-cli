@@ -3,15 +3,12 @@
 namespace pxgamer\ArionumCLI\Commands;
 
 use pxgamer\Arionum\ApiException;
-use pxgamer\ArionumCLI\ArionumException;
 use pxgamer\ArionumCLI\BaseCommand;
+use pxgamer\ArionumCLI\ArionumException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class BalanceCommand
- */
 final class BalanceCommand extends BaseCommand
 {
     protected function configure(): void
@@ -29,8 +26,8 @@ final class BalanceCommand extends BaseCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return void
      * @throws ArionumException
      */
@@ -54,12 +51,12 @@ final class BalanceCommand extends BaseCommand
     }
 
     /**
-     * @param string $address
+     * @param  string  $address
      * @throws ArionumException
      */
     private function checkAddressValidity(string $address): void
     {
-        if (!$this->wallet->validAddress($address)) {
+        if (! $this->wallet->validAddress($address)) {
             throw new ArionumException('Invalid address format provided.');
         }
     }

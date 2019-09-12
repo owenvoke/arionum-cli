@@ -2,21 +2,19 @@
 
 namespace pxgamer\ArionumCLI\Commands\Alias;
 
-use pxgamer\Arionum\ApiException;
+use Exception;
+use function time;
+use function strlen;
+use function preg_match;
+use function strtoupper;
+use function number_format;
 use pxgamer\Arionum\Transaction;
+use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use function number_format;
-use function preg_match;
-use function strlen;
-use function strtoupper;
-use function time;
 
-/**
- * Class SendCommand
- */
 final class SendCommand extends BaseCommand
 {
     protected function configure(): void
@@ -45,10 +43,10 @@ final class SendCommand extends BaseCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -60,8 +58,9 @@ final class SendCommand extends BaseCommand
 
             $aliasLength = strlen($alias);
 
-            if (!$alias || $aliasLength < 4 || $aliasLength > 25 || !preg_match('/[a-zA-Z0-9]+/', $alias)) {
+            if (! $alias || $aliasLength < 4 || $aliasLength > 25 || ! preg_match('/[a-zA-Z0-9]+/', $alias)) {
                 $output->writeln('<error>ERROR: Invalid destination alias.</error>');
+
                 return;
             }
 
@@ -82,6 +81,7 @@ final class SendCommand extends BaseCommand
 
             if ($balance < $total) {
                 $output->writeln('<error>ERROR: Not enough funds in balance.</error>');
+
                 return;
             }
 

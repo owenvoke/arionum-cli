@@ -2,19 +2,14 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
+use Exception;
 use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class StatsCommand
- */
 final class StatsCommand extends BaseCommand
 {
-    /**
-     * StatsCommand constructor.
-     */
     public function __construct()
     {
         $this->requiresExistingWallet = false;
@@ -32,17 +27,17 @@ final class StatsCommand extends BaseCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
         try {
-            $result = (array)$this->arionumClient->getNodeInfo();
+            $result = (array) $this->arionumClient->getNodeInfo();
 
             $output->writeln('<info>Statistics</info>');
             $output->writeln('');

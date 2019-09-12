@@ -2,50 +2,33 @@
 
 namespace pxgamer\ArionumCLI;
 
+use Exception;
 use pxgamer\Arionum\Arionum;
 use pxgamer\ArionumCLI\Output\Factory;
 use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\QuestionHelper;
-use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\Question;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Helper\QuestionHelper;
+use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class BaseCommand
- */
 abstract class BaseCommand extends Command
 {
-    /**
-     * @var Arionum
-     */
+    /** @var Arionum */
     protected $arionumClient;
 
-    /**
-     * @var Factory
-     */
+    /** @var Factory */
     protected $outputFactory;
 
-    /**
-     * @var QuestionHelper
-     */
+    /** @var QuestionHelper */
     protected $questionHelper;
 
-    /**
-     * @var Wallet
-     */
+    /** @var Wallet */
     protected $wallet;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     protected $requiresExistingWallet = true;
 
-    /**
-     * BaseCommand constructor.
-     *
-     * @param Factory|null $outputFactory
-     */
     public function __construct(?Factory $outputFactory = null)
     {
         $this->outputFactory = $outputFactory;
@@ -69,11 +52,11 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return int|null|void
      * @throws ArionumException
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -84,7 +67,7 @@ abstract class BaseCommand extends Command
         $walletFile = $input->getOption('wallet-path');
         $this->wallet = new Wallet($walletFile);
 
-        if ($this->requiresExistingWallet && !$this->wallet->exists()) {
+        if ($this->requiresExistingWallet && ! $this->wallet->exists()) {
             throw new ArionumException('A wallet file is required for this command.');
         }
 
@@ -99,9 +82,9 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
-     * @param string|null     $message
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
+     * @param  string|null  $message
      * @return mixed
      */
     protected function askForPassword(InputInterface $input, OutputInterface $output, string $message = null)
@@ -114,8 +97,8 @@ abstract class BaseCommand extends Command
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      */
     protected function decryptWallet(InputInterface $input, OutputInterface $output): void
     {
@@ -130,7 +113,7 @@ abstract class BaseCommand extends Command
 
                 $isEncrypted = $this->wallet->isEncrypted();
 
-                if (!$isEncrypted) {
+                if (! $isEncrypted) {
                     break;
                 }
 

@@ -3,33 +3,22 @@
 namespace pxgamer\ArionumCLI;
 
 use pxgamer\ArionumCLI\Output\Factory;
-use Symfony\Component\Console\Application as BaseApplication;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Application as BaseApplication;
 
-/**
- * Class Application
- */
 final class Application extends BaseApplication
 {
     public const NAME = 'Arionum';
     public const VERSION = '@git-version@';
 
-    /**
-     * @var Factory
-     */
+    /** @var Factory */
     private $outputFactory;
 
-    /**
-     * Application constructor.
-     *
-     * @param null|string $name
-     * @param null|string $version
-     */
     public function __construct(?string $name = null, ?string $version = null)
     {
         $this->outputFactory = new Factory();
 
-        if (!$version) {
+        if (! $version) {
             $version = static::VERSION === '@'.'git-version@' ?
                 'source' :
                 static::VERSION;
@@ -42,7 +31,7 @@ final class Application extends BaseApplication
     }
 
     /**
-     * @return Command[]
+     * @return array<Command>
      */
     protected function getDefaultCommands(): array
     {

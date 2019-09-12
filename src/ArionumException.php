@@ -2,9 +2,8 @@
 
 namespace pxgamer\ArionumCLI;
 
-/**
- * Class ArionumException
- */
-final class ArionumException extends \Exception
+use Exception;
+
+final class ArionumException extends Exception
 {
 }

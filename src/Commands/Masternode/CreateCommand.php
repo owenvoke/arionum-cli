@@ -2,19 +2,17 @@
 
 namespace pxgamer\ArionumCLI\Commands\Masternode;
 
-use pxgamer\Arionum\ApiException;
+use Exception;
+use function time;
+use function filter_var;
+use function preg_match;
 use pxgamer\Arionum\Transaction;
+use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\ArionumException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use function filter_var;
-use function preg_match;
-use function time;
 
-/**
- * Class CreateCommand
- */
 final class CreateCommand extends MasternodeCommand
 {
     protected function configure(): void
@@ -32,10 +30,10 @@ final class CreateCommand extends MasternodeCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -45,11 +43,12 @@ final class CreateCommand extends MasternodeCommand
             $ipAddress = $input->getArgument('ip');
             $address = $this->wallet->getAddress();
 
-            if (!preg_match('/[0-9\.]+/', $ipAddress) ||
-                !filter_var($ipAddress, FILTER_VALIDATE_IP)
+            if (! preg_match('/[0-9\.]+/', $ipAddress) ||
+                ! filter_var($ipAddress, FILTER_VALIDATE_IP)
             ) {
                 $output->writeln('<error>ERROR: Invalid masternode IP address.</error>');
                 $output->writeln('<comment>Provided IP: '.$ipAddress.'</comment>');
+
                 return;
             }
 

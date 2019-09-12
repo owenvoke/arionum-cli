@@ -2,33 +2,24 @@
 
 namespace pxgamer\ArionumCLI\Output;
 
-use Symfony\Component\Console\Helper\Table;
-use Symfony\Component\Console\Output\OutputInterface;
-use function array_combine;
-use function array_map;
-use function fclose;
 use function fopen;
+use function fclose;
 use function fputcsv;
+use function ob_start;
+use function array_map;
 use function json_encode;
+use function ob_get_clean;
+use function array_combine;
 use function json_last_error;
 use function json_last_error_msg;
-use function ob_get_clean;
-use function ob_start;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class Factory
- */
 final class Factory
 {
-    /**
-     * @var OutputInterface
-     */
+    /** @var OutputInterface */
     private $output;
 
-    /**
-     * @param OutputInterface $output
-     * @return Factory
-     */
     public function setOutput(OutputInterface $output): self
     {
         $this->output = $output;
@@ -36,11 +27,6 @@ final class Factory
         return $this;
     }
 
-    /**
-     * @param string $format
-     * @param array  $data
-     * @param array  $columns
-     */
     public function writeOutput(string $format, array $data, array $columns): void
     {
         switch ($format) {
@@ -59,10 +45,6 @@ final class Factory
         }
     }
 
-    /**
-     * @param array $data
-     * @param array $columns
-     */
     private function createTable(array $data, array $columns): void
     {
         $table = new Table($this->output);
@@ -73,10 +55,6 @@ final class Factory
             ->render();
     }
 
-    /**
-     * @param array $data
-     * @param array $columns
-     */
     private function createJson(array $data, array $columns): void
     {
         $data = array_map(function (array $row) use ($columns) {
@@ -91,10 +69,6 @@ final class Factory
         $this->output->write($encoded);
     }
 
-    /**
-     * @param array $data
-     * @param array $columns
-     */
     private function createXml(array $data, array $columns): void
     {
         $document = new \DOMDocument('1.0', 'UTF-8');
@@ -118,10 +92,6 @@ final class Factory
         $this->output->write($document->saveXML());
     }
 
-    /**
-     * @param array $data
-     * @param array $columns
-     */
     private function createCsv(array $data, array $columns): void
     {
         ob_start();

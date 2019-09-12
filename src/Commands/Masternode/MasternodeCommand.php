@@ -2,24 +2,22 @@
 
 namespace pxgamer\ArionumCLI\Commands\Masternode;
 
-use pxgamer\Arionum\ApiException;
+use Exception;
 use pxgamer\Arionum\Transaction;
-use pxgamer\ArionumCLI\ArionumException;
+use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\BaseCommand;
+use pxgamer\ArionumCLI\ArionumException;
 
-/**
- * Class MasternodeCommandInterface
- */
 class MasternodeCommand extends BaseCommand
 {
     /**
-     * @param int         $commandType
-     * @param int         $date
-     * @param string|null $message
+     * @param  int  $commandType
+     * @param  int  $date
+     * @param  string|null  $message
      * @return string
      * @throws ApiException
      * @throws ArionumException
-     * @throws \Exception
+     * @throws Exception
      */
     protected function returnCommandSignature(int $commandType, int $date, ?string $message = null): string
     {
@@ -53,7 +51,7 @@ class MasternodeCommand extends BaseCommand
     /**
      * Format a float to a string for signing.
      *
-     * @param float $value
+     * @param  float  $value
      * @return string
      */
     private function formatFloat(float $value): string
