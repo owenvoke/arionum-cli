@@ -2,15 +2,13 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
+use Exception;
 use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class TransactionCommand
- */
 final class TransactionCommand extends BaseCommand
 {
     protected function configure(): void
@@ -28,17 +26,17 @@ final class TransactionCommand extends BaseCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
         parent::execute($input, $output);
 
         try {
-            $result = (array)$this->arionumClient->getTransaction($input->getArgument('id'));
+            $result = (array) $this->arionumClient->getTransaction($input->getArgument('id'));
 
             $output->writeln('<info>Transaction Information</info>');
             $output->writeln('');

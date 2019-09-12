@@ -2,13 +2,11 @@
 
 namespace pxgamer\ArionumCLI\Commands;
 
+use Exception;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class DecryptCommand
- */
 final class DecryptCommand extends BaseCommand
 {
     protected function configure(): void
@@ -21,10 +19,10 @@ final class DecryptCommand extends BaseCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {
@@ -42,6 +40,7 @@ final class DecryptCommand extends BaseCommand
             $output->writeln(
                 '<error>Please check the permissions on the current directory and save a backup of these keys.</error>'
             );
+
             return;
         }
 

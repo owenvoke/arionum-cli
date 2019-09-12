@@ -2,15 +2,13 @@
 
 namespace pxgamer\ArionumCLI\Commands\Masternode;
 
-use pxgamer\Arionum\ApiException;
+use Exception;
 use pxgamer\Arionum\Transaction;
+use pxgamer\Arionum\ApiException;
 use pxgamer\ArionumCLI\ArionumException;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-/**
- * Class ReleaseCommand
- */
 final class ReleaseCommand extends MasternodeCommand
 {
     protected function configure(): void
@@ -23,10 +21,10 @@ final class ReleaseCommand extends MasternodeCommand
     }
 
     /**
-     * @param InputInterface  $input
-     * @param OutputInterface $output
+     * @param  InputInterface  $input
+     * @param  OutputInterface  $output
      * @return void
-     * @throws \Exception
+     * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
     {

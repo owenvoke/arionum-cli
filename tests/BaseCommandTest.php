@@ -7,10 +7,7 @@ use pxgamer\ArionumCLI\Output\Factory;
 
 class BaseCommandTest extends TestCase
 {
-    /**
-     * @test
-     * @return void
-     */
+    /** @test */
     public function itCanConstructAFactory(): void
     {
         $command = new class extends BaseCommand {

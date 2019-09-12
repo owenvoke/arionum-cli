@@ -2,16 +2,13 @@
 
 namespace pxgamer\ArionumCLI\Output;
 
-use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
+use PHPUnit\Framework\MockObject\MockObject;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class FactoryTest extends TestCase
 {
-    /**
-     * @test
-     * @return void
-     */
+    /** @test */
     public function itCanSetTheOutputOfAFactory(): void
     {
         /** @var OutputInterface|MockObject $output */

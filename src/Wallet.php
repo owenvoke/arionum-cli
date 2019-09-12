@@ -2,85 +2,69 @@
 
 namespace pxgamer\ArionumCLI;
 
+use Exception;
+use function hash;
+use function strlen;
+use function substr;
+use function explode;
+use function implode;
+use function str_split;
 use StephenHill\Base58;
+use function preg_match;
+use function file_exists;
+use function str_replace;
+use function openssl_sign;
 use function base64_decode;
 use function base64_encode;
-use function explode;
-use function file_exists;
+use function openssl_encrypt;
+use function openssl_pkey_new;
 use function file_get_contents;
 use function file_put_contents;
-use function hash;
-use function implode;
-use function openssl_encrypt;
 use function openssl_pkey_export;
 use function openssl_pkey_get_details;
 use function openssl_pkey_get_private;
-use function openssl_pkey_new;
-use function openssl_sign;
-use function preg_match;
-use function str_replace;
-use function str_split;
-use function strlen;
-use function substr;
 
-/**
- * Class Wallet
- */
 final class Wallet
 {
-    /**
-     * The default wallet file name.
-     */
     public const WALLET_NAME = 'wallet.aro';
     public const MIN_KEY_LENGTH = 20;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $path;
-    /**
-     * @var bool
-     */
+
+    /** @var bool */
     private $exists;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $rawData;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $address;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $publicKey;
-    /**
-     * @var string
-     */
+
+    /** @var string */
     private $privateKey;
 
-    /**
-     * Wallet constructor.
-     * @param string $path
-     */
     public function __construct(?string $path = null)
     {
         $this->path = $path ?? self::WALLET_NAME;
         $this->exists = file_exists($this->path);
 
         if ($this->exists) {
-            $this->rawData = (string)file_get_contents($this->path);
+            $this->rawData = (string) file_get_contents($this->path);
         }
     }
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function create(): string
     {
         $args = [
-            'curve_name'       => 'secp256k1',
+            'curve_name' => 'secp256k1',
             'private_key_type' => OPENSSL_KEYTYPE_EC,
         ];
 
@@ -100,17 +84,11 @@ final class Wallet
         return 'arionum:'.$privateKey.':'.$publicKey;
     }
 
-    /**
-     * @return bool
-     */
     public function isEncrypted(): bool
     {
         return strncmp($this->rawData, 'arionum', 7) !== 0;
     }
 
-    /**
-     * @param string $password
-     */
     public function decrypt(string $password): void
     {
         $decodedData = base64_decode($this->rawData);
@@ -125,14 +103,14 @@ final class Wallet
     }
 
     /**
-     * @param string      $password
-     * @param string|null $walletRaw
+     * @param  string  $password
+     * @param  string|null  $walletRaw
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
-    public function encrypt(string $password, string $walletRaw = null): string
+    public function encrypt(string $password, ?string $walletRaw = null): string
     {
-        if (!$walletRaw) {
+        if (! $walletRaw) {
             $walletRaw = 'arionum:'.$this->getPrivateKey().':'.$this->getPublicKey();
         }
 
@@ -153,13 +131,10 @@ final class Wallet
         );
     }
 
-    /**
-     *
-     * @throws \Exception
-     */
+    /** @throws Exception */
     public function decode(): void
     {
-        if (!$this->isEncrypted()) {
+        if (! $this->isEncrypted()) {
             $decoded = explode(':', $this->rawData);
 
             $this->publicKey = $decoded[2];
@@ -170,7 +145,7 @@ final class Wallet
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     private function getAddressFromPublicKey(): string
     {
@@ -183,24 +158,20 @@ final class Wallet
         return (new Base58())->encode($hash);
     }
 
-    /**
-     * @param string $address
-     * @return bool
-     */
     public function validAddress(string $address = null): bool
     {
         $address = $address ?? $this->address;
 
-        return (bool)preg_match('/^[a-z0-9]+$/i', $address);
+        return (bool) preg_match('/^[a-z0-9]+$/i', $address);
     }
 
     /**
-     * @param float       $value
-     * @param float       $fee
-     * @param string      $address
-     * @param string|null $message
-     * @param int         $date
-     * @param int         $version
+     * @param  float  $value
+     * @param  float  $fee
+     * @param  string  $address
+     * @param  string|null  $message
+     * @param  int  $date
+     * @param  int  $version
      * @return string
      */
     public function generateSignature(
@@ -227,7 +198,7 @@ final class Wallet
     }
 
     /**
-     * @param float $value
+     * @param  float  $value
      * @return float|int
      */
     public function getFee(float $value)
@@ -246,10 +217,10 @@ final class Wallet
     }
 
     /**
-     * @param mixed  $data
-     * @param string $privateKey
+     * @param  mixed  $data
+     * @param  string  $privateKey
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function sign($data, string $privateKey): string
     {
@@ -263,10 +234,10 @@ final class Wallet
     }
 
     /**
-     * @param mixed $data
-     * @param bool  $isPrivateKey
+     * @param  mixed  $data
+     * @param  bool  $isPrivateKey
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function coin2pem($data, ?bool $isPrivateKey = null): string
     {
@@ -284,9 +255,9 @@ final class Wallet
     }
 
     /**
-     * @param string $data
+     * @param  string  $data
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public function pem2coin(string $data): string
     {
@@ -303,48 +274,33 @@ final class Wallet
         return (new Base58)->encode($data);
     }
 
-    /**
-     * @return string
-     */
     public function getAddress(): string
     {
         return $this->address;
     }
 
-    /**
-     * @return string
-     */
     public function getPublicKey(): string
     {
         return $this->publicKey;
     }
 
-    /**
-     * @return string
-     */
     public function getPrivateKey(): string
     {
         return $this->privateKey;
     }
 
-    /**
-     * @return bool
-     */
     public function exists(): bool
     {
         return $this->exists;
     }
 
-    /**
-     * @return string
-     */
     public function getPath(): string
     {
         return $this->path;
     }
 
     /**
-     * @param string $rawData
+     * @param  string  $rawData
      * @return bool|int
      */
     public function saveRaw(string $rawData)
