@@ -1,4 +1,4 @@
-# arionum-cli
+# Arionum CLI
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
@@ -14,13 +14,13 @@ A PHP-based command line wallet for Arionum.
 Via Composer
 
 ```bash
-$ composer global require pxgamer/arionum-cli
+$ composer global require owenvoke/arionum-cli
 ```
 
 Via Phive
 
 ```bash
-$ phive install pxgamer/arionum-cli
+$ phive install owenvoke/arionum-cli
 ```
 
 ## Usage
@@ -135,11 +135,11 @@ Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CODE_OF_CONDUCT](.github
 
 ## Security
 
-If you discover any security related issues, please email security@pxgamer.xyz instead of using the issue tracker.
+If you discover any security related issues, please email security@voke.dev instead of using the issue tracker.
 
 ## Credits
 
-- [pxgamer][link-author]
+- [Owen Voke][link-author]
 - [arionum][link-arionum]
 - [All Contributors][link-contributors]
 
@@ -149,18 +149,18 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 Original code by [@arionum][link-arionum].
 
-[ico-version]: https://img.shields.io/packagist/v/pxgamer/arionum-cli.svg?style=flat-square
+[ico-version]: https://img.shields.io/packagist/v/owenvoke/arionum-cli.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-travis]: https://img.shields.io/travis/pxgamer/arionum-cli/master.svg?style=flat-square
+[ico-travis]: https://img.shields.io/travis/owenvoke/arionum-cli/master.svg?style=flat-square
 [ico-styleci]: https://styleci.io/repos/122668084/shield
-[ico-code-quality]: https://img.shields.io/codecov/c/github/pxgamer/arionum-cli.svg?style=flat-square
-[ico-downloads]: https://img.shields.io/packagist/dt/pxgamer/arionum-cli.svg?style=flat-square
+[ico-code-quality]: https://img.shields.io/codecov/c/github/owenvoke/arionum-cli.svg?style=flat-square
+[ico-downloads]: https://img.shields.io/packagist/dt/owenvoke/arionum-cli.svg?style=flat-square
 
-[link-packagist]: https://packagist.org/packages/pxgamer/arionum-cli
-[link-travis]: https://travis-ci.org/pxgamer/arionum-cli
+[link-packagist]: https://packagist.org/packages/owenvoke/arionum-cli
+[link-travis]: https://travis-ci.org/owenvoke/arionum-cli
 [link-styleci]: https://styleci.io/repos/122668084
-[link-code-quality]: https://codecov.io/gh/pxgamer/arionum-cli
-[link-downloads]: https://packagist.org/packages/pxgamer/arionum-cli
-[link-author]: https://github.com/pxgamer
+[link-code-quality]: https://codecov.io/gh/owenvoke/arionum-cli
+[link-downloads]: https://packagist.org/packages/owenvoke/arionum-cli
+[link-author]: https://github.com/owenvoke
 [link-arionum]: https://github.com/arionum
 [link-contributors]: ../../contributors

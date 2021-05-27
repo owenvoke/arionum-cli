@@ -1,5 +1,5 @@
 {
-    "name": "pxgamer/arionum-cli",
+    "name": "owenvoke/arionum-cli",
     "type": "library",
     "description": "A PHP-based command line wallet for Arionum.",
     "license": "MIT",
