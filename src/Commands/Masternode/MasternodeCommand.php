@@ -3,10 +3,10 @@
 namespace pxgamer\ArionumCLI\Commands\Masternode;
 
 use Exception;
-use pxgamer\Arionum\Transaction;
 use pxgamer\Arionum\ApiException;
-use pxgamer\ArionumCLI\BaseCommand;
+use pxgamer\Arionum\Transaction;
 use pxgamer\ArionumCLI\ArionumException;
+use pxgamer\ArionumCLI\BaseCommand;
 
 class MasternodeCommand extends BaseCommand
 {

@@ -2,16 +2,16 @@
 
 namespace pxgamer\ArionumCLI\Output;
 
-use function fopen;
-use function fclose;
-use function fputcsv;
-use function ob_start;
-use function array_map;
-use function json_encode;
-use function ob_get_clean;
 use function array_combine;
+use function array_map;
+use function fclose;
+use function fopen;
+use function fputcsv;
+use function json_encode;
 use function json_last_error;
 use function json_last_error_msg;
+use function ob_get_clean;
+use function ob_start;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Output\OutputInterface;
 

@@ -3,15 +3,15 @@
 namespace pxgamer\ArionumCLI\Commands\Masternode;
 
 use Exception;
-use function time;
 use function filter_var;
 use function preg_match;
-use pxgamer\Arionum\Transaction;
 use pxgamer\Arionum\ApiException;
+use pxgamer\Arionum\Transaction;
 use pxgamer\ArionumCLI\ArionumException;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use function time;
 
 final class CreateCommand extends MasternodeCommand
 {

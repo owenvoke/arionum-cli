@@ -3,8 +3,8 @@
 namespace pxgamer\ArionumCLI\Commands;
 
 use pxgamer\Arionum\ApiException;
-use pxgamer\ArionumCLI\BaseCommand;
 use pxgamer\ArionumCLI\ArionumException;
+use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;

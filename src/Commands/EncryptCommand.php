@@ -3,8 +3,8 @@
 namespace pxgamer\ArionumCLI\Commands;
 
 use Exception;
-use function strlen;
 use pxgamer\ArionumCLI\BaseCommand;
+use function strlen;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 

@@ -3,10 +3,10 @@
 namespace pxgamer\ArionumCLI\Commands;
 
 use Exception;
-use function strlen;
-use pxgamer\ArionumCLI\Wallet;
 use pxgamer\ArionumCLI\BaseCommand;
 use pxgamer\ArionumCLI\Output\Factory;
+use pxgamer\ArionumCLI\Wallet;
+use function strlen;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Question\ConfirmationQuestion;

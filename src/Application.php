@@ -3,8 +3,8 @@
 namespace pxgamer\ArionumCLI;
 
 use pxgamer\ArionumCLI\Output\Factory;
-use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Application as BaseApplication;
+use Symfony\Component\Console\Command\Command;
 
 final class Application extends BaseApplication
 {

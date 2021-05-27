@@ -2,8 +2,8 @@
 
 namespace pxgamer\ArionumCLI;
 
-use function file;
 use function array_rand;
+use function file;
 
 final class Api
 {

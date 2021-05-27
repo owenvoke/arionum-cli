@@ -3,14 +3,14 @@
 namespace pxgamer\ArionumCLI\Commands;
 
 use Exception;
-use function time;
 use function number_format;
-use pxgamer\Arionum\Transaction;
 use pxgamer\Arionum\ApiException;
+use pxgamer\Arionum\Transaction;
 use pxgamer\ArionumCLI\BaseCommand;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use function time;
 
 final class SendCommand extends BaseCommand
 {

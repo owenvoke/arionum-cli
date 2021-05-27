@@ -10,7 +10,8 @@ class BaseCommandTest extends TestCase
     /** @test */
     public function itCanConstructAFactory(): void
     {
-        $command = new class extends BaseCommand {
+        $command = new class extends BaseCommand
+        {
         };
 
         $this->assertAttributeEquals(null, 'wallet', $command);
@@ -18,7 +19,8 @@ class BaseCommandTest extends TestCase
         $this->assertAttributeEquals(null, 'outputFactory', $command);
 
         $factory = new Factory();
-        $command = new class($factory) extends BaseCommand {
+        $command = new class($factory) extends BaseCommand
+        {
         };
 
         $this->assertAttributeInstanceOf(Factory::class, 'outputFactory', $command);
