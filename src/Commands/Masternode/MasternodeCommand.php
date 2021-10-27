@@ -15,6 +15,7 @@ class MasternodeCommand extends BaseCommand
      * @param  int  $date
      * @param  string|null  $message
      * @return string
+     *
      * @throws ApiException
      * @throws ArionumException
      * @throws Exception

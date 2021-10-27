@@ -29,6 +29,7 @@ final class TransactionCommand extends BaseCommand
      * @param  InputInterface  $input
      * @param  OutputInterface  $output
      * @return void
+     *
      * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void

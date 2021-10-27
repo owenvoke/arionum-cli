@@ -9,12 +9,14 @@ final class Api
 {
     /**
      * The URI for retrieving peer nodes.
+     *
      * @link https://api.arionum.com/peers.txt
      */
     public const PEERS_URI = 'https://api.arionum.com/peers.txt';
 
     /**
      * @return string
+     *
      * @throws ArionumException
      */
     public static function getPeer(): string

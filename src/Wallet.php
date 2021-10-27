@@ -59,6 +59,7 @@ final class Wallet
 
     /**
      * @return string
+     *
      * @throws Exception
      */
     public function create(): string
@@ -106,6 +107,7 @@ final class Wallet
      * @param  string  $password
      * @param  string|null  $walletRaw
      * @return string
+     *
      * @throws Exception
      */
     public function encrypt(string $password, ?string $walletRaw = null): string
@@ -145,6 +147,7 @@ final class Wallet
 
     /**
      * @return string
+     *
      * @throws Exception
      */
     private function getAddressFromPublicKey(): string
@@ -220,6 +223,7 @@ final class Wallet
      * @param  mixed  $data
      * @param  string  $privateKey
      * @return string
+     *
      * @throws Exception
      */
     public function sign($data, string $privateKey): string
@@ -237,6 +241,7 @@ final class Wallet
      * @param  mixed  $data
      * @param  bool  $isPrivateKey
      * @return string
+     *
      * @throws Exception
      */
     public function coin2pem($data, ?bool $isPrivateKey = null): string
@@ -257,6 +262,7 @@ final class Wallet
     /**
      * @param  string  $data
      * @return string
+     *
      * @throws Exception
      */
     public function pem2coin(string $data): string

@@ -29,6 +29,7 @@ final class BalanceCommand extends BaseCommand
      * @param  InputInterface  $input
      * @param  OutputInterface  $output
      * @return void
+     *
      * @throws ArionumException
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
@@ -45,13 +46,14 @@ final class BalanceCommand extends BaseCommand
             $balance = $this->arionumClient->getBalance($address ?? $this->wallet->getAddress());
 
             $output->writeln('Balance: '.$balance);
-        } catch (ApiException | ArionumException $exception) {
+        } catch (ApiException|ArionumException $exception) {
             $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
     }
 
     /**
      * @param  string  $address
+     *
      * @throws ArionumException
      */
     private function checkAddressValidity(string $address): void

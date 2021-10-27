@@ -33,6 +33,7 @@ final class CreateCommand extends MasternodeCommand
      * @param  InputInterface  $input
      * @param  OutputInterface  $output
      * @return void
+     *
      * @throws Exception
      */
     protected function execute(InputInterface $input, OutputInterface $output): void
@@ -65,7 +66,7 @@ final class CreateCommand extends MasternodeCommand
 
             $output->writeln('<info>Masternode `create` command sent!</info>');
             $output->writeln('<comment>Transaction id:</comment> '.$transactionId);
-        } catch (ApiException | ArionumException $exception) {
+        } catch (ApiException|ArionumException $exception) {
             $output->writeln('<fg=red>'.$exception->getMessage().'</>');
         }
     }
